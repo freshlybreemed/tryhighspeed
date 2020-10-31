@@ -1,10 +1,34 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+// console.log(process.env)
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Try High Speed`,
+    description: `Wellness, Delivered`,
+    author: `High Speed`,
   },
   plugins: [
+    {
+      resolve: "@pasdo501/gatsby-source-woocommerce",
+      options: {
+        // Base URL of Wordpress site
+        api: "tryhighspeed.com",
+
+        // set to false to not see verbose output during build
+        // default: true
+        verbose: true,
+
+        // true if using https. otherwise false.
+        https: true,
+        api_keys: {
+          consumer_key: process.env.GATSBY_WOO_KEY,
+          consumer_secret: process.env.GATSBY_WOO_SECRET,
+        },
+        // Array of strings with fields you'd like to create nodes for...
+        fields: ["products", "products/categories", "products/attributes"],
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
