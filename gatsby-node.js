@@ -35,11 +35,11 @@ exports.createPages = async ({ graphql, actions }) => {
   `)
   result.data.allWcProducts.edges.forEach(edge => {
     createPage({
-      path: `/products/${edge.node.wordpress_id}`,
+      path: `products/${edge.node.wordpress_id}`,
       component: productTemplate,
       context: {
         title: edge.node.name,
-        price,
+        price: edge.node.price,
       },
     })
   })
