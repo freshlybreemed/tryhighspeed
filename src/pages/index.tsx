@@ -6,7 +6,9 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 
 const IndexPage = () => {
-  const data = useStaticQuery(graphql`
+  const {
+    allWcProducts: { edges },
+  } = useStaticQuery(graphql`
     {
       allWcProducts {
         edges {
@@ -32,7 +34,7 @@ const IndexPage = () => {
       }
     }
   `)
-  console.log(data)
+  console.log(edges)
   return (
     <Layout>
       <SEO title="Home" />
