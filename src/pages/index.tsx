@@ -48,6 +48,28 @@ const IndexPage = () => {
       <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
         <Image />
       </div>
+      {edges.map(edge => {
+        const product = edge.node
+        const { images } = product
+        const {
+          localFile: {
+            childImageSharp: {
+              fluid: { src },
+            },
+          },
+        } = images[0]
+        return (
+          <article>
+            <img src={src} />
+            <a
+              className="db f3 black no-underline mb2"
+              href={`/products/${product.wordpress_id}`}
+            >
+              {product.name}
+            </a>
+          </article>
+        )
+      })}
       <Link to="/page-2/">Go to page 2</Link> <br />
       <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
     </Layout>
