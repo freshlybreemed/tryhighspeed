@@ -15,6 +15,15 @@ const IndexPage = () => {
             wordpress_id
             name
             price
+            images {
+              localFile {
+                childImageSharp {
+                  fluid {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+            }
             categories {
               wordpress_id
             }
