@@ -42,10 +42,10 @@ const Header = data => {
           FAQ
         </a>
         <a
-          href="/about"
+          href="/cart"
           className={`fw4 black v-mid link no-underline pb2 dib mr3 mr4-ns `}
         >
-          Contact
+          Cart
         </a>
       </div>
       {/* <div
