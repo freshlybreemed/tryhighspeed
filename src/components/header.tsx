@@ -24,7 +24,7 @@ const Header = data => {
           About
         </a>
         <a
-          href="/product"
+          href="/shop"
           className={`fw4 v-mid  black link no-underline pb2 dib mr3 mr4-ns `}
         >
           Shop
@@ -36,16 +36,16 @@ const Header = data => {
 
       <div className="list dtc w-100 v-mid ph3 tr mv0">
         <a
-          href="/about"
+          href="/faq"
           className={`fw4 black v-mid  link no-underline pb2 dib mr3 mr4-ns `}
         >
           FAQ
         </a>
         <a
-          href="/about"
+          href="/cart"
           className={`fw4 black v-mid link no-underline pb2 dib mr3 mr4-ns `}
         >
-          Contact
+          Cart
         </a>
       </div>
       {/* <div
