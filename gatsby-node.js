@@ -25,21 +25,21 @@ exports.createPages = async ({ graphql, actions }) => {
             wordpress_id
             name
             price
-            categories {
-              wordpress_id
-            }
           }
         }
       }
     }
   `)
   result.data.allWcProducts.edges.forEach(edge => {
+    const { node } = edge
     createPage({
       path: `products/${edge.node.wordpress_id}`,
       component: productTemplate,
       context: {
-        title: edge.node.name,
-        price: edge.node.price,
+        title: node.name,
+        wordId: node.wordpress_id,
+        price: node.price,
+        image: node.categories,
       },
     })
   })
