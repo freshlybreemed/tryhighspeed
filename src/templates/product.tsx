@@ -6,30 +6,35 @@ import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 
 const ProductPage = ({ pageContext }) => {
-  const { wcProducts } = useStaticQuery(graphql`
-    query {
-      wcProducts(wordpress_id: { eq: 1157 }) {
-        id
-        name
-        price
-        description
-        images {
-          localFile {
-            childImageSharp {
-              fluid {
-                ...GatsbyImageSharpFluid
+  const { allWcProducts } = useStaticQuery(graphql`
+    {
+      allWcProducts {
+        edges {
+          node {
+            id
+            name
+            price
+            wordpress_id
+            description
+            images {
+              localFile {
+                childImageSharp {
+                  fluid {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
               }
             }
           }
         }
-        categories {
-          wordpress_id
-        }
       }
     }
   `)
-  const { images } = wcProducts
-  console.log(wcProducts)
+  const { node } = allWcProducts.edges.filter(
+    product => product.node.wordpress_id === pageContext.wordId
+  )[0]
+  const { images } = node
+  console.log(pageContext, allWcProducts, node)
   return (
     <Layout>
       <SEO title={pageContext.title} />
@@ -46,7 +51,7 @@ const ProductPage = ({ pageContext }) => {
           <p>{formatPrice(pageContext.price)}</p>
           <div
             className="pt2-ns mt2 pt1 lh-title "
-            dangerouslySetInnerHTML={{ __html: wcProducts.description }}
+            dangerouslySetInnerHTML={{ __html: node.description }}
           />
         </div>
 
