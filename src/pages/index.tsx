@@ -23,6 +23,9 @@ const IndexPage = () => {
                   fluid {
                     ...GatsbyImageSharpFluid
                   }
+                  fixed {
+                    ...GatsbyImageSharpFixed
+                  }
                 }
               }
             }
