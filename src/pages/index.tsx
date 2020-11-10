@@ -98,7 +98,11 @@ const IndexPage: React.FunctionComponent = () => {
           {edges.map(edge => {
             const { node } = edge
             return (
-              <div className="w-100 " key={node.wordpress_id}>
+              <Link
+                to={`/products/${node.wordpress_id}`}
+                className="w-100 no-underline black"
+                key={node.wordpress_id}
+              >
                 <div
                   className="w-100 relative flex"
                   style={{ boxSizing: "inherit" }}
@@ -124,7 +128,7 @@ const IndexPage: React.FunctionComponent = () => {
                   <h4 className="f4 fw8 mt2 mb0 ttu">{node.name}</h4>
                 </a>
                 <h4 className="f5 fw6 mt1 pt1 ">{formatPrice(node.price)}</h4>
-                <a
+              </Link>
                   href={``}
                   className=" bg-black white br-100 pa2 tc f4-ns f6 fw6-ns fw5 grow noselect no-underline ph4"
                 >
