@@ -129,12 +129,6 @@ const IndexPage: React.FunctionComponent = () => {
                 </a>
                 <h4 className="f5 fw6 mt1 pt1 ">{formatPrice(node.price)}</h4>
               </Link>
-                  href={``}
-                  className=" bg-black white br-100 pa2 tc f4-ns f6 fw6-ns fw5 grow noselect no-underline ph4"
-                >
-                  Get Tickets
-                </a>
-              </div>
             )
           })}{" "}
         </div>
