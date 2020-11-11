@@ -5,12 +5,11 @@
   </a>
 </p>
 <h1 align="center">
-  Gatsby's default starter
+  HighSpeed
 </h1>
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+HighSpeed is a revolutionary start-up rebranding cannabis by aligning it with local culinary creativity to feed our urban society. Initiative 71 has allowed us to change the conversation on cannabis. We have sparked a new system allowing anyone over the age of 21 to #TryHighSpeed!
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.com/docs/gatsby-starters/)._
 
 ## 🚀 Quick start
 
