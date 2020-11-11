@@ -8,36 +8,20 @@
   HighSpeed
 </h1>
 
-HighSpeed is a revolutionary start-up rebranding cannabis by aligning it with local culinary creativity to feed our urban society. Initiative 71 has allowed us to change the conversation on cannabis. We have sparked a new system allowing anyone over the age of 21 to #TryHighSpeed!
+HighSpeed is a revolutionary start-up rebranding cannabis by aligning it with local culinary creativity to feed our urban society. I am building a custom e-commerce web app to enhance the overall user experience and bring something new to HighSpeed. We have sparked a new system allowing anyone over the age of 21 to #TryHighSpeed!
 
 
-## 🚀 Quick start
+## 🚀 Tech Stack
 
-1.  **Create a Gatsby site.**
+- **React/Gatsby**
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+- **GraphQL**
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+- **Connexxus**
 
-1.  **Start developing.**
+- **WooCommerce**
 
-    Navigate into your new site’s directory and start it up.
-
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
-
-1.  **Open the source code and start editing!**
-
-    Your site is now running at `http://localhost:8000`!
-
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.com/tutorial/part-five/#introducing-graphiql)._
-
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+- **Wordpress**
 
 ## 🧐 What's inside?
 
