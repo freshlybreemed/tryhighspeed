@@ -1,15 +1,13 @@
-import React from "react"
-import { graphql, Link, useStaticQuery } from "gatsby"
-import { useMediaQuery } from "react-responsive"
-import classnames from "classnames"
-import Img from "gatsby-image"
-
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 import { formatPrice } from "../lib"
+import { graphql, useStaticQuery, Link } from "gatsby"
+import { useMediaQuery } from "react-responsive"
+import classnames from "classnames"
+import React from "react"
+import Img from "gatsby-image"
 
-const IndexPage: React.FunctionComponent = () => {
+const ProductPage = () => {
   const isL = useMediaQuery({ query: "(min-width: 60em)" })
   const isM = useMediaQuery({
     query: "(max-width: 60em) and (min-width: 30em)",
@@ -45,35 +43,29 @@ const IndexPage: React.FunctionComponent = () => {
       }
     }
   `)
-  console.log(edges)
+
   return (
     <Layout>
-      <SEO title="Home" />
-      <img
-        className="w-100 db center"
-        src="https://tryhighspeed.com/wp-content/uploads/2019/05/tabletophighspeed.jpg"
-      />
-      <div className="mw8 ph2-l ph3-m ph4 center tc">
-        <h3 className="pv4 fade-in">As Featured In</h3>
-        {/* <div className="dt-ns center">
-          <div className="dtc-l w-100-ns tc">
-            <Img
-              fixed={edges[0].node.images[0].localFile.childImageSharp.fixed}
-            />
-          </div>
-
-          <div className="dtc-l w-100-ns tc">
-            <Img
-              fixed={edges[1].node.images[0].localFile.childImageSharp.fixed}
-            />
-          </div>
-        </div>
-        */}
-        <p>Welcome to your new Gatsby site.</p>
-        <p>Now go build something great.</p>
-        <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-          <Image />
-        </div>
+      <SEO title="FAQ" />
+      <div className=" tc center">
+        {/* <video
+          style={{
+            objectFit: "cover",
+            objectPosition: "center center",
+            top: 0,
+            left: 0,
+          }}
+          className="dib w-100  x y top left"
+          loop
+          autoPlay
+        >
+          <source
+            data-src="https://player.vimeo.com/external/390337451.sd.mp4?s=57bbabbfdacf56f707d2e92b084477c7a187b1f7&amp;profile_id=165"
+            src="https://player.vimeo.com/external/390337451.sd.mp4?s=57bbabbfdacf56f707d2e92b084477c7a187b1f7&amp;profile_id=165"
+            type="video/mp4"
+          />
+        </video>
+       */}
         <div
           className="center"
           style={{
@@ -132,10 +124,9 @@ const IndexPage: React.FunctionComponent = () => {
             )
           })}{" "}
         </div>
-        <Link to="/page-2/">Go to page 2</Link> <br />
-        <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
       </div>
     </Layout>
   )
 }
-export default IndexPage
+
+export default ProductPage
