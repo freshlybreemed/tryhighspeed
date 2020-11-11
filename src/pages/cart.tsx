@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => {
+const CartPage = () => {
   const {
     allWcProducts: { edges },
   } = useStaticQuery(graphql`
@@ -37,17 +37,19 @@ const IndexPage = () => {
   console.log(edges)
   return (
     <Layout>
-      <SEO title="Home" />
-      <div className="tc">
-        <h2 className="pv4 mt3">My Shopping Cart</h2>
-        <p className="pv3">Your shopping cart is empty</p>
+      <div className="pl2 ml2 ">
+        <SEO title="Home" />
+        <div className="pv3 mv3 ">
+          <h1 className="fw3 f1">Your Shopping Cart</h1>
+        </div>
+        <p className="tc f3 fw3">Your shopping cart is empty</p>
+        <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
+          <Image />
+        </div>
+        <Link to="/page-2/">Go to page 2</Link> <br />
+        <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
       </div>
-      <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-        <Image />
-      </div>
-      {/* <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link> */}
     </Layout>
   )
 }
-export default IndexPage
+export default CartPage
