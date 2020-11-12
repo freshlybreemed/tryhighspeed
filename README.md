@@ -8,7 +8,7 @@
   HighSpeed
 </h1>
 
-HighSpeed is a revolutionary start-up rebranding cannabis by aligning it with local culinary creativity to feed our urban society. I am building a custom e-commerce web app to enhance the overall user experience and bring something new to HighSpeed. We have sparked a new system allowing anyone over the age of 21 to #TryHighSpeed!
+HighSpeed is a revolutionary start-up rebranding cannabis by aligning it with local culinary creativity to feed our urban society. I am building a custom e-commerce web app to enhance the overall user experience and bring something new to HighSpeed integrated with the current CMS and e-commerce legacy systems. We have sparked a new system allowing anyone over the age of 21 to #TryHighSpeed!
 
 
 ## 🚀 Tech Stack
