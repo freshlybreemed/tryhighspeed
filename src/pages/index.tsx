@@ -16,6 +16,7 @@ const IndexPage: React.FunctionComponent = () => {
   })
   const {
     allWcProducts: { edges },
+    allFile
   } = useStaticQuery(graphql`
     {
       allWcProducts {
@@ -43,9 +44,24 @@ const IndexPage: React.FunctionComponent = () => {
           }
         }
       }
+      allFile(filter: {relativeDirectory: {eq: "press"}}) {
+        edges {
+          node {
+            id
+            name
+            relativeDirectory
+            childImageSharp {
+              id
+              fixed(height: 30) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
+        }
+      }
     }
   `)
-  console.log(edges)
+  console.log(edges,allFile)
   return (
     <Layout>
       <SEO title="Home" />
