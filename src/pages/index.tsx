@@ -1,19 +1,11 @@
 import React from "react"
 import { graphql, Link, useStaticQuery } from "gatsby"
-import { useMediaQuery } from "react-responsive"
-import classnames from "classnames"
 import Img from "gatsby-image"
-
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 import { formatPrice } from "../lib"
 
 const IndexPage: React.FunctionComponent = () => {
-  const isL = useMediaQuery({ query: "(min-width: 60em)" })
-  const isM = useMediaQuery({
-    query: "(max-width: 60em) and (min-width: 30em)",
-  })
   const {
     allWcProducts: { edges },
     allFile
