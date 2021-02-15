@@ -49,78 +49,34 @@ const IndexPage: React.FunctionComponent = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <img
-        className="w-100 db center"
+      {/* <img
+        className="w-70 db center"
         src="https://tryhighspeed.com/wp-content/uploads/2019/05/tabletophighspeed.jpg"
-      />
-      <div className="mw8 ph2-l ph3-m ph4 center tc">
-        <h3 className="pv4 fade-in">As Featured In</h3>
-        {/* <div className="dt-ns center">
-          <div className="dtc-l w-100-ns tc">
-            <Img
-              fixed={edges[0].node.images[0].localFile.childImageSharp.fixed}
-            />
-          </div>
-
-          <div className="dtc-l w-100-ns tc">
-            <Img
-              fixed={edges[1].node.images[0].localFile.childImageSharp.fixed}
-            />
-          </div>
-        </div>
-        */}
-        <p>Welcome to your new Gatsby site.</p>
-        <p>Now go build something great.</p>
-        <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
+      /> */}
+      <div className="mt-32 mb-32 pt-32 pb-32 ml-8">
+        <h1 className="text-5xl pb-5">Wellness, Delivered</h1>
+        <h3 className="text-2xl">Now Serving DC + Boston + NYC</h3>
+      </div>
+      <div>
+        {/* <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
           <Image />
-        </div>
+        </div> */}
+        <div className="ml-8 pb-5"><h3 className="text-2xl">Shop the Products You Love</h3></div>
         <div
-          className="center"
-          style={{
-            display: "grid",
-            gridTemplateColumns: `${classnames({
-              "repeat(3, 1fr)": isL,
-              "repeat(2, 1fr)": isM,
-            })}`,
-            gridColumnGap: classnames({
-              "32px": isL,
-              "16px": isM,
-              "8px": !isL && !isM,
-            }),
-            gridRowGap: classnames({
-              "64px": isL,
-              "32px": isM,
-              "16px": !isL && !isM,
-            }),
-            boxSizing: "inherit",
-          }}
+          className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4 ml-8 mr-8"
         >
           {edges.map(edge => {
             const { node } = edge
             return (
               <Link
                 to={`/products/${node.wordpress_id}`}
-                className="w-100 no-underline black"
+                className="bg-gray-500 rounded-lg"
                 key={node.wordpress_id}
               >
-                <div
-                  className="w-100 relative flex"
-                  style={{ boxSizing: "inherit" }}
-                >
-                  <Img
-                    style={{
-                      backgroundSize: "cover",
-                      backgroundPosition: "center center",
-                      top: "0px",
-                      left: "0px",
-                      width: "300px",
-                      height: "250px",
-                    }}
-                    fixed={node.images[0].localFile.childImageSharp.fixed}
-                  />
-                </div>
-
-                {/* <h4 className="f5 fw4 mb0">DATE</h4> */}
+                <Img
+                  className="object-scale-down object-right-top bg-yellow-300 w-24 h-24 "
+                  fluid={node.images[0].localFile.childImageSharp.fluid}
+                />
                 <a
                   href={`/products/${node.wordpress_id}`}
                   className="black no-underline"

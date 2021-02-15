@@ -4,39 +4,42 @@ import React from "react"
 import Image from "./image"
 
 const Header = () => (
-  <header className="bg-white ba bw15 pb1 center flex items-center  w-100 ">
-    <div className="list dtc w-100 v-mid ph3 tl mv0">
-      <a
+  <header className="">
+    <div className='flex space-x-10 p-5 font-medium'>
+    <div className="inline-block">
+      {/* <a
         href="/about"
-        className={` fw4 v-mid black link no-underline pb2 dib mr3 mr4-ns `}
-      >
+        className={` `}
+      > */}
         About
-      </a>
-      <a
-        href="/shop"
-        className={`fw4 v-mid  black link no-underline pb2 dib mr3 mr4-ns `}
-      >
-        Shop
-      </a>
+      {/* </a> */}
     </div>
-    <a className="pt2 " href="/">
-      <Image />
-    </a>
-
-    <div className="list dtc w-100 v-mid ph3 tr mv0">
+    <div className="inline-block">
+      {/* <a
+        href="/shop"
+        className={`f`}
+        > */}
+        Shop
+      {/* </a> */}
+    </div>
+    <div className="inline">
       <a
         href="/faq"
-        className={`fw4 black v-mid  link no-underline pb2 dib mr3 mr4-ns `}
+        className={``}
       >
         FAQ
       </a>
+    </div>
+    <div className="inline">
+
       <a
         href="/cart"
-        className={`fw4 black v-mid link no-underline pb2 dib mr3 mr4-ns `}
+        className={``}
       >
         Cart
       </a>
     </div>
+  </div>
     {/* <div
       style={{
         margin: `0 auto`,

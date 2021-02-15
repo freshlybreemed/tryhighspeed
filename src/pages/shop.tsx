@@ -2,16 +2,11 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { formatPrice } from "../lib"
 import { graphql, useStaticQuery, Link } from "gatsby"
-import { useMediaQuery } from "react-responsive"
-import classnames from "classnames"
 import React from "react"
 import Img from "gatsby-image"
 
 const ProductPage = () => {
-  const isL = useMediaQuery({ query: "(min-width: 60em)" })
-  const isM = useMediaQuery({
-    query: "(max-width: 60em) and (min-width: 30em)",
-  })
+
   const {
     allWcProducts: { edges },
   } = useStaticQuery(graphql`
@@ -67,25 +62,8 @@ const ProductPage = () => {
         </video>
        */}
         <div
-          className="center"
-          style={{
-            display: "grid",
-            gridTemplateColumns: `${classnames({
-              "repeat(3, 1fr)": isL,
-              "repeat(2, 1fr)": isM,
-            })}`,
-            gridColumnGap: classnames({
-              "32px": isL,
-              "16px": isM,
-              "8px": !isL && !isM,
-            }),
-            gridRowGap: classnames({
-              "64px": isL,
-              "32px": isM,
-              "16px": !isL && !isM,
-            }),
-            boxSizing: "inherit",
-          }}
+          className="grid grid-cols-4 gap-3 lg:grid-cols-5"
+        
         >
           {edges.map(edge => {
             const { node } = edge
@@ -117,7 +95,7 @@ const ProductPage = () => {
                   href={`/products/${node.wordpress_id}`}
                   className="black no-underline"
                 >
-                  <h4 className="f4 fw8 mt2 mb0 ttu">{node.name}</h4>
+                  <h4 className="f4 fw8 mt2 mb0 ttu">{node.name} kjh</h4>
                 </a>
                 <h4 className="f5 fw6 mt1 pt1 ">{formatPrice(node.price)}</h4>
               </Link>

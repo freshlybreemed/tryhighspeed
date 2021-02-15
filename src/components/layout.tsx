@@ -10,7 +10,9 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
-import "./tachyons.min.css"
+import "./styles.css"
+// import "./glider.min.css"
+// import "./glider.js"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -24,7 +26,10 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <div className="sans-serif">
+    <div className="bg-gray-300 font-sans">
+      <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
+      <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
+
       <div className="pt0">
         <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
       </div>

@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Cubano";
+  src: url("https://github.com/CodingTrain/website/blob/main/assets/fonts/cubano-regular-webfont.woff2?raw=true")
+    format("woff");
+}
+
+h3 {
+  font-size: 50px;
+}
