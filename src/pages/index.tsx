@@ -73,39 +73,50 @@ const IndexPage: React.FunctionComponent = () => {
         <h1 className="text-5xl pb-5">Wellness, Delivered</h1>
         <h3 className="text-2xl">Now Serving DC + Boston + NYC</h3>
       </div>
-      <div>
-        {/* <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-          <Image />
-        </div> */}
-        <div className="ml-8 pb-5"><h3 className="text-2xl">Shop the Products You Love</h3></div>
-        <div
-          className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4 ml-8 mr-8"
-        >
-          {edges.map(edge => {
-            const { node } = edge
-            return (
-              <Link
-                to={`/products/${node.wordpress_id}`}
-                className="bg-gray-500 rounded-lg"
-                key={node.wordpress_id}
-              >
-                <Img
-                  className="object-scale-down object-right-top bg-yellow-300 w-24 h-24 "
-                  fluid={node.images[0].localFile.childImageSharp.fluid}
-                />
-                <a
-                  href={`/products/${node.wordpress_id}`}
-                  className="black no-underline"
+      <div className="ml-8 pb-5">
+        <h3 className="text-2xl">Shop the Products You Love</h3>
+      </div>
+      <div
+        className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 ml-8 mr-8 mb-8"
+      >
+        {edges.map(edge => {
+          const { node } = edge
+          return (
+            <Link
+              to={`/products/${node.wordpress_id}`}
+              className="box-border border-2 border-black bg-gray-500 rounded-lg p-2"
+              key={node.wordpress_id}
+            >
+              <div className='flex'>
+
+              <a
+                href={`/products/${node.wordpress_id}`}
+                className="black no-underline"
                 >
-                  <h4 className="f4 fw8 mt2 mb0 ttu">{node.name}</h4>
-                </a>
-                <h4 className="f5 fw6 mt1 pt1 ">{formatPrice(node.price)}</h4>
-              </Link>
-            )
-          })}{" "}
-        </div>
-        <Link to="/page-2/">Go to page 2</Link> <br />
-        <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
+                <h4 className="f4 fw8 mt2 mb0 ttu">{node.name}</h4>
+              </a>
+              <Img
+                className="object-scale-down object-right-top bg-yellow-300 w-24 h-24 "
+                fluid={node.images[0].localFile.childImageSharp.fluid}
+                />
+                </div>
+              <h4 className="f5 fw6 mt1 pt1 text-gray-300">{formatPrice(node.price)}</h4>
+            </Link>
+          )
+        })}
+      </div>
+      <div className='ml-8 pb-5'>
+        <h3 className="text-2xl mb-5 pb-4">As Featured In</h3>
+        {allFile.edges.map((logo)=>{
+          console.log(logo.node.childImageSharp)
+          return (
+            <Img 
+              style={{ filter: 'grayscale(100%)'}}
+              className="mr-5" 
+              fixed={logo.node.childImageSharp.fixed} 
+            />
+          )
+        })}
       </div>
     </Layout>
   )
