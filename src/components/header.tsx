@@ -5,7 +5,7 @@ import Image from "./image"
 
 const Header = () => (
   <header className="">
-    <div className='flex space-x-10 p-5 font-medium'>
+    <div className='flex space-x-10 p-5 font-medium gt'>
     <div className="inline-block">
       {/* <a
         href="/about"

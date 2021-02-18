@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <div className="bg-gray-300 font-sans">
+    <div className="bg-gray-300 font-sans gt">
       <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
       <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
 
@@ -44,13 +44,21 @@ const Layout = ({ children }) => {
       >
         <main>{children}</main>
         <footer
-          style={{
-            marginTop: `2rem`,
-          }}
+          className="mt-20 pb-4" 
         >
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
+          <div className="flex mb-4">
+            <ul className="list-none gt text-xl ml-5">
+              <li>About</li>
+              <li>Cities</li>
+            </ul>
+            <ul className="list-none gt text-xl ml-5">
+              <li>FAQ</li>
+              <li>Instagram</li>
+              <li>Twitter</li>
+            </ul>
+          </div>
+          <div className="text-center gt text-sm"> © {new Date().getFullYear()}, High Speed Inc. All Rights Reserved
+          </div>
         </footer>
       </div>
     </div>

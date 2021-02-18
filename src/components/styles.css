@@ -1,9 +1,22 @@
 @font-face {
   font-family: "Cubano";
-  src: url("https://github.com/CodingTrain/website/blob/main/assets/fonts/cubano-regular-webfont.woff2?raw=true")
-    format("woff");
+  src: local("Cubano"),
+    url("https://github.com/CodingTrain/website/blob/main/assets/fonts/cubano-regular-webfont.woff2?raw=true")
+      format("woff");
 }
 
+@font-face {
+  font-family: "GTEestiProDisplay";
+  src: local("GTEestiProDisplay"),
+    url("../fonts/GTEestiProDisplay-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+.cubano {
+  font-family: "Cubano";
+}
+.gt {
+  font-family: "GTEestiProDisplay";
+}
 h3 {
   font-size: 50px;
 }
