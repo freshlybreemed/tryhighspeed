@@ -18,6 +18,7 @@ const IndexPage: React.FunctionComponent = () => {
             wordpress_id
             name
             price
+            description
             images {
               localFile {
                 childImageSharp {
@@ -93,6 +94,7 @@ const IndexPage: React.FunctionComponent = () => {
                   />
               </div>
               <div className="flex gt">
+                <p className="mt-6 mb-3" dangerouslySetInnerHTML={{ __html: node.description }} />
                 <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">{formatPrice(node.price)}</h4>
                 <button className="float-right">SHOP</button>
               </div>
