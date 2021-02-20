@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { formatPrice } from "../lib"
 
+const headers = "text-3xl gt mb-8"
 const IndexPage: React.FunctionComponent = () => {
   const {
     allWcProducts: { edges },
@@ -67,33 +68,31 @@ const IndexPage: React.FunctionComponent = () => {
         <h3 className="text-2xl gt">Now Serving DC + Boston + NYC</h3>
       </div>
       <div className="ml-8 pb-5">
-        <h3 className="text-3xl gt">Shop the Products You Love</h3>
+        <h3 className={headers}>Shop the Products You Love</h3>
       </div>
       <div
-        className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 ml-8 mr-8 mb-8"
+        className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 mx-8 mb-32"
       >
-        {edges.map(edge => {
+        {edges.filter(edge=> !edge.node.categories).map(edge => {
           const { node } = edge
           return (
             <Link
               to={`/products/${node.wordpress_id}`}
-              className="box-border bg-gray-500 rounded-lg p-2"
+              className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
               key={node.wordpress_id}
             >
               <div className='flex'>
-
                 <a
                   href={`/products/${node.wordpress_id}`}
-                  className="black no-underline"
-                  >
-                  <h4 className="f4 fw8 pl-2 mt2 mb0 ttu cubano">{node.name}</h4>
+                  className="black no-underline">
+                  <h4 className="f5 w-2/3 fw8 pl-2 mt2 mb0 ttu cubano">{node.name}</h4>
                 </a>
                 <Img
-                  className="object-scale-down float-right object-right-top bg-yellow-300 w-24 h-24 "
+                  className="object-none w-1/3 float-right w-24 "
                   fluid={node.images[0].localFile.childImageSharp.fluid}
                   />
               </div>
-              <div className="flex gt">
+              <div className=" gt">
                 <p className="mt-6 mb-3" dangerouslySetInnerHTML={{ __html: node.description }} />
                 <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">{formatPrice(node.price)}</h4>
                 <button className="float-right">SHOP</button>
@@ -103,17 +102,19 @@ const IndexPage: React.FunctionComponent = () => {
         })}
       </div>
       <div className='ml-8 pb-5'>
-        <h3 className="text-3xl mb-5 pb-4 gt" >As Featured In</h3>
+        <h3 className={headers} >As Featured In</h3>
+        <div className="mx-16">
         {allFile.edges.map((logo)=>{
           console.log(logo.node.childImageSharp)
           return (
             <Img 
-              style={{ filter: 'grayscale(100%)'}}
-              className="mr-5 mb-5" 
-              fixed={logo.node.childImageSharp.fixed} 
+            style={{ filter: 'grayscale(100%)'}}
+            className="mr-5 mb-5" 
+            fixed={logo.node.childImageSharp.fixed} 
             />
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
       <div className='pt-16 pb-16 bg-gray-500'>
         <h3 className="text-3xl mb-5 pb-4 cubano text-center">The Amazon of Weed Delivery</h3>
