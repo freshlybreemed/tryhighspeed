@@ -1,6 +1,7 @@
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { formatPrice } from "../lib"
+import Img from "gatsby-image"
 
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
@@ -38,22 +39,29 @@ const ProductPage = ({ pageContext }) => {
   return (
     <Layout>
       <SEO title={pageContext.title} />
-      <div className="mw6 tc center">
-        <div className="mt4 pt4 mb2 tc">
-          <img
-            className="w-60 db center"
-            src={images[0].localFile.childImageSharp.fluid.src}
+      <div className="ml-8 mr-8">
+        <div className="flex flex-row">
+          <Img
+            className="w-full mr-5"
+            fluid={images[0].localFile.childImageSharp.fluid}
           />
-          <h1 style={{ borderBottomWidth: "5px" }} className=" pb3 bb">
-            {" "}
-            {pageContext.title}
-          </h1>
-          <p>{formatPrice(pageContext.price)}</p>
+          <div className="ml-5 rounded-lg w-full cubano bg-gray-500 p-5">
+            <h1 className="text-3xl pb-4 mb-4" >
+              {pageContext.title}
+            </h1>
+            <h2 className="text-xl" >
+              Amount
+            </h2>
+            <h2 className="text-xl" >
+              Quantity
+            </h2>
+            <p>{formatPrice(pageContext.price)}</p>
+          </div>
+        </div>
           <div
             className="pt2-ns mt2 pt1 lh-title "
             dangerouslySetInnerHTML={{ __html: node.description }}
           />
-        </div>
 
         <p className="tc">Plants with Love™</p>
         <form className="mw5 center">
