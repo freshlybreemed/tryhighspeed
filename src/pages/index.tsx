@@ -1,15 +1,13 @@
-import React from "react"
-import { graphql, Link, useStaticQuery } from "gatsby"
-import Img from "gatsby-image"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { formatPrice } from "../lib"
-import { File, WooProduct } from "../lib/types"
-import styled from "styled-components"
-import Wpapi from "wpapi/superagent"
-import apiRootJSON from "../wp-json.json"
+import React from "react";
+import { graphql, Link, useStaticQuery } from "gatsby";
+import Img from "gatsby-image";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import { formatPrice } from "../lib";
+import { File, WooProduct } from "../lib/types";
+import styled from "styled-components";
 
-const headers = "text-3xl gt mb-8"
+const headers = "text-3xl gt mb-8";
 
 const Slider = styled.div`
   height: 50px;
