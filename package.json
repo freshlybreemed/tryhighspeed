@@ -30,7 +30,6 @@
     "react-helmet": "^6.1.0",
     "react-responsive": "^8.1.0",
     "styled-components": "^5.2.1",
-    "superagent": "^6.1.0",
     "tailwindcss": "^2.0.2",
     "wpapi": "^2.0.0-alpha.1",
     "zustand": "^3.3.1",

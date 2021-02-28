@@ -1,15 +1,13 @@
-import React from "react"
-import { graphql, Link, useStaticQuery } from "gatsby"
-import Img from "gatsby-image"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { formatPrice } from "../lib"
-import { File, WooProduct } from "../lib/types"
-import styled from "styled-components"
-import Wpapi from "wpapi/superagent"
-import apiRootJSON from "../wp-json.json"
+import React from "react";
+import { graphql, Link, useStaticQuery } from "gatsby";
+import Img from "gatsby-image";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import { formatPrice } from "../lib";
+import { File, WooProduct } from "../lib/types";
+import styled from "styled-components";
 
-const headers = "text-3xl gt mb-8"
+const headers = "text-3xl gt mb-8";
 
 const Slider = styled.div`
   height: 50px;
@@ -18,7 +16,7 @@ const Slider = styled.div`
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
-`
+`;
 const Text = styled.div`
   position: absolute;
   display: inline-block;
@@ -65,12 +63,7 @@ const Text = styled.div`
       transform: translateX(-100%);
     }
   }
-`
-const wp = new Wpapi({
-  routes: apiRootJSON,
-  endpoint: "http://tryhighspeed.com/wp-json",
-})
-
+`;
 const IndexPage: React.FunctionComponent = () => {
   const {
     allWcProducts: { edges },
@@ -119,19 +112,7 @@ const IndexPage: React.FunctionComponent = () => {
         }
       }
     }
-  `)
-  // console.log(edges, allFile)
-  wp.users()
-    .get()
-    .then(function (data) {
-      // do something with the returned posts
-      console.log(data)
-    })
-    .catch(function (err) {
-      // handle error
-      console.log(err)
-    })
-  console.log(wp, apiRootJSON)
+  `);
   return (
     <Layout>
       <SEO title="Home" />
@@ -150,7 +131,7 @@ const IndexPage: React.FunctionComponent = () => {
         {edges
           .filter((edge: WooProduct) => !edge.node.categories)
           .map((edge: WooProduct) => {
-            const { node } = edge
+            const { node } = edge;
             return (
               <Link
                 to={`/products/${node.wordpress_id}`}
@@ -158,14 +139,11 @@ const IndexPage: React.FunctionComponent = () => {
                 key={node.wordpress_id}
               >
                 <div className="flex">
-                  <a
-                    href={`/products/${node.wordpress_id}`}
-                    className="black no-underline"
-                  >
+                  <span className="black no-underline">
                     <h4 className="f5 w-2/3 fw8 pl-2 mt2 mb0 ttu cubano">
                       {node.name}
                     </h4>
-                  </a>
+                  </span>
                   <Img
                     className="object-none w-1/3 float-right w-24 "
                     fluid={node.images[0].localFile.childImageSharp.fluid}
@@ -182,7 +160,7 @@ const IndexPage: React.FunctionComponent = () => {
                   <button className="float-right">SHOP</button>
                 </div>
               </Link>
-            )
+            );
           })}
       </div>
       <div className="ml-8 pb-5">
@@ -190,15 +168,16 @@ const IndexPage: React.FunctionComponent = () => {
       </div>
       <Slider>
         <Text>
-          {allFile.edges.map((logo: File) => {
-            console.log(logo.node.childImageSharp)
+          {allFile.edges.map((logo: File, id: number) => {
+            console.log(logo.node.childImageSharp);
             return (
               <Img
+                key={id}
                 style={{ filter: "grayscale(100%)" }}
                 className="mr-5 mb-5"
                 fixed={logo.node.childImageSharp.fixed}
               />
-            )
+            );
           })}
         </Text>
       </Slider>
@@ -218,6 +197,6 @@ const IndexPage: React.FunctionComponent = () => {
         </div>
       </div>
     </Layout>
-  )
-}
-export default IndexPage
+  );
+};
+export default IndexPage;
