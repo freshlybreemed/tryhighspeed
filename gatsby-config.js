@@ -9,6 +9,11 @@ module.exports = {
     author: `High Speed`,
   },
   plugins: [
+    `gatsby-plugin-nodejs`,
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/app/*`] },
+    },
     {
       resolve: "@pasdo501/gatsby-source-woocommerce",
       options: {
