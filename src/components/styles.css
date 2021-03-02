@@ -1,8 +1,8 @@
 @font-face {
   font-family: "Cubano";
   src: local("Cubano"),
-    url("https://github.com/CodingTrain/website/blob/main/assets/fonts/cubano-regular-webfont.woff2?raw=true")
-      format("woff");
+    url("../fonts/Cubano.ttf")
+      format("truetype");
 }
 
 @font-face {
