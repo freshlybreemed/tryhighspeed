@@ -1,6 +1,6 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
-})
+});
 // console.log(process.env)
 module.exports = {
   siteMetadata: {
@@ -9,11 +9,6 @@ module.exports = {
     author: `High Speed`,
   },
   plugins: [
-    `gatsby-plugin-nodejs`,
-    {
-      resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/app/*`] },
-    },
     {
       resolve: "@pasdo501/gatsby-source-woocommerce",
       options: {
@@ -60,4 +55,4 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
-}
+};
