@@ -6,7 +6,7 @@ import SEO from "../components/seo";
 import { formatPrice } from "../lib";
 import { File, WooProduct } from "../lib/types";
 import styled from "styled-components";
-
+import App from "../components/App";
 const headers = "text-3xl gt mb-8";
 
 const Slider = styled.div`
@@ -17,6 +17,7 @@ const Slider = styled.div`
   overflow-x: auto;
   overflow-y: hidden;
 `;
+
 const Text = styled.div`
   position: absolute;
   display: inline-block;
@@ -113,90 +114,93 @@ const IndexPage: React.FunctionComponent = () => {
       }
     }
   `);
+
   return (
-    <Layout>
-      <SEO title="Home" />
-      {/* <img
+    <App>
+      <Layout>
+        <SEO title="Home" />
+        {/* <img
         className="w-70 db center"
         src="https://tryhighspeed.com/wp-content/uploads/2019/05/tabletophighspeed.jpg"
       /> */}
-      <div className="mt-32 mb-32 pt-32 pb-32 ml-8">
-        <h1 className="text-5xl pb-5 cubano">Wellness, Delivered</h1>
-        <h3 className="text-2xl gt">Now Serving DC + Boston + NYC</h3>
-      </div>
-      <div className="ml-8 pb-5">
-        <h3 className={headers}>Shop the Products You Love</h3>
-      </div>
-      <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4 mx-8 mb-32">
-        {edges
-          .filter((edge: WooProduct) => !edge.node.categories)
-          .map((edge: WooProduct) => {
-            const { node } = edge;
-            return (
-              <Link
-                to={`/products/${node.wordpress_id}`}
-                className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
-                key={node.wordpress_id}
-              >
-                <div className="flex">
-                  <span className="black no-underline">
-                    <h4 className="f5 w-2/3 fw8 pl-2 mt2 mb0 ttu cubano">
-                      {node.name}
+        <div className="mt-32 mb-32 pt-32 pb-32 ml-8">
+          <h1 className="text-5xl pb-5 cubano">Wellness, Delivered</h1>
+          <h3 className="text-2xl gt">Now Serving DC + Boston + NYC</h3>
+        </div>
+        <div className="ml-8 pb-5">
+          <h3 className={headers}>Shop the Products You Love</h3>
+        </div>
+        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4 mx-8 mb-32">
+          {edges
+            .filter((edge: WooProduct) => !edge.node.categories)
+            .map((edge: WooProduct) => {
+              const { node } = edge;
+              return (
+                <Link
+                  to={`/products/${node.wordpress_id}`}
+                  className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
+                  key={node.wordpress_id}
+                >
+                  <div className="flex">
+                    <span className="black no-underline">
+                      <h4 className="f5 w-2/3 fw8 pl-2 mt2 mb0 ttu cubano">
+                        {node.name}
+                      </h4>
+                    </span>
+                    <Img
+                      className="object-none w-1/3 float-right w-24 "
+                      fluid={node.images[0].localFile.childImageSharp.fluid}
+                    />
+                  </div>
+                  <div className=" gt">
+                    <p
+                      className="mt-6 mb-3"
+                      dangerouslySetInnerHTML={{ __html: node.description }}
+                    />
+                    <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
+                      {formatPrice(node.price)}
                     </h4>
-                  </span>
-                  <Img
-                    className="object-none w-1/3 float-right w-24 "
-                    fluid={node.images[0].localFile.childImageSharp.fluid}
-                  />
-                </div>
-                <div className=" gt">
-                  <p
-                    className="mt-6 mb-3"
-                    dangerouslySetInnerHTML={{ __html: node.description }}
-                  />
-                  <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
-                    {formatPrice(node.price)}
-                  </h4>
-                  <button className="float-right">SHOP</button>
-                </div>
-              </Link>
-            );
-          })}
-      </div>
-      <div className="ml-8 pb-5">
-        <h3 className={headers}>As Featured In</h3>
-      </div>
-      <Slider>
-        <Text>
-          {allFile.edges.map((logo: File, id: number) => {
-            console.log(logo.node.childImageSharp);
-            return (
-              <Img
-                key={id}
-                style={{ filter: "grayscale(100%)" }}
-                className="mr-5 mb-5"
-                fixed={logo.node.childImageSharp.fixed}
-              />
-            );
-          })}
-        </Text>
-      </Slider>
-      <div className="py-16 bg-gray-500 flex">
-        <div className="float-left">
-          <h3 className="text-3xl mb-5 pb-4 cubano text-center w-50">
-            <span className="line-through">Cannabis</span> Plant Delivery, made
-            simple.
-          </h3>
+                    <button className="float-right">SHOP</button>
+                  </div>
+                </Link>
+              );
+            })}
         </div>
-        <div className="float-right">
-          <p>Subscribe to get some serious deals to rock your day.</p>
-          <input className="p-1" placeholder="Email Address" />
-          <button className="text-center text-white bg-black p-1">
-            <span className="gt pl-3 pr-3">Subscribe</span>
-          </button>
+        <div className="ml-8 pb-5">
+          <h3 className={headers}>As Featured In</h3>
         </div>
-      </div>
-    </Layout>
+        <Slider>
+          <Text>
+            {allFile.edges.map((logo: File, id: number) => {
+              console.log(logo.node.childImageSharp);
+              return (
+                <Img
+                  key={id}
+                  style={{ filter: "grayscale(100%)" }}
+                  className="mr-5 mb-5"
+                  fixed={logo.node.childImageSharp.fixed}
+                />
+              );
+            })}
+          </Text>
+        </Slider>
+        <div className="py-16 bg-gray-500 flex">
+          <div className="float-left">
+            <h3 className="text-3xl mb-5 pb-4 cubano text-center w-50">
+              <span className="line-through">Cannabis</span> Plant Delivery,
+              made simple.
+            </h3>
+          </div>
+          <div className="float-right">
+            <p>Subscribe to get some serious deals to rock your day.</p>
+            <input className="p-1" placeholder="Email Address" />
+            <button className="text-center text-white bg-black p-1">
+              <span className="gt pl-3 pr-3">Subscribe</span>
+            </button>
+          </div>
+        </div>
+      </Layout>
+    </App>
   );
 };
 export default IndexPage;
