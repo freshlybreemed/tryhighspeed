@@ -1,0 +1,13 @@
+{
+  "routes": [
+    {
+       "src": "/api/order",
+      "methods": ["POST", "GET"],
+      "dest": "/api/order"
+    }
+  ],
+  "env": {
+    "GATSBY_WOO_KEY":"@woo-key",
+    "GATSBY_WOO_SECRET":"@woo-secret"
+  }
+}
