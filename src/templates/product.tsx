@@ -1,12 +1,21 @@
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { formatPrice } from "../lib"
-import Img from "gatsby-image"
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import { formatPrice } from "../lib";
+import Img from "gatsby-image";
 
-import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import React from "react";
+import { graphql, useStaticQuery } from "gatsby";
+import { WooProduct } from "../lib/types";
 
-const ProductPage = ({ pageContext }) => {
+interface ProductPageProps {
+  pageContext: {
+    title: string;
+    wordId: string;
+    price: string;
+    image: any;
+  };
+}
+const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   const { allWcProducts } = useStaticQuery(graphql`
     {
       allWcProducts {
@@ -30,12 +39,12 @@ const ProductPage = ({ pageContext }) => {
         }
       }
     }
-  `)
+  `);
   const { node } = allWcProducts.edges.filter(
-    product => product.node.wordpress_id === pageContext.wordId
-  )[0]
-  const { images } = node
-  console.log(pageContext, allWcProducts, node)
+    (product: WooProduct) => product.node.wordpress_id === pageContext.wordId
+  )[0];
+  const { images } = node;
+  console.log(pageContext, allWcProducts, node);
   return (
     <Layout>
       <SEO title={pageContext.title} />
@@ -46,22 +55,50 @@ const ProductPage = ({ pageContext }) => {
             fluid={images[0].localFile.childImageSharp.fluid}
           />
           <div className="ml-5 rounded-lg w-full cubano bg-gray-500 p-5">
-            <h1 className="text-3xl pb-4 mb-4" >
-              {pageContext.title}
-            </h1>
-            <h2 className="text-xl" >
-              Amount
-            </h2>
-            <h2 className="text-xl" >
-              Quantity
-            </h2>
-            <p>{formatPrice(pageContext.price)}</p>
+            <h1 className="text-3xl mb-4">{pageContext.title}</h1>
+            <div
+              className="pt2-ns mt2 pt1 pb-3 lh-title "
+              dangerouslySetInnerHTML={{ __html: node.description }}
+            />
+            <div className="pb-2">
+              <label
+                htmlFor="country"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Amount
+              </label>
+              <select
+                id="country"
+                name="country"
+                autoComplete="country"
+                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
+            </div>
+            <div className="pb-2">
+              <label
+                htmlFor="country"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Quantity
+              </label>
+              <select
+                id="country"
+                name="country"
+                autoComplete="country"
+                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
+            </div>
+            <button>{formatPrice(pageContext.price)}</button>
           </div>
         </div>
-          <div
-            className="pt2-ns mt2 pt1 lh-title "
-            dangerouslySetInnerHTML={{ __html: node.description }}
-          />
 
         <p className="tc">Plants with Love™</p>
         <form className="mw5 center">
@@ -108,7 +145,7 @@ const ProductPage = ({ pageContext }) => {
         </form>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default ProductPage
+export default ProductPage;
