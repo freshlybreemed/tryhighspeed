@@ -2,8 +2,8 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { formatPrice } from "../lib";
 import Img from "gatsby-image";
-
-import React from "react";
+import { useProductContainer } from "./productContainer";
+import React, { useEffect } from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { WooProduct } from "../lib/types";
 
@@ -15,6 +15,7 @@ interface ProductPageProps {
     image: any;
   };
 }
+
 const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   const { allWcProducts } = useStaticQuery(graphql`
     {
@@ -26,6 +27,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
             price
             wordpress_id
             description
+            short_description
             images {
               localFile {
                 childImageSharp {
@@ -34,31 +36,83 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                   }
                 }
               }
+              src
+            }
+            product_variations {
+              id
+              price
+              attributes {
+                name
+                option
+              }
             }
           }
         }
       }
     }
   `);
+  const {
+    setProduct,
+    setOptions,
+    setSpeed,
+    setAmount,
+    setSpeeds,
+    setProductVariants,
+    speeds,
+    productVariants,
+    amount,
+    speed,
+    currentProductVariant,
+    currentProductVariantId,
+    selectProductVariant,
+    options,
+  } = useProductContainer();
+
   const { node } = allWcProducts.edges.filter(
     (product: WooProduct) => product.node.wordpress_id === pageContext.wordId
   )[0];
+
+  useEffect(() => {
+    setProduct(node);
+    setOptions(node);
+    setSpeeds(node);
+    setSpeed(node.product_variations[0].attributes[1].option);
+    setAmount(node.product_variations[0].attributes[0].option);
+    setProductVariants(node);
+  }, [node]);
+
+  useEffect(() => {
+    selectProductVariant({ amount, speed });
+  }, [productVariants, amount, speed]);
+
+  // const addToCart = () => {
+  //   const lineItem = {
+  //     product_id: node.wordpress_id,
+  //     variation_id: currentProductVariantId,
+  //     quantity: 1,
+  //   };
+  // };
   const { images } = node;
   console.log(pageContext, allWcProducts, node);
+  console.log(amount, speed, currentProductVariant, currentProductVariantId);
   return (
     <Layout>
       <SEO title={pageContext.title} />
       <div className="ml-8 mr-8">
         <div className="flex flex-row">
-          <Img
-            className="w-full mr-5"
-            fluid={images[0].localFile.childImageSharp.fluid}
-          />
+          {node.images[0].localFile ? (
+            <Img
+              className="w-full mr-5"
+              fluid={images[0].localFile.childImageSharp.fluid}
+            />
+          ) : (
+            <img className=" w-1/3 mr-5" src={node.images[0].src} />
+          )}
           <div className="ml-5 rounded-lg w-full cubano bg-gray-500 p-5">
             <h1 className="text-3xl mb-4">{pageContext.title}</h1>
-            <div
-              className="pt2-ns mt2 pt1 pb-3 lh-title "
-              dangerouslySetInnerHTML={{ __html: node.description }}
+            <p
+              className="pt2-ns mt2 pt1 pb-3 text-xl gt"
+              dangerouslySetInnerHTML={{ __html: node.short_description }}
             />
             <div className="pb-2">
               <label
@@ -68,14 +122,14 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                 Amount
               </label>
               <select
-                id="country"
-                name="country"
-                autoComplete="country"
+                id="amount"
+                name="amount"
+                onChange={(e) => setAmount(e.target.value)}
                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+                {options.map((variant) => {
+                  return <option value={variant}>{variant}</option>;
+                })}
               </select>
             </div>
             <div className="pb-2">
@@ -83,67 +137,34 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                 htmlFor="country"
                 className="block text-sm font-medium text-gray-700"
               >
-                Quantity
+                Speed
               </label>
               <select
                 id="country"
                 name="country"
+                onChange={(e) => setSpeed(e.target.value)}
+                // onChange={(e) => console.log(e.target.value)}
                 autoComplete="country"
                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+                {speeds.map((speed) => (
+                  <option value={speed}>{speed}</option>
+                ))}
               </select>
             </div>
-            <button>{formatPrice(pageContext.price)}</button>
+            <button className="bg-black text-white w-full p-3 rounded-md">
+              Add to Cart{" "}
+              {currentProductVariant.length &&
+                ` - 
+                ${formatPrice(currentProductVariant[0].price)}`}
+            </button>
           </div>
         </div>
-
-        <p className="tc">Plants with Love™</p>
-        <form className="mw5 center">
-          <div className="dib relative noselect w-100 ">
-            <div
-              style={{ minHeight: "46px" }}
-              className="ba pa3 bw15 tc overflow-hidden relative "
-            >
-              <div
-                style={{ letterSpacing: "2px" }}
-                className="truncate v-mid ttu fw6 f6 w-100"
-              >
-                Love
-              </div>
-            </div>
-            <div
-              style={{ minHeight: "46px" }}
-              className="bl br  pa1  bw15 tc justify-between items-center flex relative "
-            >
-              <button className="pointer bn w-10 ma2 fw3 bg-transparent">
-                -
-              </button>
-              <input
-                style={{ letterSpacing: "2px" }}
-                className="truncate v-mid fw6 f6 bn tc w-100"
-                defaultValue={1}
-              />
-              <button className="pointer bn w-10 ma2 fw1 bg-transparent mr2">
-                +
-              </button>
-            </div>
-            <div
-              style={{ minHeight: "46px" }}
-              className="ba pa3 bw15 tc overflow-hidden relative "
-            >
-              <div
-                style={{ letterSpacing: "2px" }}
-                className="truncate v-mid ttu fw6 f6 w-100"
-              >
-                Add to Cart
-              </div>
-            </div>
-          </div>
-        </form>
       </div>
+      <div
+        className="pt2-ns mt2 pt1 pb-3 gt px-5 text-xl pt-4 mt-4 text-xl"
+        dangerouslySetInnerHTML={{ __html: node.description }}
+      />
     </Layout>
   );
 };
