@@ -4,6 +4,11 @@
        "src": "/api/order",
       "methods": ["POST", "GET"],
       "dest": "/api/order"
+    },
+    {
+       "src": "/api/subscriber",
+      "methods": ["POST", "GET"],
+      "dest": "/api/subscriber"
     }
   ],
   "env": {
