@@ -12,8 +12,8 @@ exports.onPostBuild = ({ reporter }) => {
 };
 
 // Create product pages dynamically
-exports.createPages = async ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators;
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
   const productTemplate = path.resolve(`src/templates/product.tsx`);
 
   const result = await graphql(`
