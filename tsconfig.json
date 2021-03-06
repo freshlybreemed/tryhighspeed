@@ -1,6 +1,8 @@
 {
     "compilerOptions": {
         "jsx": "react",
+        "downlevelIteration": true,
+        "esModuleInterop": true,
         "rootDir": "./src", // The entry point for all of our TypeScript files (make sure all .ts files are stored in a subdirectory of this!)
         "outDir": "./build", // The directory which we'll be exporting our compiled JavaScript files to
         "lib": [
