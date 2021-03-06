@@ -1,4 +1,4 @@
-import React from "react";
+import React, {  useState} from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import Img from "gatsby-image";
 import Layout from "../components/layout";
@@ -79,7 +79,9 @@ const IndexPage: React.FunctionComponent = () => {
             name
             price
             description
+            short_description
             images {
+              src
               localFile {
                 childImageSharp {
                   fluid {
@@ -130,7 +132,7 @@ const IndexPage: React.FunctionComponent = () => {
         <div className="ml-8 pb-5">
           <h3 className={headers}>Shop the Products You Love</h3>
         </div>
-        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4 mx-8 mb-32">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 mb-32">
           {edges
             .filter((edge: WooProduct) => !edge.node.categories)
             .map((edge: WooProduct) => {
@@ -143,19 +145,28 @@ const IndexPage: React.FunctionComponent = () => {
                 >
                   <div className="flex">
                     <span className="black no-underline">
-                      <h4 className="f5 w-2/3 fw8 pl-2 mt2 mb0 ttu cubano">
+                      <h3 className="text-xl w-2/3 fw8 pl-2 mt2 mb0 ttu cubano">
                         {node.name}
-                      </h4>
+                      </h3>
                     </span>
-                    <Img
-                      className="object-none w-1/3 float-right w-24 "
-                      fluid={node.images[0].localFile.childImageSharp.fluid}
-                    />
+                    {node.images[0].localFile ? (
+                      <Img
+                        className="object-none w-1/3 float-right w-24 "
+                        fluid={node.images[0].localFile.childImageSharp.fluid}
+                      />
+                    ) : (
+                      <img
+                        className=" w-1/3 float-right w-24 cover "
+                        src={node.images[0].src}
+                      />
+                    )}
                   </div>
-                  <div className=" gt">
+                  <div className="gt">
                     <p
                       className="mt-6 mb-3"
-                      dangerouslySetInnerHTML={{ __html: node.description }}
+                      dangerouslySetInnerHTML={{
+                        __html: node.short_description,
+                      }}
                     />
                     <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
                       {formatPrice(node.price)}
