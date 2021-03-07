@@ -1,9 +1,10 @@
-import React from "react"
-import { graphql, Link, useStaticQuery } from "gatsby"
+import React from "react";
+import { graphql, Link, useStaticQuery } from "gatsby";
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import Layout from "../components/layout";
+import Image from "../components/image";
+import SEO from "../components/seo";
+import { useCartContainer } from "../components/cartContainer";
 
 const CartPage = () => {
   const {
@@ -33,8 +34,9 @@ const CartPage = () => {
         }
       }
     }
-  `)
-  console.log(edges)
+  `);
+  const { cart, setPersist } = useCartContainer;
+  console.log(setPersist, cart);
   return (
     <Layout>
       <div className="pl2 ml2 ">
@@ -50,6 +52,6 @@ const CartPage = () => {
         <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
       </div>
     </Layout>
-  )
-}
-export default CartPage
+  );
+};
+export default CartPage;
