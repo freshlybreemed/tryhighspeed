@@ -58,6 +58,8 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
     setAmount,
     setSpeeds,
     setProductVariants,
+    setAddedToCart,
+    addedToCart,
     speeds,
     productVariants,
     amount,
@@ -66,6 +68,8 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
     currentProductVariantId,
     selectProductVariant,
     options,
+    lineItems,
+    addToCart,
   } = useProductContainer();
 
   const { node } = allWcProducts.edges.filter(
@@ -85,13 +89,16 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
     selectProductVariant({ amount, speed });
   }, [productVariants, amount, speed]);
 
-  // const addToCart = () => {
-  //   const lineItem = {
-  //     product_id: node.wordpress_id,
-  //     variation_id: currentProductVariantId,
-  //     quantity: 1,
-  //   };
-  // };
+  const addItem = () => {
+    const lineItem = {
+      product_id: node.wordpress_id,
+      variation_id: currentProductVariantId,
+      quantity: 1,
+    };
+    addToCart(lineItem);
+    setAddedToCart(true);
+    console.log(lineItems);
+  };
   const { images } = node;
   console.log(pageContext, allWcProducts, node);
   console.log(amount, speed, currentProductVariant, currentProductVariantId);
@@ -152,11 +159,18 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                 ))}
               </select>
             </div>
-            <button className="bg-black text-white w-full p-3 rounded-md">
-              Add to Cart{" "}
-              {currentProductVariant.length &&
+            <button
+              onClick={addItem}
+              className="bg-black text-white w-full p-3 rounded-md"
+            >
+              {addedToCart
+                ? "Added to Cart!"
+                : `Add to Cart
+              ${
+                currentProductVariant.length &&
                 ` - 
-                ${formatPrice(currentProductVariant[0].price)}`}
+                ${formatPrice(currentProductVariant[0].price)}`
+              }`}
             </button>
           </div>
         </div>
