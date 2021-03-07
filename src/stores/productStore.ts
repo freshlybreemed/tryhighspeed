@@ -7,11 +7,13 @@ type cartSelectors = {
   amount: string;
   speed: string;
   options: string[];
+  addedToCart: boolean;
   speeds: string[];
   productVariants: any[];
   currentProductVariantId: number;
   setOptions: (options: any) => void;
   setProductVariants: (options: any) => void;
+  setAddedToCart: () => void;
   setSpeed: (speed: string) => void;
   setSpeeds: (options: any) => void;
   setAmount: (amount: string) => void;
@@ -26,14 +28,16 @@ export const useProductStore = create<cartSelectors>((set, get) => ({
   speed: "",
   options: [],
   speeds: [],
+  addedToCart: false,
   flavors: [],
   productVariants: [],
   currentProductVariantId: 0,
   currentProductVariant: {},
+  setAddedToCart: () => set({ addedToCart: !get().addedToCart }),
   setProduct: (product) => set({ currentProduct: product }),
   setPrice: (price) => set({ price }),
-  setAmount: (amount) => set({ amount }),
-  setSpeed: (speed) => set({ speed }),
+  setAmount: (amount) => set({ amount, addedToCart: false }),
+  setSpeed: (speed) => set({ speed, addedToCart: false }),
   selectProductVariant: ({ speed, amount }) => {
     const variant = get().productVariants.filter(
       (variant) =>
