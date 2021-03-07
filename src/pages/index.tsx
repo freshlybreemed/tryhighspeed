@@ -1,4 +1,4 @@
-import React, {  useState} from "react";
+import React, { useState } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import Img from "gatsby-image";
 import Layout from "../components/layout";
@@ -116,7 +116,9 @@ const IndexPage: React.FunctionComponent = () => {
       }
     }
   `);
-
+  const [emailAddress, setEmailAddress] = useState("");
+  // console.log(edges.filter((edge: WooProduct) => !edge.node.categories));
+  // console.log(emailAddress);
   return (
     <App>
       <Layout>
@@ -204,7 +206,12 @@ const IndexPage: React.FunctionComponent = () => {
           </div>
           <div className="float-right">
             <p>Subscribe to get some serious deals to rock your day.</p>
-            <input className="p-1" placeholder="Email Address" />
+            <input
+              className="p-1"
+              value={emailAddress}
+              onChange={(e) => setEmailAddress(e.target.value)}
+              placeholder="Email Address"
+            />
             <button className="text-center text-white bg-black p-1">
               <span className="gt pl-3 pr-3">Subscribe</span>
             </button>
