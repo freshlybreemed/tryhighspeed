@@ -6,6 +6,7 @@ export const useProductContainer = () => {
   const setProduct = useProductStore((state) => state.setProduct);
   const cart = useCartStore((state) => state.cart);
   const amount = useProductStore((state) => state.amount);
+  const lineItems = useCartStore((state) => state.lineItems);
   const speed = useProductStore((state) => state.speed);
   const speeds = useProductStore((state) => state.speeds);
   const productVariants = useProductStore((state) => state.productVariants);
@@ -16,6 +17,9 @@ export const useProductContainer = () => {
   const currentProductVariantId = useProductStore(
     (state) => state.currentProductVariantId
   );
+  const addToCart = useCartStore((state) => state.addToCart);
+  const setAddedToCart = useProductStore((state) => state.setAddedToCart);
+  const addedToCart = useProductStore((state) => state.addedToCart);
   const setOptions = useProductStore((state) => state.setOptions);
   const setSpeeds = useProductStore((state) => state.setSpeeds);
   const setAmount = useProductStore((state) => state.setAmount);
@@ -38,6 +42,10 @@ export const useProductContainer = () => {
     speeds,
     productVariants,
     setSpeeds,
+    lineItems,
+    addToCart,
+    setAddedToCart,
+    addedToCart,
     currentProductVariantId,
     cart,
     amount,
