@@ -35,8 +35,8 @@ const CartPage = () => {
       }
     }
   `);
-  const { cart, setPersist } = useCartContainer;
-  console.log(setPersist, cart);
+  const { cart, lineItems } = useCartContainer();
+  console.log(cart, lineItems);
   return (
     <Layout>
       <div className="pl2 ml2 ">

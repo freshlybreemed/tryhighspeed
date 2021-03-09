@@ -20,6 +20,7 @@ type BillingInfo = {
   email: string;
   phone: string;
 };
+
 type cartSelectors = {
   lineItems: LineItem[];
   total: number;
@@ -35,11 +36,11 @@ type cartSelectors = {
   clearCart: () => void;
   setPersist: () => void;
 };
-const persist = (config) => (set, get, api) => {
+const persist = (name, config) => (set, get, api) => {
   const initialState = config(
     (args) => {
       set(args);
-      window.sessionStorage.setItem("state", JSON.stringify(get()));
+      window.sessionStorage.setItem(name, JSON.stringify(get()));
     },
     get,
     api
@@ -48,9 +49,9 @@ const persist = (config) => (set, get, api) => {
   const restoredState =
     typeof window === "undefined"
       ? {}
-      : JSON.parse(sessionStorage.getItem("state"));
+      : JSON.parse(sessionStorage.getItem(name));
 
-  console.log("res", restoredState);
+  console.log("res", { ...initialState, ...restoredState });
   return {
     ...initialState,
     ...restoredState,
@@ -58,7 +59,7 @@ const persist = (config) => (set, get, api) => {
 };
 
 export const useCartStore = create<cartSelectors>(
-  persist((set: any, get: any) => ({
+  persist("state", (set: any, get: any) => ({
     lineItems: [],
     total: 0,
     shippingType: "",
@@ -88,9 +89,5 @@ export const useCartStore = create<cartSelectors>(
     },
     setAddedToCart: () => set({ addedToCart: !get().addedToCart }),
     clearCart: () => set(() => ({ cart: {} })),
-    setPersist: () => {
-      const state = get();
-      set({ ...state });
-    },
   }))
 );
