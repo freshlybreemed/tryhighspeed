@@ -1,4 +1,5 @@
 import create from "zustand";
+import { ProductVariations, WooProduct } from "../lib/types";
 
 type cartSelectors = {
   price: number;
@@ -6,27 +7,36 @@ type cartSelectors = {
   currentProductVariant: any;
   amount: string;
   speed: string;
-  options: string[];
+  flavor: string;
+  amounts: string[];
   addedToCart: boolean;
   speeds: string[];
-  productVariants: any[];
+  flavors: string[];
+  productVariants: ProductVariations[];
   currentProductVariantId: number;
-  setOptions: (options: any) => void;
-  setProductVariants: (options: any) => void;
   setAddedToCart: () => void;
   setSpeed: (speed: string) => void;
-  setSpeeds: (options: any) => void;
   setAmount: (amount: string) => void;
+  setFlavor: (amount: string) => void;
   setPrice: (price: number) => void;
-  setProduct: (product: any) => void;
-  selectProductVariant: (product: any) => void;
+  setProduct: (product: WooProduct) => void;
+  selectProductVariant: ({
+    amount,
+    speed,
+    flavor,
+  }: {
+    amount: string;
+    flavor: string;
+    speed: string;
+  }) => void;
 };
 export const useProductStore = create<cartSelectors>((set, get) => ({
   price: 0,
   currentProduct: null,
   amount: "",
   speed: "",
-  options: [],
+  flavor: "",
+  amounts: [],
   speeds: [],
   addedToCart: false,
   flavors: [],
@@ -34,15 +44,49 @@ export const useProductStore = create<cartSelectors>((set, get) => ({
   currentProductVariantId: 0,
   currentProductVariant: {},
   setAddedToCart: () => set({ addedToCart: !get().addedToCart }),
-  setProduct: (product) => set({ currentProduct: product }),
+  setProduct: (product: WooProduct) =>
+    set({
+      currentProduct: product,
+      productVariants: product.product_variations,
+      speeds: [
+        ...new Set<string>(
+          product.product_variations.map(
+            (go) =>
+              go.attributes.filter((attr) => attr.name === "Speed")[0].option
+          )
+        ),
+      ].reverse(),
+      amounts: [
+        ...new Set<string>(
+          product.product_variations.map(
+            (go) =>
+              go.attributes.filter((attr) => attr.name === "Amount")[0].option
+          )
+        ),
+      ],
+      flavors: [
+        ...new Set<string>(
+          product.product_variations.map(
+            (go) =>
+              go.attributes.filter((attr) => attr.name === "Flavor")[0].option
+          )
+        ),
+      ],
+    }),
   setPrice: (price) => set({ price }),
   setAmount: (amount) => set({ amount, addedToCart: false }),
-  setSpeed: (speed) => set({ speed, addedToCart: false }),
-  selectProductVariant: ({ speed, amount }) => {
+  setFlavor: (flavor) => set({ flavor, addedToCart: false }),
+  setSpeed: (speed) =>
+    set({ speed: speed ? speed : get().speeds[0], addedToCart: false }),
+  selectProductVariant: ({ speed, amount, flavor }) => {
     const variant = get().productVariants.filter(
       (variant) =>
-        variant.attributes[0].option === amount &&
-        variant.attributes[1].option === speed
+        variant.attributes.filter((attr) => attr.name === "Amount")[0]
+          .option === amount &&
+        variant.attributes.filter((attr) => attr.name === "Speed")[0].option ===
+          speed &&
+        variant.attributes.filter((attr) => attr.name === "Flavor")[0]
+          .option === flavor
     );
     if (variant.length) {
       set({
@@ -50,25 +94,5 @@ export const useProductStore = create<cartSelectors>((set, get) => ({
         currentProductVariantId: variant[0].id,
       });
     }
-  },
-  setProductVariants: (product) =>
-    set({ productVariants: product.product_variations }),
-  setSpeeds: (product) => {
-    set({
-      speeds: [
-        ...new Set<string>(
-          product.product_variations.map((go: any) => go.attributes[1].option)
-        ),
-      ],
-    });
-  },
-  setOptions: (product) => {
-    set({
-      options: [
-        ...new Set<string>(
-          product.product_variations.map((go: any) => go.attributes[0].option)
-        ),
-      ],
-    });
   },
 }));

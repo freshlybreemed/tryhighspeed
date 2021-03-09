@@ -9,12 +9,25 @@ export type File = {
     };
   };
 };
+type ProductAttributes = { name: string; option: string };
+
+export type ProductVariations = {
+  attributes: ProductAttributes[];
+  id: number;
+  price: string;
+};
+export type AllWcProducts = {
+  node: WooProduct;
+};
 export type WooProduct = {
   id: string;
   wordpress_id: string;
   name: string;
   price: string;
   description: string;
+  status: string;
+  short_description: string;
+  product_variations: ProductVariations[];
   images: [
     localFile: {
       childImageSharp: {
