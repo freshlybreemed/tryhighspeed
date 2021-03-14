@@ -80,6 +80,8 @@ const IndexPage: React.FunctionComponent = () => {
             price
             description
             short_description
+            status
+            slug
             images {
               src
               localFile {
@@ -96,6 +98,21 @@ const IndexPage: React.FunctionComponent = () => {
             categories {
               wordpress_id
             }
+            product_variations {
+              id
+              price
+              attributes {
+                name
+                option
+              }
+            }
+          }
+        }
+      }
+      file(name: { eq: "tabletophighspeed" }) {
+        childImageSharp {
+          fluid(quality: 100) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -136,12 +153,12 @@ const IndexPage: React.FunctionComponent = () => {
         </div>
         <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 mb-32">
           {edges
-            .filter((edge: WooProduct) => !edge.node.categories)
-            .map((edge: WooProduct) => {
+            .filter((edge) => edge.node.status === "publish")
+            .map((edge) => {
               const { node } = edge;
               return (
                 <Link
-                  to={`/products/${node.wordpress_id}`}
+                  to={`/products/${node.slug}`}
                   className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
                   key={node.wordpress_id}
                 >

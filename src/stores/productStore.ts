@@ -5,30 +5,15 @@ type cartSelectors = {
   price: number;
   currentProduct: any;
   currentProductVariant: any;
-  amount: string;
-  speed: string;
-  flavor: string;
+  options: { [opt: string]: string[] };
   amounts: string[];
   addedToCart: boolean;
-  speeds: string[];
-  flavors: string[];
   productVariants: ProductVariations[];
-  currentProductVariantId: number;
   setAddedToCart: () => void;
-  setSpeed: (speed: string) => void;
-  setAmount: (amount: string) => void;
-  setFlavor: (amount: string) => void;
+  setOption: ({ option, name }: { option: string; name: string }) => void;
   setPrice: (price: number) => void;
   setProduct: (product: WooProduct) => void;
-  selectProductVariant: ({
-    amount,
-    speed,
-    flavor,
-  }: {
-    amount: string;
-    flavor: string;
-    speed: string;
-  }) => void;
+  selectProductVariant: (options: { [opt: string]: string[] }) => void;
 };
 export const useProductStore = create<cartSelectors>((set, get) => ({
   price: 0,
@@ -38,60 +23,82 @@ export const useProductStore = create<cartSelectors>((set, get) => ({
   flavor: "",
   amounts: [],
   speeds: [],
+  options: {},
   addedToCart: false,
   flavors: [],
   productVariants: [],
-  currentProductVariantId: 0,
   currentProductVariant: {},
   setAddedToCart: () => set({ addedToCart: !get().addedToCart }),
-  setProduct: (product: WooProduct) =>
+  setProduct: (product: WooProduct) => {
+    const variants: { [variant: string]: string[] } = {};
+    const sortedVariations = product.product_variations.sort(
+      (a, b) => parseInt(a.price) - parseInt(b.price)
+    );
+    sortedVariations.forEach((variations) =>
+      variations.attributes.forEach((opt) => {
+        const { name, option } = opt;
+        if (variants[name] && variants[name].indexOf(option) === -1) {
+          variants[name].push(option);
+        } else if (!variants[name]) {
+          variants[name] = [option];
+        }
+      })
+    );
     set({
       currentProduct: product,
       productVariants: product.product_variations,
-      speeds: [
-        ...new Set<string>(
-          product.product_variations.map(
-            (go) =>
-              go.attributes.filter((attr) => attr.name === "Speed")[0].option
-          )
-        ),
-      ].reverse(),
-      amounts: [
-        ...new Set<string>(
-          product.product_variations.map(
-            (go) =>
-              go.attributes.filter((attr) => attr.name === "Amount")[0].option
-          )
-        ),
-      ],
-      flavors: [
-        ...new Set<string>(
-          product.product_variations.map(
-            (go) =>
-              go.attributes.filter((attr) => attr.name === "Flavor")[0].option
-          )
-        ),
-      ],
-    }),
+      options: variants,
+    });
+  },
   setPrice: (price) => set({ price }),
-  setAmount: (amount) => set({ amount, addedToCart: false }),
-  setFlavor: (flavor) => set({ flavor, addedToCart: false }),
-  setSpeed: (speed) =>
-    set({ speed: speed ? speed : get().speeds[0], addedToCart: false }),
-  selectProductVariant: ({ speed, amount, flavor }) => {
-    const variant = get().productVariants.filter(
-      (variant) =>
-        variant.attributes.filter((attr) => attr.name === "Amount")[0]
-          .option === amount &&
-        variant.attributes.filter((attr) => attr.name === "Speed")[0].option ===
-          speed &&
-        variant.attributes.filter((attr) => attr.name === "Flavor")[0]
-          .option === flavor
-    );
+  setOption: (option) => {
+    const currVariant: WooProduct["product_variations"][0] = get()
+      .currentProductVariant;
+    const newVariants = [
+      ...currVariant.attributes.filter((opt) => opt.name !== option.name),
+      option,
+    ];
+    console.log(newVariants);
+    const variant = get().productVariants.filter((variant) => {
+      const { attributes } = variant;
+      for (let i = 0; i < attributes.length; i++) {
+        for (let j = 0; j < newVariants.length; j++) {
+          if (attributes[i].name !== newVariants[j].name) continue;
+          if (attributes[i].option !== newVariants[j].option) return false;
+        }
+      }
+      return true;
+    });
     if (variant.length) {
       set({
-        currentProductVariant: variant,
-        currentProductVariantId: variant[0].id,
+        currentProductVariant: variant[0],
+        addedToCart: false,
+      });
+    }
+  },
+  selectProductVariant: (options: { [opt: string]: string[] }) => {
+    const keys = Object.keys(options);
+    const attributes = keys.map((key) => {
+      return get().options[key].map((opt: string) => {
+        return {
+          option: opt,
+          name: key,
+        };
+      });
+    });
+    const variant = get().productVariants.filter((vari) => {
+      let match = true;
+      for (let i = 0; i < attributes.length - 1; i++) {
+        if (vari.attributes.indexOf(attributes[i]) === -1) {
+          match = false;
+          break;
+        }
+      }
+      return match;
+    });
+    if (variant.length) {
+      set({
+        currentProductVariant: variant[0],
       });
     }
   },
