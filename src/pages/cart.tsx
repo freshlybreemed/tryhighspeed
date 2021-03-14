@@ -73,7 +73,7 @@ const CartPage = () => {
               return (
                 <tr>
                   <td>{product.product_id}</td>
-                  <td>{product.product_id}</td>
+                  <td>{product.quantity}</td>
                   <td>{product.product_id}</td>
                   <td>{product.product_id}</td>
                 </tr>
