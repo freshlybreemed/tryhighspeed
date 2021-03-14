@@ -22,9 +22,9 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
-            wordpress_id
             name
             price
+            slug
           }
         }
       }
@@ -33,13 +33,10 @@ exports.createPages = async ({ graphql, actions }) => {
   result.data.allWcProducts.edges.forEach((edge) => {
     const { node } = edge;
     createPage({
-      path: `products/${edge.node.wordpress_id}`,
+      path: `products/${edge.node.slug}`,
       component: productTemplate,
       context: {
-        title: node.name,
-        wordId: node.wordpress_id,
-        price: node.price,
-        image: node.categories,
+        slug: node.slug,
       },
     });
   });

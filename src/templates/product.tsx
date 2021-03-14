@@ -11,10 +11,12 @@ interface ProductPageProps {
   pageContext: {
     title: string;
     wordId: string;
+    slug: string;
     price: string;
     image: any;
   };
 }
+const headers = "text-3xl gt mb-8";
 
 const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   const { allWcProducts } = useStaticQuery(graphql`
@@ -26,6 +28,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
             name
             price
             wordpress_id
+            slug
             description
             short_description
             images {

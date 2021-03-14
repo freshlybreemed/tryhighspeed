@@ -24,6 +24,7 @@ export type WooProduct = {
   wordpress_id: string;
   name: string;
   price: string;
+  slug: string;
   description: string;
   status: string;
   short_description: string;
