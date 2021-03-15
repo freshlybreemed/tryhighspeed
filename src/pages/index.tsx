@@ -16,6 +16,8 @@ const Slider = styled.div`
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
+  width: 960px;
+  margin: auto;
 `;
 
 const Text = styled.div`
@@ -32,16 +34,16 @@ const Text = styled.div`
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
   /* Apply animation to this element */
-  -moz-animation: scroll-left 15s linear infinite;
-  -webkit-animation: scroll-left 15s linear infinite;
-  animation: scroll-left 15s linear infinite;
+  -moz-animation: scroll-left 25s linear infinite;
+  -webkit-animation: scroll-left 25s linear infinite;
+  animation: scroll-left 25s linear infinite;
   /* Move it (define the animation) */
   @-moz-keyframes scroll-left {
     0% {
       -moz-transform: translateX(100%);
     }
     100% {
-      -moz-transform: translateX(-100%);
+      -moz-transform: translateX(calc(-250px * 7));
     }
   }
   @-webkit-keyframes scroll-left {
@@ -49,7 +51,7 @@ const Text = styled.div`
       -webkit-transform: translateX(100%);
     }
     100% {
-      -webkit-transform: translateX(-100%);
+      -webkit-transform: translateX(calc(-250px * 7));
     }
   }
   @keyframes scroll-left {
@@ -59,9 +61,9 @@ const Text = styled.div`
       transform: translateX(100%);
     }
     100% {
-      -moz-transform: translateX(-100%); /* Browser bug fix */
-      -webkit-transform: translateX(-100%); /* Browser bug fix */
-      transform: translateX(-100%);
+      -moz-transform: translateX(calc(-250px * 7)); /* Browser bug fix */
+      -webkit-transform: translateX(calc(-250px * 7)); /* Browser bug fix */
+      transform: translateX(calc(-250px * 7));
     }
   }
 `;
