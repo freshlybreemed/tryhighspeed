@@ -6,10 +6,15 @@ import Image from "../components/image";
 import SEO from "../components/seo";
 import { useCartContainer } from "../components/cartContainer";
 import { WooProduct } from "../lib/types";
+import { formatPrice } from "../lib";
 
 type Products = {
   allWcProducts: {
-    edges: WooProduct[];
+    edges: [
+      {
+        node: WooProduct;
+      }
+    ];
   };
 };
 const CartPage = () => {
@@ -36,6 +41,10 @@ const CartPage = () => {
             categories {
               wordpress_id
             }
+            product_variations {
+              id
+              price
+            }
           }
         }
       }
@@ -44,9 +53,15 @@ const CartPage = () => {
   const { cart, lineItems } = useCartContainer();
   console.log(edges, lineItems);
   const items = lineItems.map((line) => {
-    const item = edges.filter((prod) => prod.id === line.product_id);
+    const item = edges.filter(
+      (prod) => prod.node.wordpress_id === line.product_id
+    )[0].node;
+    const price = item.product_variations.filter(
+      (vari) => vari.id === line.variation_id
+    )[0].price;
     return {
       ...line,
+      price,
       ...item,
     };
   });
@@ -69,24 +84,20 @@ const CartPage = () => {
             </tr>
           </thead>
           <tbody>
-            {lineItems.map((product) => {
+            {items.map((product) => {
               return (
                 <tr>
-                  <td>{product.product_id}</td>
+                  <td>{product.name}</td>
                   <td>{product.quantity}</td>
                   <td>{product.product_id}</td>
-                  <td>{product.product_id}</td>
+                  <td>{formatPrice(product.price)}</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
         <p className="tc f3 fw3">Your shopping cart is empty</p>
-        <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-          <Image />
-        </div>
         <Link to="/checkout">Checkout</Link> <br />
-        <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
       </div>
     </Layout>
   );
