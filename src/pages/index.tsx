@@ -164,9 +164,9 @@ const IndexPage: React.FunctionComponent = () => {
                   className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
                   key={node.wordpress_id}
                 >
-                  <div className="flex">
-                    <span className="black no-underline">
-                      <h3 className="text-xl w-2/3 fw8 pl-2 mt2 mb0 ttu cubano">
+                  <div className="flex justify-between">
+                    <span className="black no-underline w-2/3 pr-2">
+                      <h3 className="text-xl fw8 pl-2 mt2 mb0 ttu cubano">
                         {node.name}
                       </h3>
                     </span>
@@ -182,17 +182,21 @@ const IndexPage: React.FunctionComponent = () => {
                       />
                     )}
                   </div>
-                  <div className="gt">
+                  <div>
                     <p
                       className="mt-6 mb-3"
                       dangerouslySetInnerHTML={{
                         __html: node.short_description,
                       }}
                     />
+                  </div>
+                  <div className="gt flex justify-between items-baseline">
                     <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
                       {formatPrice(node.price)}
                     </h4>
-                    <button className="float-right">SHOP</button>
+                    <button className="float-right bg-black rounded-sm py-1 px-3 text-white">
+                      SHOP
+                    </button>
                   </div>
                 </Link>
               );
@@ -217,14 +221,16 @@ const IndexPage: React.FunctionComponent = () => {
           </Text>
         </Slider>
         <div className="py-16 bg-gray-500 flex">
-          <div className="float-left">
-            <h3 className="text-3xl mb-5 pb-4 cubano text-center w-50">
+          <div className="w-3/6 text-center">
+            <h3 className="xl:text-5xl px-3  text-3xl mb-5 pb-4 cubano text-center ">
               <span className="line-through">Cannabis</span> Plant Delivery,
               made simple.
             </h3>
           </div>
-          <div className="float-right">
-            <p>Subscribe to get some serious deals to rock your day.</p>
+          <div className="text-center w-3/6 margin-auto">
+            <p className="text-lg">
+              Subscribe to get some serious deals to rock your day.
+            </p>
             <input
               className="p-1"
               value={emailAddress}
