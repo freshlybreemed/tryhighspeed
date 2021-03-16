@@ -5,12 +5,12 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import React from "react";
+import PropTypes from "prop-types";
+import { useStaticQuery, graphql } from "gatsby";
 
-import Header from "./header"
-import "./styles.css"
+import Header from "./header";
+import "./styles.css";
 // import "./glider.min.css"
 // import "./glider.js"
 
@@ -23,12 +23,15 @@ const Layout = ({ children }) => {
         }
       }
     }
-  `)
+  `);
 
   return (
     <div className="bg-gray-300 font-sans gt">
       <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
-      <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
+      <link
+        href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+        rel="stylesheet"
+      />
 
       <div className="pt0">
         <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
@@ -43,30 +46,34 @@ const Layout = ({ children }) => {
         }
       >
         <main>{children}</main>
-        <footer
-          className="mt-20 pb-4" 
-        >
+        <footer className="mt-20 pb-4">
           <div className="flex mb-4">
             <ul className="list-none gt text-xl ml-5">
               <li>About</li>
               <li>Cities</li>
             </ul>
-            <ul className="list-none gt text-xl ml-5">
+            <ul className="list-none gt text-xl ml-8">
               <li>FAQ</li>
-              <li>Instagram</li>
-              <li>Twitter</li>
+              <li>
+                <a href="instagram.com/tryhighspeed">Instagram</a>
+              </li>
+              <li>
+                <a href="twitter.com/tryhighspeed">Twitter</a>
+              </li>
             </ul>
           </div>
-          <div className="text-center gt text-sm"> © {new Date().getFullYear()}, High Speed Inc. All Rights Reserved
+          <div className="text-center gt text-sm">
+            {" "}
+            © {new Date().getFullYear()}, High Speed Inc. All Rights Reserved
           </div>
         </footer>
       </div>
     </div>
-  )
-}
+  );
+};
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Layout
+export default Layout;
