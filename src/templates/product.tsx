@@ -113,51 +113,53 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
               className="pt2-ns mt2 pt1 pb-3 text-xl gt"
               dangerouslySetInnerHTML={{ __html: node.short_description }}
             />
-            {Object.keys(options).map((option: string) => {
-              return (
-                <div className="pb-2">
-                  <label
-                    htmlFor="country"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    {option}
-                  </label>
-                  <select
-                    id="amount"
-                    name="amount"
-                    onChange={(e) =>
-                      setOption({ name: option, option: e.target.value })
-                    }
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  >
-                    {options[option].map((variant, id) => {
-                      return (
-                        <option key={id} value={variant}>
-                          {variant}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              );
-            })}
-            <button
-              onClick={addItem}
-              className="bg-black text-white w-full p-3 rounded-md"
-            >
-              {addedToCart
-                ? "Added to Cart!"
-                : `Add to Cart
-              ${
-                currentProductVariant &&
-                ` - 
-                ${formatPrice(currentProductVariant.price)}`
-              }`}
-            </button>
+            <div className="flex flex-col items-start">
+              {Object.keys(options).map((option: string) => {
+                return (
+                  <div className="pb-2 w-full">
+                    <label
+                      htmlFor="country"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      {option}
+                    </label>
+                    <select
+                      id="amount"
+                      name="amount"
+                      onChange={(e) =>
+                        setOption({ name: option, option: e.target.value })
+                      }
+                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    >
+                      {options[option].map((variant, id) => {
+                        return (
+                          <option key={id} value={variant}>
+                            {variant}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                );
+              })}
+              <button
+                onClick={addItem}
+                className="bg-black text-white w-full p-3 rounded-md"
+              >
+                {addedToCart
+                  ? "Added to Cart!"
+                  : `Add to Cart
+                ${
+                  currentProductVariant &&
+                  ` - 
+                  ${formatPrice(currentProductVariant.price)}`
+                }`}
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div className="ml-8 pb-5">
+      <div className="ml-8 pb-5 text-left">
         <h3 className={headers}>Description</h3>
       </div>{" "}
       <div
