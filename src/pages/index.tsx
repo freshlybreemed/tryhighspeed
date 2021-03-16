@@ -7,6 +7,7 @@ import { formatPrice } from "../lib";
 import { File, WooProduct } from "../lib/types";
 import styled from "styled-components";
 import App from "../components/App";
+
 const headers = "text-3xl gt mb-8";
 
 const Slider = styled.div`
@@ -67,10 +68,22 @@ const Text = styled.div`
     }
   }
 `;
-const IndexPage: React.FunctionComponent = () => {
+
+interface HomeProps {
+  edges: [
+    {
+      node: WooProduct;
+    }
+  ];
+  allFile: any;
+}
+const IndexPage: React.FunctionComponent<HomeProps> = () => {
   const {
     allWcProducts: { edges },
     allFile,
+  }: {
+    allWcProducts: { edges: HomeProps };
+    allFile: HomeProps["allFile"];
   } = useStaticQuery(graphql`
     {
       allWcProducts {
@@ -183,8 +196,8 @@ const IndexPage: React.FunctionComponent = () => {
                     )}
                   </div>
                   <div>
-                    <p
-                      className="mt-6 mb-3"
+                    <div
+                      className="mt-6 mb-3 gt"
                       dangerouslySetInnerHTML={{
                         __html: node.short_description,
                       }}
@@ -227,17 +240,17 @@ const IndexPage: React.FunctionComponent = () => {
               made simple.
             </h3>
           </div>
-          <div className="text-center w-3/6 margin-auto">
-            <p className="text-lg">
+          <div className="text-center w-3/6 margin-auto gt">
+            <p className="text-lg ">
               Subscribe to get some serious deals to rock your day.
             </p>
             <input
-              className="p-1"
+              className="p-2 rounded"
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
               placeholder="Email Address"
             />
-            <button className="text-center text-white bg-black p-1">
+            <button className="text-center rounded text-white bg-black p-2">
               <span className="gt pl-3 pr-3">Subscribe</span>
             </button>
           </div>
