@@ -30,10 +30,12 @@ export type WooProduct = {
   short_description: string;
   product_variations: ProductVariations[];
   images: [
-    localFile: {
-      childImageSharp: {
-        fluid: any;
-        fixed: any;
+    {
+      localFile: {
+        childImageSharp: {
+          fluid: any;
+          fixed: any;
+        };
       };
     }
   ];
