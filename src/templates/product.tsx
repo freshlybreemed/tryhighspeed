@@ -68,7 +68,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
     addToCart,
   } = useProductContainer();
 
-  const { node } = allWcProducts.edges.filter(
+  const { node }: { node: WooProduct } = allWcProducts.edges.filter(
     (product: AllWcProducts) => product.node.slug === pageContext.slug
   )[0];
 
@@ -108,7 +108,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
             <img className=" w-1/3 mr-5" src={node.images[0].src} />
           )}
           <div className="ml-5 rounded-lg w-full cubano bg-gray-500 p-5">
-            <h1 className="text-3xl mb-4">{pageContext.title}</h1>
+            <h1 className="text-3xl mb-4">{node.name}</h1>
             <p
               className="pt2-ns mt2 pt1 pb-3 text-xl gt"
               dangerouslySetInnerHTML={{ __html: node.short_description }}
