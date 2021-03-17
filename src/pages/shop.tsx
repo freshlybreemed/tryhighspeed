@@ -1,14 +1,29 @@
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { formatPrice } from "../lib"
-import { graphql, useStaticQuery, Link } from "gatsby"
-import React from "react"
-import Img from "gatsby-image"
+import React, { useState } from "react";
+import { graphql, Link, useStaticQuery } from "gatsby";
+import Img from "gatsby-image";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import { formatPrice } from "../lib";
+import { WooProduct } from "../lib/types";
+import App from "../components/App";
 
-const ProductPage = () => {
+const headers = "text-3xl gt mb-8";
 
+interface HomeProps {
+  edges: [
+    {
+      node: WooProduct;
+    }
+  ];
+  allFile: any;
+}
+const IndexPage: React.FunctionComponent<HomeProps> = () => {
   const {
     allWcProducts: { edges },
+    allFile,
+  }: {
+    allWcProducts: { edges: HomeProps };
+    allFile: HomeProps["allFile"];
   } = useStaticQuery(graphql`
     {
       allWcProducts {
@@ -18,7 +33,12 @@ const ProductPage = () => {
             wordpress_id
             name
             price
+            description
+            short_description
+            status
+            slug
             images {
+              src
               localFile {
                 childImageSharp {
                   fluid {
@@ -33,78 +53,100 @@ const ProductPage = () => {
             categories {
               wordpress_id
             }
+            product_variations {
+              id
+              price
+              attributes {
+                name
+                option
+              }
+            }
+          }
+        }
+      }
+      file(name: { eq: "tabletophighspeed" }) {
+        childImageSharp {
+          fluid(quality: 100) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      allFile(filter: { relativeDirectory: { eq: "press" } }) {
+        edges {
+          node {
+            id
+            name
+            relativeDirectory
+            childImageSharp {
+              id
+              fixed(height: 30) {
+                ...GatsbyImageSharpFixed
+              }
+            }
           }
         }
       }
     }
-  `)
+  `);
 
   return (
-    <Layout>
-      <SEO title="FAQ" />
-      <div className=" tc center">
-        {/* <video
-          style={{
-            objectFit: "cover",
-            objectPosition: "center center",
-            top: 0,
-            left: 0,
-          }}
-          className="dib w-100  x y top left"
-          loop
-          autoPlay
-        >
-          <source
-            data-src="https://player.vimeo.com/external/390337451.sd.mp4?s=57bbabbfdacf56f707d2e92b084477c7a187b1f7&amp;profile_id=165"
-            src="https://player.vimeo.com/external/390337451.sd.mp4?s=57bbabbfdacf56f707d2e92b084477c7a187b1f7&amp;profile_id=165"
-            type="video/mp4"
-          />
-        </video>
-       */}
-        <div
-          className="grid grid-cols-4 gap-3 lg:grid-cols-5"
-        
-        >
-          {edges.map(edge => {
-            const { node } = edge
-            return (
-              <Link
-                to={`/products/${node.wordpress_id}`}
-                className="w-100 no-underline black"
-                key={node.wordpress_id}
-              >
-                <div
-                  className="w-100 relative flex"
-                  style={{ boxSizing: "inherit" }}
-                >
-                  <Img
-                    style={{
-                      backgroundSize: "cover",
-                      backgroundPosition: "center center",
-                      top: "0px",
-                      left: "0px",
-                      width: "300px",
-                      height: "250px",
-                    }}
-                    fixed={node.images[0].localFile.childImageSharp.fixed}
-                  />
-                </div>
-
-                {/* <h4 className="f5 fw4 mb0">DATE</h4> */}
-                <a
-                  href={`/products/${node.wordpress_id}`}
-                  className="black no-underline"
-                >
-                  <h4 className="f4 fw8 mt2 mb0 ttu">{node.name} kjh</h4>
-                </a>
-                <h4 className="f5 fw6 mt1 pt1 ">{formatPrice(node.price)}</h4>
-              </Link>
-            )
-          })}{" "}
+    <App>
+      <Layout>
+        <SEO title="Shop" />
+        <div className="ml-8 pb-5">
+          <h3 className={headers}>Shop the Products You Love</h3>
         </div>
-      </div>
-    </Layout>
-  )
-}
-
-export default ProductPage
+        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 mb-32">
+          {edges
+            .filter((edge) => edge.node.status === "publish")
+            .map((edge) => {
+              const { node } = edge;
+              return (
+                <Link
+                  to={`/products/${node.slug}`}
+                  className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
+                  key={node.wordpress_id}
+                >
+                  <div className="flex justify-between">
+                    <span className="black no-underline w-2/3 pr-2">
+                      <h3 className="text-xl fw8 pl-2 mt2 mb0 ttu cubano">
+                        {node.name}
+                      </h3>
+                    </span>
+                    {node.images[0].localFile ? (
+                      <Img
+                        className="object-none w-1/3 float-right w-24 "
+                        fluid={node.images[0].localFile.childImageSharp.fluid}
+                      />
+                    ) : (
+                      <img
+                        className=" w-1/3 float-right w-24 cover "
+                        src={node.images[0].src}
+                      />
+                    )}
+                  </div>
+                  <div>
+                    <div
+                      className="mt-6 mb-3 gt"
+                      dangerouslySetInnerHTML={{
+                        __html: node.short_description,
+                      }}
+                    />
+                  </div>
+                  <div className="gt flex justify-between items-baseline">
+                    <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
+                      {formatPrice(node.price)}
+                    </h4>
+                    <button className="float-right bg-black rounded-sm py-1 px-3 text-white">
+                      SHOP
+                    </button>
+                  </div>
+                </Link>
+              );
+            })}
+        </div>
+      </Layout>
+    </App>
+  );
+};
+export default IndexPage;
