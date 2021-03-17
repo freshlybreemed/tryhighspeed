@@ -88,49 +88,61 @@ const CartPage = () => {
         </div>
         <div className="w-11/12 rounded-lg bg-white m-auto p-4">
           {lineItems.length ? (
-            <table className="min-w-full m-4">
-              <thead>
-                <tr className="text-left cubano">
-                  <th>Product</th>
-                  <th>Speed</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((product) => {
-                  return (
-                    <tr className="text-left my-2">
-                      <td>
-                        <div className="flex items-center">
-                          <Img
-                            className="sm:w-10 md:w-10 w-20"
-                            fluid={
-                              product.images[0].localFile.childImageSharp.fluid
-                            }
-                          ></Img>
-                          <div className="pl-2">
-                            <p className="text-sm">{product.name}</p>
-                            {product.variant.attributes.map((attr) => {
-                              return <p className="text-xs">{attr.option}</p>;
-                            })}
+            <div>
+              <table className="min-w-full m-4">
+                <thead>
+                  <tr className="text-left cubano">
+                    <th>Product</th>
+                    <th>Speed</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((product) => {
+                    return (
+                      <tr className="text-left my-2">
+                        <td>
+                          <div className="flex items-center">
+                            <Img
+                              className="sm:w-10 md:w-10 w-20"
+                              fluid={
+                                product.images[0].localFile.childImageSharp
+                                  .fluid
+                              }
+                            ></Img>
+                            <div className="pl-2">
+                              <p className="text-sm">{product.name}</p>
+                              {product.variant.attributes.map((attr) => {
+                                return <p className="text-xs">{attr.option}</p>;
+                              })}
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                      <td className="text-xs">{product.speed.option}</td>
-                      <td className="text-xs">{formatPrice(product.price)}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        </td>
+                        <td className="text-xs">{product.speed.option}</td>
+                        <td className="text-xs">
+                          {formatPrice(product.price)}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <Link to="/checkout">
+                <button className="bg-black text-white py-2 px-4 rounded gt text-right">
+                  Checkout
+                </button>
+              </Link>
+            </div>
           ) : (
-            <p className="text-center text-lg gt">Cart is empty :(</p>
+            <div>
+              <p className="text-center text-lg gt">Cart is empty :(</p>
+              <Link to="/shop">
+                <button className="bg-black text-white py-2 px-4 rounded gt text-right">
+                  Go Shop
+                </button>
+              </Link>
+            </div>
           )}
-          <Link to="/checkout">
-            <button className="bg-black text-white py-2 px-4 rounded gt text-right">
-              Checkout
-            </button>
-          </Link>{" "}
         </div>
         <br />
       </div>
