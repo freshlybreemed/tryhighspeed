@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
   `);
 
   return (
-    <div className="bg-gray-300 font-sans gt">
+    <div className="bg-gray-300 font-sans gt h-screen">
       <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
       <link
         href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
@@ -62,7 +62,10 @@ const Layout = ({ children }) => {
               </li>
             </ul>
           </div>
-          <div className="text-center gt text-sm">
+          <div
+            className="text-center gt text-sm absolute"
+            style={{ bottom: 0 }}
+          >
             {" "}
             © {new Date().getFullYear()}, High Speed Inc. All Rights Reserved
           </div>
