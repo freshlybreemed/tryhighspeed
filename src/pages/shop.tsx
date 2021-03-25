@@ -22,7 +22,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
     allWcProducts: { edges },
     allFile,
   }: {
-    allWcProducts: { edges: HomeProps };
+    allWcProducts: { edges: HomeProps["edges"] };
     allFile: HomeProps["allFile"];
   } = useStaticQuery(graphql`
     {
