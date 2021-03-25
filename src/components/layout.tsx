@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
   `);
 
   return (
-    <div className="bg-gray-300 font-sans gt h-screen">
+    <div className="bg-gray-300 font-sans gt h-full">
       <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
       <link
         href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
@@ -48,11 +48,11 @@ const Layout = ({ children }) => {
         <main>{children}</main>
         <footer className="mt-20 pb-4">
           <div className="flex mb-4">
-            <ul className="list-none gt text-xl ml-5">
+            <ul className="list-none gt  ml-5">
               <li>About</li>
               <li>Cities</li>
             </ul>
-            <ul className="list-none gt text-xl ml-8">
+            <ul className="list-none gt ml-8">
               <li>FAQ</li>
               <li>
                 <a href="instagram.com/tryhighspeed">Instagram</a>
@@ -62,11 +62,7 @@ const Layout = ({ children }) => {
               </li>
             </ul>
           </div>
-          <div
-            className="text-center gt text-sm absolute"
-            style={{ bottom: 0 }}
-          >
-            {" "}
+          <div className="text-center gt text-sm ">
             © {new Date().getFullYear()}, High Speed Inc. All Rights Reserved
           </div>
         </footer>
