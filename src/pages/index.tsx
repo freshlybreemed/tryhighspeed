@@ -17,7 +17,7 @@ const Slider = styled.div`
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
-  width: 960px;
+  width: 100%;
   margin: auto;
 `;
 
