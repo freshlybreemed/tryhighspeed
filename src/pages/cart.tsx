@@ -118,7 +118,7 @@ const CartPage = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="text-xs">{product.speed.option}</td>
+                        <td className="text-xs">{product?.speed?.option}</td>
                         <td className="text-xs">
                           {formatPrice(product.price)}
                         </td>
