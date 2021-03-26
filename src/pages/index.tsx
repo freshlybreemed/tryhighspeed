@@ -235,13 +235,13 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
         </Slider>
         <div className="py-16 bg-gray-500 flex">
           <div className="w-3/6 text-center">
-            <h3 className="xl:text-5xl px-3  text-3xl mb-5 pb-4 cubano text-center ">
+            <h3 className="xl:text-5xl px-3  text-4xl mb-5 pb-4 cubano text-center ">
               <span className="line-through">Cannabis</span> Plant Delivery,
               made simple.
             </h3>
           </div>
           <div className="text-center w-3/6 margin-auto gt">
-            <p className="text-lg ">
+            <p className="text-lg pb-3">
               Subscribe to get some serious deals to rock your day.
             </p>
             <input
