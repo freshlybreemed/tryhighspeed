@@ -3,6 +3,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
 import Img from "gatsby-image";
+import { useCartContainer } from "../components/cartContainer";
 
 const Header = () => {
   const { file } = useStaticQuery(graphql`
@@ -16,7 +17,7 @@ const Header = () => {
       }
     }
   `);
-
+  const { lineItems } = useCartContainer();
   return (
     <header className="max-w-7xl">
       <div className="flex items-center justify-between p-5 font-medium gt">
@@ -48,6 +49,9 @@ const Header = () => {
         <div className="block">
           <div className="flex items-center mr-4">
             <a href="/cart" className={"black "}>
+              {lineItems.length > 0 && (
+                <span className={"text-xs absolute"}>{lineItems.length}</span>
+              )}
               <span>
                 <svg
                   style={{ width: "25px", height: "23px" }}
