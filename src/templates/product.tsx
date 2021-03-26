@@ -93,7 +93,17 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
     console.log(lineItems);
   };
   const { images } = node;
-  console.log(pageContext, allWcProducts, node);
+  const buttonText = !productVariants.length
+    ? "Sold Out"
+    : addedToCart
+    ? "Added to Cart!"
+    : `Add to Cart
+                ${
+                  currentProductVariant &&
+                  ` - 
+                  ${formatPrice(currentProductVariant.price)}`
+                }`;
+  console.log(productVariants, allWcProducts, node);
   return (
     <Layout>
       <SEO title={pageContext.title} />
@@ -146,14 +156,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                 onClick={addItem}
                 className="bg-black text-white w-full p-3 rounded-md"
               >
-                {addedToCart
-                  ? "Added to Cart!"
-                  : `Add to Cart
-                ${
-                  currentProductVariant &&
-                  ` - 
-                  ${formatPrice(currentProductVariant.price)}`
-                }`}
+                {buttonText}
               </button>
             </div>
           </div>
