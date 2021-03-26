@@ -7,7 +7,7 @@ import { formatPrice } from "../lib";
 import { WooProduct } from "../lib/types";
 import App from "../components/App";
 
-const headers = "text-3xl gt mb-8";
+const headers = "fw3 mb-3 pb-3 text-3xl cubano text-center f1";
 
 interface HomeProps {
   edges: [
