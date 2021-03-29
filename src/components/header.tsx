@@ -67,7 +67,7 @@ const Header = () => {
         </div>
         {!emptyCart && (
           <div className="block">
-            <div className="flex items-center mr-4">
+            <div className="flex items-center">
               <a href="/cart" className={"black "}>
                 <span className="relative ">
                   <svg
