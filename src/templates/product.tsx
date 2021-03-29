@@ -16,7 +16,7 @@ interface ProductPageProps {
     image: any;
   };
 }
-const headers = "text-3xl gt mb-8";
+const headers = "text-3xl gt mt-8";
 
 const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   const { allWcProducts } = useStaticQuery(graphql`
@@ -92,6 +92,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
     setAddedToCart();
     console.log(lineItems);
   };
+
   const { images } = node;
   const buttonText = !productVariants.length
     ? "Sold Out"
@@ -107,17 +108,17 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   return (
     <Layout>
       <SEO title={pageContext.title} />
-      <div className="ml-8 mr-8">
-        <div className="flex flex-row">
+      <div className="mx-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 ">
           {node.images[0].localFile ? (
             <Img
-              className="w-full mr-5"
+              className="md:w-full w-3/4 mx-auto md:mr-5 mb-5 md:mb-0"
               fluid={images[0].localFile.childImageSharp.fluid}
             />
           ) : (
-            <img className=" w-1/3 mr-5" src={node.images[0].src} />
+            <img className=" md:w-1/3 w-3/4 md:mr-5" src={node.images[0].src} />
           )}
-          <div className="ml-5 rounded-lg w-full cubano bg-gray-500 p-5">
+          <div className="md:ml-5 w-3/4 rounded-lg md:w-full mx-auto cubano bg-gray-500 p-5">
             <h1 className="text-3xl mb-4">{node.name}</h1>
             <p
               className="pt2-ns mt2 pt1 pb-3 text-xl gt"
@@ -129,7 +130,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                   <div className="pb-2 w-full">
                     <label
                       htmlFor="country"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-md font-medium text-gray-700"
                     >
                       {option}
                     </label>
@@ -139,7 +140,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                       onChange={(e) =>
                         setOption({ name: option, option: e.target.value })
                       }
-                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 md:text-md"
                     >
                       {options[option].map((variant, id) => {
                         return (
@@ -162,7 +163,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
           </div>
         </div>
       </div>
-      <div className="ml-8 pb-5 text-left">
+      <div className="ml-8 text-left">
         <h3 className={headers}>Description</h3>
       </div>{" "}
       <div
