@@ -1,4 +1,4 @@
-import create, { GetState, SetState, StateCreator, StoreApi } from "zustand";
+import create from "zustand";
 import { WooProduct } from "../lib/types";
 // import { persist } from "zustand/middleware";
 
