@@ -11,6 +11,7 @@ import { useStaticQuery, graphql } from "gatsby";
 
 import Header from "./header";
 import "./styles.css";
+import "./hamburgers.min.css";
 // import "./glider.min.css"
 // import "./glider.js"
 
