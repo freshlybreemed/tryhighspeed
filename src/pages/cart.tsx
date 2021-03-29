@@ -98,9 +98,9 @@ const CartPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {items.map((product) => {
+                  {items.map((product, key) => {
                     return (
-                      <tr className="text-left my-2">
+                      <tr key={key} className="text-left my-2">
                         <td>
                           <div className="flex items-center">
                             <Img
