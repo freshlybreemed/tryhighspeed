@@ -1,4 +1,5 @@
-import { NowRequest, NowResponse } from "@vercel/node";
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { VercelRequest, VercelResponse } from "@vercel/node";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkg = require("@woocommerce/woocommerce-rest-api");
 
@@ -60,8 +61,7 @@ const data = {
 //   .catch((error) => {
 //     console.log(error.response.data);
 //   });
-export default (request: NowRequest, response: NowResponse) => {
-  const { name = "World" } = request.query;
+export default (_request: VercelRequest, response: VercelResponse) => {
   WooCommerce.get("orders")
     .then((res: any) => {
       // console.log(response);
