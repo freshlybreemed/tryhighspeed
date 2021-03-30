@@ -7,6 +7,7 @@ import { formatPrice } from "../lib";
 import { File, WooProduct } from "../lib/types";
 import styled from "styled-components";
 import App from "../components/App";
+import axios from "axios";
 
 const headers = "text-3xl gt mb-8";
 
@@ -149,8 +150,15 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
     }
   `);
   const [emailAddress, setEmailAddress] = useState("");
-  // console.log(edges.filter((edge: WooProduct) => !edge.node.categories));
-  // console.log(emailAddress);
+  const [emailSent, setEmailSet] = useState(false);
+
+  const subscriber = () => {
+    setEmailSet(true);
+    axios.post("/api/subscriber", {
+      email: emailAddress,
+    });
+  };
+  const subscriberText = emailSent ? "Thank you!" : "Subscribe";
   return (
     <App>
       <Layout>
@@ -250,8 +258,11 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
               onChange={(e) => setEmailAddress(e.target.value)}
               placeholder="Email Address"
             />
-            <button className="text-center rounded text-white bg-black p-2">
-              <span className="gt pl-3 pr-3">Subscribe</span>
+            <button
+              onClick={subscriber}
+              className="text-center rounded text-white bg-black p-2"
+            >
+              <span className="gt pl-3 pr-3">{subscriberText}</span>
             </button>
           </div>
         </div>
