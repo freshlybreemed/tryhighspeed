@@ -1,7 +1,7 @@
 // import { Link } from "gatsby"
 import { useStaticQuery, graphql } from "gatsby";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import classnames from "classnames";
 import Img from "gatsby-image";
 import { useCartContainer } from "../components/cartContainer";
@@ -19,6 +19,7 @@ const Header = () => {
     }
   `);
   const { lineItems } = useCartContainer();
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const emptyCart = lineItems.length === 0;
   return (
     <header className="max-w-7xl">
@@ -48,7 +49,14 @@ const Header = () => {
             </a>
           </div>
         </div>
-        <button className="hamburger p-0 sm:hidden" type="button">
+        <button
+          style={{ outline: "none" }}
+          onClick={() => setHamburgerOpen(!hamburgerOpen)}
+          className={`hamburger hamburger--collapse p-0 sm:hidden ${classnames({
+            "is-active": hamburgerOpen,
+          })}`}
+          type="button"
+        >
           <span className="hamburger-box">
             <span className="hamburger-inner"></span>
           </span>
