@@ -79,8 +79,7 @@ const Header = () => {
               <a href="/cart" className={"black "}>
                 <span className="relative ">
                   <svg
-                    // className="w-5 h-5"
-                    style={{ width: "40px", height: "40px" }}
+                    style={{ width: "2.5rem", height: "2.5rem" }}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 26 24.3"
                   >
@@ -95,7 +94,7 @@ const Header = () => {
                     ></path>
                   </svg>
                   <span
-                    style={{ top: "-12px", right: "-40px" }}
+                    style={{ top: "-0.8rem", right: "-2.8rem" }}
                     className={"text-sm font-semibold absolute"}
                   >
                     {!emptyCart && lineItems.length}
