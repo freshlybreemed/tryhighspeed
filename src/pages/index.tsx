@@ -246,26 +246,26 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
             })}
           </Text>
         </Slider>
-        <div className="py-16 bg-gray-500 flex">
-          <div className="w-3/6 text-center">
+        <div className="py-16 bg-gray-500 grid grid-cols-1 sm:grid-cols-2">
+          <div className="sm:w-5/6 text-center mx-auto">
             <h3 className="xl:text-5xl px-3  text-4xl mb-5 pb-4 cubano text-center ">
               <span className="line-through">Cannabis</span> Plant Delivery,
               made simple.
             </h3>
           </div>
-          <div className="text-center w-3/6 margin-auto gt">
-            <p className="text-lg pb-3">
+          <div className="text-center sm:w-5/6 mx-auto gt">
+            <p className="text-lg mx-auto w-5/6 pb-2">
               Subscribe to get some serious deals to rock your day.
             </p>
             <input
-              className="p-2 rounded"
+              className="p-2 rounded-l rounded-r-none"
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
               placeholder="Email Address"
             />
             <button
               onClick={subscriber}
-              className="text-center rounded text-white bg-black p-2"
+              className="text-center rounded-r text-white bg-black p-2"
             >
               <span className="gt pl-3 pr-3">{subscriberText}</span>
             </button>
