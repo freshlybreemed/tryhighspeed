@@ -32,7 +32,7 @@ type cartSelectors = {
   speed: string;
   setProduct: (product: WooProduct) => void;
   addToCart: (lineItem: LineItem) => void;
-  removeFromCart: (lineItem: LineItem) => void;
+  removeFromCart: (itemIndex: number) => void;
   clearCart: () => void;
   setPersist: () => void;
 };
@@ -84,8 +84,14 @@ export const useCartStore = create<cartSelectors>(
     addToCart: (item: LineItem) => {
       set({ lineItems: [...get().lineItems, item] });
     },
-    removeFromCart: (item: LineItem) => {
-      set({ lineItems: [...get().lineItems, item] });
+    removeFromCart: (itemIndex: number) => {
+      set({
+        lineItems: [
+          ...get().lineItems.filter(
+            (_item: LineItem, ind: number) => ind !== itemIndex
+          ),
+        ],
+      });
     },
     setAddedToCart: () => set({ addedToCart: !get().addedToCart }),
     clearCart: () => set(() => ({ cart: {} })),
