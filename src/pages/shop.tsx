@@ -96,7 +96,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
         <div className="ml-8 pb-5">
           <h3 className={headers}>Shop the Products You Love</h3>
         </div>
-        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 mb-32">
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 mb-32">
           {edges
             .filter((edge) => edge.node.status === "publish")
             .map((edge) => {

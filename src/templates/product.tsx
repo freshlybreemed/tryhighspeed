@@ -109,7 +109,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
     <Layout>
       <SEO title={pageContext.title} />
       <div className="mx-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 ">
+        <div className="pt-5 mt-5 grid grid-cols-1 md:grid-cols-2 ">
           {node.images[0].localFile ? (
             <Img
               className="md:w-full w-3/4 mx-auto md:mr-5 mb-5 md:mb-0"
@@ -162,14 +162,12 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="ml-8 text-left">
         <h3 className={headers}>Description</h3>
-      </div>{" "}
-      <div
-        className="pt2-ns mt2 pt1 pb-3 gt px-5 text-xl pt-4 mt-4 text-xl"
-        dangerouslySetInnerHTML={{ __html: node.description }}
-      />
+        <div
+          className="pt2-ns mt2 pt1 pb-3 gt pt-2 mt-2 text-xl"
+          dangerouslySetInnerHTML={{ __html: node.description }}
+        />
+      </div>
     </Layout>
   );
 };

@@ -139,7 +139,7 @@ const CartPage = () => {
                   })}
                 </tbody>
               </table>
-              <div id="aeropay-button-container" />
+              {/* {aeroReady && <div id="aeropay-button-container" />} */}
               <Link to="/checkout" className="float-right">
                 <button className="bg-black text-white py-2 px-4 rounded gt ">
                   Checkout
