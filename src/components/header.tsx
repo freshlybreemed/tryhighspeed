@@ -43,11 +43,6 @@ const Header = () => {
               Shop
             </a>
           </div>
-          <div className="inline">
-            <a href="/faq" className={``}>
-              FAQ
-            </a>
-          </div>
         </div>
         <button
           style={{ outline: "none" }}
