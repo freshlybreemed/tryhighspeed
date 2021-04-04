@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import classnames from "classnames";
 import Img from "gatsby-image";
-import { useCartContainer } from "../components/cartContainer";
+import { useCartContainer } from "../containers/cartContainer";
+import { useAppContainer } from "../containers/appContainer";
 
 const Header = () => {
   const { file } = useStaticQuery(graphql`
@@ -19,10 +20,11 @@ const Header = () => {
     }
   `);
   const { lineItems } = useCartContainer();
-  const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const { slidingMenuOpen, setSlidingMenuOpen } = useAppContainer();
   const emptyCart = lineItems.length === 0;
+  console.log(slidingMenuOpen);
   return (
-    <header className="max-w-7xl">
+    <div className="max-w-7xl">
       <div className="flex items-center justify-between p-5 font-medium gt">
         <div className="sm:flex items-center space-x-10 text-xl  hidden">
           <div className="inline-block">
@@ -46,9 +48,9 @@ const Header = () => {
         </div>
         <button
           style={{ outline: "none" }}
-          onClick={() => setHamburgerOpen(!hamburgerOpen)}
+          onClick={setSlidingMenuOpen}
           className={`hamburger hamburger--collapse p-0 sm:hidden ${classnames({
-            "is-active": hamburgerOpen,
+            "is-active": slidingMenuOpen,
           })}`}
           type="button"
         >
@@ -100,7 +102,7 @@ const Header = () => {
           </div>
         )}
       </div>
-    </header>
+    </div>
   );
 };
 Header.propTypes = {
