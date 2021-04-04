@@ -118,7 +118,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
           ) : (
             <img className=" md:w-1/3 w-3/4 md:mr-5" src={node.images[0].src} />
           )}
-          <div className="md:ml-5 w-3/4 rounded-lg md:w-full mx-auto cubano bg-gray-500 p-5">
+          <div className="md:ml-5 w-full rounded-lg md:w-full mx-auto cubano bg-gray-500 p-5">
             <h1 className="text-3xl mb-4">{node.name}</h1>
             <p
               className="pt2-ns mt2 pt1 pb-3 text-xl gt"
