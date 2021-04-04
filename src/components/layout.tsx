@@ -72,7 +72,15 @@ const Layout = ({ children }) => {
         <main>{children}</main>
 
         <SlidingMenu className="max-w-7xl" show={slidingMenuOpen}>
-          <div className="flex items-center justify-between p-5 font-medium gt">
+          <div className="flex mx-5  items-center justify-end py-5 font-medium gt">
+            <div className={`inline-block mx-auto  sm:hidden`}>
+              <a href="/" className={``}>
+                <Img
+                  className="opacity-0 object-none w-1/3 float-right w-24 "
+                  fixed={file.childImageSharp.fixed}
+                />
+              </a>
+            </div>
             <button
               style={{ outline: "none" }}
               onClick={setSlidingMenuOpen}
@@ -87,21 +95,22 @@ const Layout = ({ children }) => {
                 <span className="hamburger-inner"></span>
               </span>
             </button>
-            <div className={`inline-block mx-auto  sm:hidden`}>
-              <a href="/" className={``}>
-                <Img
-                  className="opacity-0 object-none w-1/3 float-right w-24 "
-                  fixed={file.childImageSharp.fixed}
-                />
-              </a>
+          </div>
+          <div className="text-xl gt pb-4">
+            <div className="mb-4 ml-5">
+              <h3 className="pb-2">
+                <a href="/about">About</a>
+              </h3>
+              <h3 className="pb-2">
+                <a href="/">Cities</a>
+              </h3>
+              <h3 className="pb-2">
+                <a href="/faq">FAQ</a>
+              </h3>
             </div>
           </div>
-          <a>yo</a>
-          <a>yo</a>
-          <a>yo</a>
-          <a>yo</a>
         </SlidingMenu>
-        <footer className="mt-20 pb-4">
+        <footer className="mt-40 pb-4">
           <div className="flex mb-4">
             <ul className="list-none gt  ml-5">
               <li>About</li>
