@@ -1,15 +1,26 @@
-import React, { useState } from "react"
+import { Link } from "gatsby";
+import React, { useState } from "react";
+import { useCheckoutContainer } from "../containers/checkoutContainer";
 
 export const UserCheckout: React.FunctionComponent = () => {
-  const [firstName, setFirstName] = useState<string>("")
-  const [lastName, setLastName] = useState<string>("")
-  const [address, setAddress] = useState<string>("")
-  const [address2, setAddress2] = useState<string>("")
-  const [city, setCity] = useState<string>("")
-  const [state, setState] = useState<string>("")
-  const [zip, setZip] = useState<string>("")
-  const [emailAddress, setEmailAddress] = useState<string>("")
-  const [phoneNumber, setPhoneNumber] = useState<string>("")
+  const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    address,
+    setAddress,
+    address2,
+    setAddress2,
+    city,
+    setCity,
+    state,
+    setState,
+    zip,
+    setZip,
+  } = useCheckoutContainer();
+  const [emailAddress, setEmailAddress] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   return (
     <div className={"w-100 ph4 pt4 bg- black"}>
@@ -23,7 +34,7 @@ export const UserCheckout: React.FunctionComponent = () => {
               <input
                 value={firstName}
                 className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={e => setFirstName(e.currentTarget.value)}
+                onChange={(e) => setFirstName(e.currentTarget.value)}
               />
             </div>
             <div className="mt1 dtc w-50 pb1 tl">
@@ -32,7 +43,7 @@ export const UserCheckout: React.FunctionComponent = () => {
               <input
                 value={lastName}
                 className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={e => setLastName(e.currentTarget.value)}
+                onChange={(e) => setLastName(e.currentTarget.value)}
               />
             </div>
           </div>
@@ -43,7 +54,7 @@ export const UserCheckout: React.FunctionComponent = () => {
               <input
                 value={address}
                 className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={e => setAddress(e.currentTarget.value)}
+                onChange={(e) => setAddress(e.currentTarget.value)}
               />
             </div>
             <div className="mt1 dtc w-48 pb1 tl">
@@ -52,7 +63,7 @@ export const UserCheckout: React.FunctionComponent = () => {
               <input
                 value={address2}
                 className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={e => setAddress2(e.currentTarget.value)}
+                onChange={(e) => setAddress2(e.currentTarget.value)}
               />
             </div>
           </div>
@@ -63,7 +74,7 @@ export const UserCheckout: React.FunctionComponent = () => {
               <input
                 value={city}
                 className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={e => setCity(e.currentTarget.value)}
+                onChange={(e) => setCity(e.currentTarget.value)}
               />
             </div>
             <div className="mt1 dtc w-48 pb1 tl">
@@ -72,7 +83,7 @@ export const UserCheckout: React.FunctionComponent = () => {
               <input
                 value={state}
                 className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={e => setState(e.currentTarget.value)}
+                onChange={(e) => setState(e.currentTarget.value)}
               />
             </div>
             <div className="mt1 dtc w-48 pb1 tl">
@@ -81,7 +92,7 @@ export const UserCheckout: React.FunctionComponent = () => {
               <input
                 value={zip}
                 className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={e => setZip(e.currentTarget.value)}
+                onChange={(e) => setZip(e.currentTarget.value)}
               />
             </div>
           </div>
@@ -92,7 +103,7 @@ export const UserCheckout: React.FunctionComponent = () => {
               <input
                 value={phoneNumber}
                 className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={e => setPhoneNumber(e.currentTarget.value)}
+                onChange={(e) => setPhoneNumber(e.currentTarget.value)}
               />
             </div>
           </div>
@@ -103,19 +114,24 @@ export const UserCheckout: React.FunctionComponent = () => {
               <input
                 value={emailAddress}
                 className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={e => setEmailAddress(e.currentTarget.value)}
+                onChange={(e) => setEmailAddress(e.currentTarget.value)}
               />
             </div>
           </div>
         </form>
       </div>
-      <div className="fr tl w-40-ns">
+      {/* <div className="fr tl w-40-ns">
         <h3 className="fw7 mb0 pb2">Order Summary</h3>
         <p className="bb pb4">2 Items</p>
         <p> Merchandise</p>
         <p className="bb pb4"> Shipping</p>
         <h3 className="fw7 mb0 pb2">Estimated Total</h3>
-      </div>
+      </div> */}
+      <Link to="/checkout">
+        <button className="bg-black text-white py-2 px-4 rounded gt text-right">
+          Checkout
+        </button>
+      </Link>
     </div>
-  )
-}
+  );
+};
