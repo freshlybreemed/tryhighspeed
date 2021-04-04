@@ -8,6 +8,7 @@ import { File, WooProduct } from "../lib/types";
 import styled from "styled-components";
 import App from "../components/App";
 import axios from "axios";
+import { useAppContainer } from "../containers/appContainer";
 
 const headers = "text-3xl gt mb-8";
 
@@ -149,11 +150,15 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
       }
     }
   `);
-  const [emailAddress, setEmailAddress] = useState("");
-  const [emailSent, setEmailSet] = useState(false);
+  const {
+    emailAddress,
+    emailSent,
+    setEmailAddress,
+    setEmailSent,
+  } = useAppContainer();
 
   const subscriber = () => {
-    setEmailSet(true);
+    setEmailSent();
     axios.post("/api/subscriber", {
       email: emailAddress,
     });

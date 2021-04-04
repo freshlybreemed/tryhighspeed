@@ -4,7 +4,7 @@ import React from "react";
 import { UserCheckout } from "../components/userCheckoutForm";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import Img from "gatsby-image";
-import { useCartContainer } from "../components/cartContainer";
+import { useCartContainer } from "../containers/cartContainer";
 import { WooProduct } from "../lib/types";
 import { formatPrice } from "../lib";
 

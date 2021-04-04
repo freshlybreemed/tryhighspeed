@@ -4,7 +4,7 @@ import { graphql, Link, useStaticQuery } from "gatsby";
 import Layout from "../components/layout";
 import Img from "gatsby-image";
 import SEO from "../components/seo";
-import { useCartContainer } from "../components/cartContainer";
+import { useCartContainer } from "../containers/cartContainer";
 import { WooProduct } from "../lib/types";
 import { formatPrice } from "../lib";
 
