@@ -164,7 +164,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
         </div>
         <h3 className={headers}>Description</h3>
         <div
-          className="pt2-ns mt2 pt1 pb-3 gt pt-4 mt-4 text-xl"
+          className="pt2-ns mt2 pt1 pb-3 gt pt-2 mt-2 text-xl"
           dangerouslySetInnerHTML={{ __html: node.description }}
         />
       </div>
