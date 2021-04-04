@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 
 import Layout from "../components/layout";
@@ -54,7 +54,7 @@ const CartPage = () => {
       }
     }
   `);
-  const [aeroReady, setAeroReady] = useState(false);
+  // const [aeroReady, setAeroReady] = useState(false);
   const { cart, lineItems, removeFromCart } = useCartContainer();
   console.log(edges, lineItems);
   const items = lineItems.map((line) => {

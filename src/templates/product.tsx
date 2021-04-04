@@ -2,7 +2,7 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { formatPrice } from "../lib";
 import Img from "gatsby-image";
-import { useProductContainer } from "./productContainer";
+import { useProductContainer } from "../containers/productContainer";
 import React, { useEffect } from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { AllWcProducts, WooProduct } from "../lib/types";
