@@ -1,11 +1,24 @@
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { formatPrice } from "../lib"
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import { formatPrice } from "../lib";
+import Img from "gatsby-image";
+import { useProductContainer } from "../containers/productContainer";
+import React, { useEffect } from "react";
+import { graphql, useStaticQuery } from "gatsby";
+import { AllWcProducts, WooProduct } from "../lib/types";
 
-import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
+interface ProductPageProps {
+  pageContext: {
+    title: string;
+    wordId: string;
+    slug: string;
+    price: string;
+    image: any;
+  };
+}
+const headers = "text-3xl gt mt-8";
 
-const ProductPage = ({ pageContext }) => {
+const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   const { allWcProducts } = useStaticQuery(graphql`
     {
       allWcProducts {
@@ -15,7 +28,9 @@ const ProductPage = ({ pageContext }) => {
             name
             price
             wordpress_id
+            slug
             description
+            short_description
             images {
               localFile {
                 childImageSharp {
@@ -24,83 +39,137 @@ const ProductPage = ({ pageContext }) => {
                   }
                 }
               }
+              src
+            }
+            product_variations {
+              id
+              price
+              attributes {
+                name
+                option
+              }
             }
           }
         }
       }
     }
-  `)
-  const { node } = allWcProducts.edges.filter(
-    product => product.node.wordpress_id === pageContext.wordId
-  )[0]
-  const { images } = node
-  console.log(pageContext, allWcProducts, node)
+  `);
+
+  const {
+    setProduct,
+    setAddedToCart,
+    addedToCart,
+    productVariants,
+    options,
+    setOption,
+    currentProductVariant,
+    selectProductVariant,
+    lineItems,
+    addToCart,
+  } = useProductContainer();
+
+  const { node }: { node: WooProduct } = allWcProducts.edges.filter(
+    (product: AllWcProducts) => product.node.slug === pageContext.slug
+  )[0];
+
+  useEffect(() => {
+    setProduct(node);
+  }, [node]);
+
+  useEffect(() => {
+    if (options) {
+      selectProductVariant(options);
+    }
+  }, [productVariants, options]);
+
+  const addItem = () => {
+    const lineItem = {
+      product_id: node.wordpress_id,
+      variation_id: currentProductVariant.id,
+      quantity: 1,
+    };
+    addToCart(lineItem);
+    setAddedToCart();
+    console.log(lineItems);
+  };
+
+  const { images } = node;
+  const buttonText = !productVariants.length
+    ? "Sold Out"
+    : addedToCart
+    ? "Added to Cart!"
+    : `Add to Cart
+                ${
+                  currentProductVariant &&
+                  ` - 
+                  ${formatPrice(currentProductVariant.price)}`
+                }`;
+  console.log(productVariants, allWcProducts, node);
   return (
     <Layout>
       <SEO title={pageContext.title} />
-      <div className="mw6 tc center">
-        <div className="mt4 pt4 mb2 tc">
-          <img
-            className="w-60 db center"
-            src={images[0].localFile.childImageSharp.fluid.src}
-          />
-          <h1 style={{ borderBottomWidth: "5px" }} className=" pb3 bb">
-            {" "}
-            {pageContext.title}
-          </h1>
-          <p>{formatPrice(pageContext.price)}</p>
-          <div
-            className="pt2-ns mt2 pt1 lh-title "
-            dangerouslySetInnerHTML={{ __html: node.description }}
-          />
-        </div>
-
-        <p className="tc">Plants with Love™</p>
-        <form className="mw5 center">
-          <div className="dib relative noselect w-100 ">
-            <div
-              style={{ minHeight: "46px" }}
-              className="ba pa3 bw15 tc overflow-hidden relative "
-            >
-              <div
-                style={{ letterSpacing: "2px" }}
-                className="truncate v-mid ttu fw6 f6 w-100"
+      <div className="mx-8">
+        <div className="pt-5 mt-5 grid grid-cols-1 md:grid-cols-2 ">
+          {node.images[0].localFile ? (
+            <Img
+              className="md:w-full w-3/4 mx-auto md:mr-5 mb-5 md:mb-0"
+              fluid={images[0].localFile.childImageSharp.fluid}
+            />
+          ) : (
+            <img className=" md:w-1/3 w-3/4 md:mr-5" src={node.images[0].src} />
+          )}
+          <div className="md:ml-5 w-full rounded-lg md:w-full mx-auto cubano bg-gray-500 p-5">
+            <h1 className="text-3xl mb-4">{node.name}</h1>
+            <p
+              className="pt2-ns mt2 pt1 pb-3 text-xl gt"
+              dangerouslySetInnerHTML={{ __html: node.short_description }}
+            />
+            <div className="flex flex-col items-start">
+              {Object.keys(options).map((option: string) => {
+                return (
+                  <div className="pb-2 w-full">
+                    <label
+                      htmlFor="country"
+                      className="block text-md font-medium text-gray-700"
+                    >
+                      {option}
+                    </label>
+                    <select
+                      id="amount"
+                      name="amount"
+                      onChange={(e) =>
+                        setOption({ name: option, option: e.target.value })
+                      }
+                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 md:text-md"
+                    >
+                      {options[option].map((variant, id) => {
+                        return (
+                          <option key={id} value={variant}>
+                            {variant}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                );
+              })}
+              <button
+                onClick={addItem}
+                className="bg-black text-white w-full p-3 rounded-md"
               >
-                Love
-              </div>
-            </div>
-            <div
-              style={{ minHeight: "46px" }}
-              className="bl br  pa1  bw15 tc justify-between items-center flex relative "
-            >
-              <button className="pointer bn w-10 ma2 fw3 bg-transparent">
-                -
+                {buttonText}
               </button>
-              <input
-                style={{ letterSpacing: "2px" }}
-                className="truncate v-mid fw6 f6 bn tc w-100"
-                defaultValue={1}
-              />
-              <button className="pointer bn w-10 ma2 fw1 bg-transparent mr2">
-                +
-              </button>
-            </div>
-            <div
-              style={{ minHeight: "46px" }}
-              className="ba pa3 bw15 tc overflow-hidden relative "
-            >
-              <div
-                style={{ letterSpacing: "2px" }}
-                className="truncate v-mid ttu fw6 f6 w-100"
-              >
-                Add to Cart
-              </div>
             </div>
           </div>
-        </form>
+        </div>
+        <h3 className={headers}>Description</h3>
+        <div
+          className="pt2-ns mt2 pt1 pb-3 gt pt-4 mt-4 text-xl"
+          dangerouslySetInnerHTML={{ __html: node.description }}
+        />
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default ProductPage
+export default ProductPage;

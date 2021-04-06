@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "Cubano";
+  src: local("Cubano"),
+    url("../fonts/Cubano.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "GTEestiProDisplay";
+  src: local("GTEestiProDisplay"),
+    url("../fonts/GTEestiProDisplay-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+.cubano {
+  font-family: "Cubano";
+}
+.gt {
+  font-family: "GTEestiProDisplay";
+}
+h3 {
+  font-size: 50px;
+}

@@ -1,14 +1,26 @@
-import React from "react"
-import { graphql, Link, useStaticQuery } from "gatsby"
+import React, { useEffect, useState } from "react";
+import { graphql, Link, useStaticQuery } from "gatsby";
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import Layout from "../components/layout";
+import Img from "gatsby-image";
+import SEO from "../components/seo";
+import { useCartContainer } from "../containers/cartContainer";
+import { WooProduct } from "../lib/types";
+import { formatPrice } from "../lib";
 
+type Products = {
+  allWcProducts: {
+    edges: [
+      {
+        node: WooProduct;
+      }
+    ];
+  };
+};
 const CartPage = () => {
   const {
     allWcProducts: { edges },
-  } = useStaticQuery(graphql`
+  }: Products = useStaticQuery(graphql`
     {
       allWcProducts {
         edges {
@@ -29,27 +41,146 @@ const CartPage = () => {
             categories {
               wordpress_id
             }
+            product_variations {
+              id
+              price
+              attributes {
+                name
+                option
+              }
+            }
           }
         }
       }
     }
-  `)
-  console.log(edges)
+  `);
+  // const [aeroReady, setAeroReady] = useState(false);
+  const { cart, lineItems, removeFromCart } = useCartContainer();
+  console.log(edges, lineItems);
+  const items = lineItems.map((line) => {
+    const item = edges.filter(
+      (prod) => prod.node.wordpress_id === line.product_id
+    )[0].node;
+    const variant = item.product_variations.filter(
+      (vari) => vari.id === line.variation_id
+    )[0];
+    const speed = variant.attributes.filter((attr) => attr.name === "Speed")[0];
+    variant.attributes = variant.attributes.filter(
+      (attr) => attr.name !== "Speed"
+    );
+    return {
+      ...line,
+      price: variant.price,
+      variant,
+      speed,
+      ...item,
+    };
+  });
+  console.log(items);
+  // edges.filter(product=> product.id lineItems.indexOf())
   return (
     <Layout>
       <div className="pl2 ml2 ">
         <SEO title="Home" />
         <div className="pv3 mv3 ">
-          <h1 className="fw3 f1">Your Shopping Cart</h1>
+          <h1 className="fw3 mb-3 pb-3 text-3xl cubano text-center f1">
+            Your Shopping Cart
+          </h1>
         </div>
-        <p className="tc f3 fw3">Your shopping cart is empty</p>
-        <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-          <Image />
+        <div className="w-11/12 rounded-lg bg-white m-auto p-4">
+          {lineItems.length ? (
+            <div>
+              <table className="min-w-full m-4">
+                <thead>
+                  <tr className="text-left cubano">
+                    <th>Product</th>
+                    <th>Total</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((product, key) => {
+                    return (
+                      <tr key={key} className="text-left my-2">
+                        <td>
+                          <div className="flex items-center">
+                            <Img
+                              className="sm:w-10 w-8"
+                              fluid={
+                                product.images[0].localFile.childImageSharp
+                                  .fluid
+                              }
+                            ></Img>
+                            <div className="pl-2">
+                              <p className="text-sm">{product.name}</p>
+                              {product.variant.attributes.map((attr) => {
+                                return (
+                                  <p className="text-xs text-gray-600 font-semibold">
+                                    {attr.option}
+                                  </p>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </td>
+                        <td className="text-xs">
+                          {formatPrice(product.price)}
+                        </td>
+                        <td className="text-xs">
+                          <button
+                            className="p-2 bg-black text-white rounded"
+                            onClick={() => removeFromCart(key)}
+                          >
+                            X
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              {/* {aeroReady && <div id="aeropay-button-container" />} */}
+              <Link to="/checkout" className="float-right">
+                <button className="bg-black text-white py-2 px-4 rounded gt ">
+                  Checkout
+                </button>
+              </Link>
+            </div>
+          ) : lineItems.length === 0 ? (
+            <div>
+              <p className="text-center text-lg gt">Cart is empty :(</p>
+              <Link to="/shop">
+                <button className="bg-black text-white py-2 px-4 rounded gt text-right">
+                  Go Shop
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <svg
+              className="animate-spin mx-auto h-10 w-10 text-black"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          )}
         </div>
-        <Link to="/checkout">Checkout</Link> <br />
-        <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
+        <br />
       </div>
     </Layout>
-  )
-}
-export default CartPage
+  );
+};
+export default CartPage;
