@@ -7,7 +7,8 @@ import { formatPrice } from "../lib";
 import { WooProduct } from "../lib/types";
 import App from "../components/App";
 
-const headers = "fw3 mb-3 pb-3 text-3xl cubano text-center f1";
+const headers =
+  "fw3 pt-10 mt-10 mb-10  text-3xl cubano text-center sm:text-left f1";
 
 interface HomeProps {
   edges: [
@@ -93,7 +94,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
     <App>
       <Layout>
         <SEO title="Shop" />
-        <div className="ml-8 pb-5">
+        <div className="mx-8 pb-5">
           <h3 className={headers}>Shop the Products You Love</h3>
         </div>
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 mb-32">
@@ -109,7 +110,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                 >
                   <div className="flex justify-between">
                     <span className="black no-underline w-2/3 pr-2">
-                      <h3 className="text-xl fw8 pl-2 mt2 mb0 ttu cubano">
+                      <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
                         {node.name}
                       </h3>
                     </span>
@@ -127,7 +128,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                   </div>
                   <div>
                     <div
-                      className="mt-6 mb-3 gt"
+                      className="mt-6 mb-3 gt  text-xl sm:text-lg md:text-xl"
                       dangerouslySetInnerHTML={{
                         __html: node.short_description,
                       }}

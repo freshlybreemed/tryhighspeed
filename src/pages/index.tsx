@@ -10,7 +10,7 @@ import App from "../components/App";
 import axios from "axios";
 import { useAppContainer } from "../containers/appContainer";
 
-const headers = "text-3xl gt mb-8";
+const headers = "text-3xl cubano my-8";
 
 const Slider = styled.div`
   height: 50px;
@@ -172,10 +172,25 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
         className="w-70 db center"
         src="https://tryhighspeed.com/wp-content/uploads/2019/05/tabletophighspeed.jpg"
       /> */}
-        <div className="mt-32 mb-32 pt-32 pb-32 ml-8">
-          <h1 className="text-5xl pb-5 cubano">Wellness, Delivered</h1>
-          <h3 className="text-2xl gt">Now Serving DC + Boston + NYC</h3>
-        </div>
+
+        <main
+          className="h-full flex items-center py-40 lg:py-48 xl:py-60 pl-10 pr-30 bg-purple-900 text-white relative"
+          style={{
+            "background-image":
+              "url('https://tryhighspeed.com/wp-content/uploads/2019/05/tabletophighspeed.jpg')",
+            "background-position": "center" /* Center the image */,
+            "background-repeat": "no-repeat" /* Do not repeat the image */,
+            "background-size": "cover",
+          }}
+        >
+          <section className="w-full md:w-9/12 xl:w-8/12">
+            <h1 className="text-5xl pb-5 cubano">Wellness, Delivered</h1>
+            <span className="font-bold text-2xl gt tracking-wide">
+              Now Serving DC + Boston + NYC
+            </span>
+          </section>
+        </main>
+
         <div className="ml-8 pb-5">
           <h3 className={headers}>Shop the Products You Love</h3>
         </div>
@@ -192,7 +207,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                 >
                   <div className="flex justify-between">
                     <span className="black no-underline w-2/3 pr-2">
-                      <h3 className="text-xl fw8 pl-2 mt2 mb0 ttu cubano">
+                      <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
                         {node.name}
                       </h3>
                     </span>
@@ -210,7 +225,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                   </div>
                   <div>
                     <div
-                      className="mt-6 mb-3 gt"
+                      className="mt-6 mb-3 gt  text-xl sm:text-lg md:text-xl"
                       dangerouslySetInnerHTML={{
                         __html: node.short_description,
                       }}
@@ -254,7 +269,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
             </h3>
           </div>
           <div className="text-center sm:w-5/6 mx-auto gt">
-            <p className="text-lg mx-auto w-5/6 pb-2">
+            <p className="text-xl mx-auto w-5/6 pb-2">
               Subscribe to get some serious deals to rock your day.
             </p>
             <input
