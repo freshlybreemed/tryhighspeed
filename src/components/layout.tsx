@@ -110,13 +110,13 @@ const Layout = ({ children }) => {
             </div>
           </div>
         </SlidingMenu>
-        <footer className="mt-40 pb-4">
+        <footer className="mt-40 pb-4 text-xl gt">
           <div className="flex mb-4">
-            <ul className="list-none gt  ml-5">
+            <ul className="list-none ml-5">
               <li>About</li>
               <li>Cities</li>
             </ul>
-            <ul className="list-none gt ml-8">
+            <ul className="list-none  ml-8">
               <li>
                 <a href="/faq">FAQ</a>
               </li>
@@ -128,7 +128,7 @@ const Layout = ({ children }) => {
               </li>
             </ul>
           </div>
-          <div className="text-center gt text-sm ">
+          <div className="text-center text-sm ">
             © {new Date().getFullYear()}, High Speed Inc. All Rights Reserved
           </div>
         </footer>

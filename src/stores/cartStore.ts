@@ -30,6 +30,8 @@ type cartSelectors = {
   currentProduct: WooProduct;
   amount: string;
   speed: string;
+  couponCode: string;
+  setCouponCode: (coupon: string) => void;
   setProduct: (product: WooProduct) => void;
   addToCart: (lineItem: LineItem) => void;
   removeFromCart: (itemIndex: number) => void;
@@ -79,7 +81,9 @@ export const useCartStore = create<cartSelectors>(
     currentProduct: {},
     amount: "",
     speed: "",
+    couponCode: "",
     addedToCart: false,
+    setCouponCode: (coupon: string) => set({ couponCode: coupon }),
     setProduct: (product: WooProduct) => set({ currentProduct: product }),
     addToCart: (item: LineItem) => {
       set({ lineItems: [...get().lineItems, item] });

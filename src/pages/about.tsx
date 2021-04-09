@@ -6,10 +6,7 @@ import React from "react";
 const ProductPage = () => (
   <Layout>
     <SEO title="FAQ" />
-    <div className="pv3 mv3 ">
-      <h1 className="fw3 mb-3 pb-3 text-3xl cubano text-center f1">Why?</h1>
-    </div>
-    <div className="overflow-hidden tc center">
+    <div className="overflow-hidden hidden sm:inline-block tc center">
       <video
         style={{
           objectFit: "cover",
@@ -29,12 +26,15 @@ const ProductPage = () => (
         />
       </video>
     </div>
+    <div className="pv3 mv3 ">
+      <h1 className="fw3 my-3 py-3 text-3xl cubano text-center f1">Why?</h1>
+    </div>
     <div className="mx-5 text-xl">
-      <p className="my-2">
+      <p className="my-2 leading-8">
         Our mission has been very clear from the beginning. Destigmatize
         Marijuana and Rebrand Cannabis. We are are a cultural hub.
       </p>
-      <p className="my-2">
+      <p className="my-2 py-2 leading-8">
         Since July 2015, we have embraced that notion. From Walkathons in
         collaboration with CURE, to an Art Show with an emphasis on local
         talent, to a full fledged juice outfit geared to set foot in every major
@@ -42,7 +42,12 @@ const ProductPage = () => (
         a new frontier. We pride ourselves on being innovators in spaces that
         have been limited for years!
       </p>
-      <p className="my-2 text-bold">More questions? tryhighspeed@gmail.com</p>
+      <p className="my-2 text-bold">
+        More questions?{" "}
+        <a className="font-bold" href="mailto:tryhighspeed@gmail.com">
+          tryhighspeed@gmail.com
+        </a>
+      </p>
     </div>
   </Layout>
 );

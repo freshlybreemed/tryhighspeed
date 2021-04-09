@@ -2,6 +2,8 @@ import { Link } from "gatsby";
 import React, { useState } from "react";
 import { useCheckoutContainer } from "../containers/checkoutContainer";
 
+const inputStyles = "border-2 border-black";
+const labelStyles = "mt-2";
 export const UserCheckout: React.FunctionComponent = () => {
   const {
     firstName,
@@ -23,97 +25,84 @@ export const UserCheckout: React.FunctionComponent = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   return (
-    <div className={"w-100 ph4 pt4 bg- black"}>
-      <div className="w-60-ns w-100 fl">
-        <h3 className="tl fw7 mb0 pb1">Billing Address</h3>
+    <div className={"m-4"}>
+      <div className="">
+        <h3 className="cubano">Billing Address</h3>
         <form>
-          <div className="w-100">
-            <div className="mt1 dtc w-50 pb1 tl ">
-              <small className="db pl2 pt2 pb1  ">First Name</small>
+          <div className="grid gap-2 max-w-xs">
+            <small className="font-bold">First Name</small>
+            <input
+              value={firstName}
+              className={inputStyles}
+              type="text"
+              onChange={(e) => setFirstName(e.currentTarget.value)}
+            />
+            <small className={labelStyles}>Last Name</small>
 
-              <input
-                value={firstName}
-                className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={(e) => setFirstName(e.currentTarget.value)}
-              />
-            </div>
-            <div className="mt1 dtc w-50 pb1 tl">
-              <small className="db pl2 pt2 pb1  ">Last Name</small>
+            <input
+              value={lastName}
+              className={inputStyles}
+              onChange={(e) => setLastName(e.currentTarget.value)}
+            />
 
-              <input
-                value={lastName}
-                className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={(e) => setLastName(e.currentTarget.value)}
-              />
-            </div>
+            <small className={labelStyles}>Address</small>
+
+            <input
+              value={address}
+              className={inputStyles}
+              onChange={(e) => setAddress(e.currentTarget.value)}
+            />
+
+            <small className={labelStyles}>Address #2</small>
+
+            <input
+              value={address2}
+              className={inputStyles}
+              onChange={(e) => setAddress2(e.currentTarget.value)}
+            />
+
+            <small className={labelStyles}>City</small>
+
+            <input
+              value={city}
+              className={inputStyles}
+              onChange={(e) => setCity(e.currentTarget.value)}
+            />
+
+            <small className={labelStyles}>State</small>
+
+            <input
+              value={state}
+              className={inputStyles}
+              onChange={(e) => setState(e.currentTarget.value)}
+            />
+
+            <small className={labelStyles}>ZIP</small>
+
+            <input
+              value={zip}
+              className={inputStyles}
+              onChange={(e) => setZip(e.currentTarget.value)}
+            />
           </div>
           <div>
             <div className="mt1 dtc w-48 pb1 tl ">
-              <small className="db pl2 pt2 pb1  ">Address</small>
-
-              <input
-                value={address}
-                className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={(e) => setAddress(e.currentTarget.value)}
-              />
-            </div>
-            <div className="mt1 dtc w-48 pb1 tl">
-              <small className="db pl2 pt2 pb1  ">Address #2</small>
-
-              <input
-                value={address2}
-                className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={(e) => setAddress2(e.currentTarget.value)}
-              />
-            </div>
-          </div>
-          <div>
-            <div className="mt1 dtc w-48 pb1 tl ">
-              <small className="db pl2 pt2 pb1  ">City</small>
-
-              <input
-                value={city}
-                className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={(e) => setCity(e.currentTarget.value)}
-              />
-            </div>
-            <div className="mt1 dtc w-48 pb1 tl">
-              <small className="db pl2 pt2 pb1  ">State</small>
-
-              <input
-                value={state}
-                className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={(e) => setState(e.currentTarget.value)}
-              />
-            </div>
-            <div className="mt1 dtc w-48 pb1 tl">
-              <small className="db pl2 pt2 pb1  ">ZIP</small>
-
-              <input
-                value={zip}
-                className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
-                onChange={(e) => setZip(e.currentTarget.value)}
-              />
-            </div>
-          </div>
-          <div>
-            <div className="mt1 dtc w-48 pb1 tl ">
-              <small className="db pl2 pt2 pb1  ">Phone Number</small>
+              <small className={labelStyles}>Phone Number</small>
 
               <input
                 value={phoneNumber}
-                className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
+                className={inputStyles}
                 onChange={(e) => setPhoneNumber(e.currentTarget.value)}
               />
             </div>
           </div>
           <div>
             <div className="mt1 dtc w-48 pb1 tl ">
-              <small className="db pl2 pt2 pb1  ">Email Address</small>
+              <small className={labelStyles}>Email Address</small>
 
               <input
                 value={emailAddress}
-                className="bg-transparent ba-hover  pv2 pl2 mr3 w-90"
+                className={inputStyles}
                 onChange={(e) => setEmailAddress(e.currentTarget.value)}
               />
             </div>
