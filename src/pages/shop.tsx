@@ -113,8 +113,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
             .map((edge) => {
               const { node } = edge;
               return (
-                <Link
-                  to={`/products/${node.slug}`}
+                <div
                   className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
                   key={node.wordpress_id}
                 >
@@ -136,23 +135,25 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                       />
                     )}
                   </div>
-                  <div>
-                    <div
-                      className="mt-6 mb-3 gt  text-xl sm:text-lg md:text-xl"
-                      dangerouslySetInnerHTML={{
-                        __html: node.short_description,
-                      }}
-                    />
+                  <div
+                    className="mt-6 mb-3 gt  text-xl sm:text-lg md:text-xl"
+                    dangerouslySetInnerHTML={{
+                      __html: node.short_description,
+                    }}
+                  />
+                  <div className="items-end">
+                    <div className="gt flex justify-between">
+                      <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
+                        {formatPrice(node.price)}
+                      </h4>
+                      <Link to={`/products/${node.slug}`}>
+                        <button className="float-right bg-black rounded-sm py-1 px-3 text-white">
+                          SHOP
+                        </button>
+                      </Link>
+                    </div>
                   </div>
-                  <div className="gt flex justify-between items-baseline">
-                    <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
-                      {formatPrice(node.price)}
-                    </h4>
-                    <button className="float-right bg-black rounded-sm py-1 px-3 text-white">
-                      SHOP
-                    </button>
-                  </div>
-                </Link>
+                </div>
               );
             })}
         </div>
