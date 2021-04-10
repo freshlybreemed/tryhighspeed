@@ -3,8 +3,8 @@ import SEO from "../components/seo";
 import { formatPrice } from "../lib";
 import Img from "gatsby-image";
 import { useProductContainer } from "../containers/productContainer";
-import React, { useEffect } from "react";
-import { graphql, useStaticQuery } from "gatsby";
+import React, { useEffect, useState } from "react";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import { AllWcProducts, WooProduct } from "../lib/types";
 import { useAppContainer } from "../containers/appContainer";
 
@@ -183,9 +183,61 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
         </div>
         <h3 className={headers}>Description</h3>
         <div
-          className="pt2-ns mt2 pt1 pb-3 gt pt-2 mt-2 text-xl"
+          className="pt2-ns pb-3 gt text-xl"
           dangerouslySetInnerHTML={{ __html: node.description }}
         />
+        <h3 className={headers}>You May Also Like</h3>
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mb-32">
+          {edges
+            .filter(
+              (edge) =>
+                edge.node.status === "publish" &&
+                edge.node.wordpress_id !== node.wordpress_id
+            )
+            .map((edge) => {
+              const { node } = edge;
+              console.log(edge);
+              return (
+                <div
+                  className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
+                  key={node.wordpress_id}
+                >
+                  <div className="flex justify-between">
+                    <span className="black no-underline w-2/3 pr-2">
+                      <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
+                        {node.name}
+                      </h3>
+                    </span>
+                    {node.images[0].localFile ? (
+                      <Img
+                        className="object-none w-1/3 float-right w-24 "
+                        fluid={node.images[0].localFile.childImageSharp.fluid}
+                      />
+                    ) : (
+                      <img
+                        className=" w-1/3 float-right w-24 cover "
+                        src={node.images[0].src}
+                      />
+                    )}
+                  </div>
+                  <div className="items-end mt-5">
+                    <div className="gt flex justify-between">
+                      <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
+                        {formatPrice(node.price)}
+                      </h4>
+                      <Link to={`/products/${node.slug}`}>
+                        <button className="float-right bg-black hover:bg-white hover:text-black rounded-sm py-1 px-3 text-white">
+                          SHOP
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+            .sort(() => Math.random() - 0.5)
+            .slice(3)}
+        </div>
       </div>
     </Layout>
   );
