@@ -6,6 +6,7 @@ import { useProductContainer } from "../containers/productContainer";
 import React, { useEffect } from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { AllWcProducts, WooProduct } from "../lib/types";
+import { useAppContainer } from "../containers/appContainer";
 
 interface ProductPageProps {
   pageContext: {
@@ -71,10 +72,19 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   const { node }: { node: WooProduct } = allWcProducts.edges.filter(
     (product: AllWcProducts) => product.node.slug === pageContext.slug
   )[0];
+  const { headerHeight, setHeaderHeight } = useAppContainer();
 
   useEffect(() => {
     setProduct(node);
   }, [node]);
+
+  useEffect(() => {
+    if (document && headerHeight !== 0) {
+      const header = document.getElementById("header");
+      console.log(header);
+      setHeaderHeight(header?.clientHeight || 0);
+    }
+  });
 
   useEffect(() => {
     if (options) {
@@ -108,8 +118,9 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   return (
     <Layout>
       <SEO title={pageContext.title} />
+      <div style={{ height: `${headerHeight}px`, width: 0 }} />
       <div className="mx-8">
-        <div className="pt-5 mt-5 grid grid-cols-1 md:grid-cols-2 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 ">
           {node.images[0].localFile ? (
             <Img
               className="md:w-full w-3/4 mx-auto md:mr-5 mb-5 md:mb-0"

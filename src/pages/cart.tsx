@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 
 import Layout from "../components/layout";
 import Img from "gatsby-image";
 import SEO from "../components/seo";
 import { useCartContainer } from "../containers/cartContainer";
+import { useAppContainer } from "../containers/appContainer";
 import { WooProduct } from "../lib/types";
 import { formatPrice } from "../lib";
 
@@ -55,8 +56,9 @@ const CartPage = () => {
     }
   `);
   // const [aeroReady, setAeroReady] = useState(false);
-  const { cart, lineItems, removeFromCart } = useCartContainer();
-  console.log(edges, lineItems);
+  const { lineItems, removeFromCart } = useCartContainer();
+  const { headerHeight, setHeaderHeight } = useAppContainer();
+
   const items = lineItems.map((line) => {
     const item = edges.filter(
       (prod) => prod.node.wordpress_id === line.product_id
@@ -70,20 +72,27 @@ const CartPage = () => {
     );
     return {
       ...line,
-      price: variant.price,
       variant,
       speed,
       ...item,
+      price: variant.price,
     };
   });
   console.log(items);
   // edges.filter(product=> product.id lineItems.indexOf())
+  useEffect(() => {
+    if (document) {
+      const header = document.getElementById("header");
+      setHeaderHeight(header?.clientHeight || 0);
+    }
+  });
+
   return (
     <Layout>
-      <div className="pl2 ml2 ">
+      <div className="mx-8">
         <SEO title="Home" />
-        <div className="pv3 mv3 ">
-          <h1 className="fw3 mb-3 pb-3 text-3xl cubano text-center f1">
+        <div style={{ height: `${headerHeight}px`, width: 0 }} />
+
             Your Shopping Cart
           </h1>
         </div>
