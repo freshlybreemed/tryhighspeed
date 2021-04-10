@@ -16,8 +16,14 @@ interface ProductPageProps {
     price: string;
     image: any;
   };
+  edges: [
+    {
+      node: WooProduct;
+    }
+  ];
 }
-const headers = "text-3xl gt mt-8";
+
+const headers = "text-3xl cubano my-8";
 
 const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   const { allWcProducts } = useStaticQuery(graphql`
@@ -30,6 +36,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
             price
             wordpress_id
             slug
+            status
             description
             short_description
             images {
@@ -72,6 +79,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   const { node }: { node: WooProduct } = allWcProducts.edges.filter(
     (product: AllWcProducts) => product.node.slug === pageContext.slug
   )[0];
+  const { edges }: { edges: ProductPageProps["edges"] } = allWcProducts;
   const { headerHeight, setHeaderHeight } = useAppContainer();
 
   useEffect(() => {

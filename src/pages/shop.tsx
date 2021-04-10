@@ -22,7 +22,6 @@ interface HomeProps {
 const IndexPage: React.FunctionComponent<HomeProps> = () => {
   const {
     allWcProducts: { edges },
-    allFile,
   }: {
     allWcProducts: { edges: HomeProps["edges"] };
     allFile: HomeProps["allFile"];

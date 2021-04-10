@@ -84,7 +84,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
     allWcProducts: { edges },
     allFile,
   }: {
-    allWcProducts: { edges: HomeProps };
+    allWcProducts: { edges: HomeProps["edges"] };
     allFile: HomeProps["allFile"];
   } = useStaticQuery(graphql`
     {
@@ -168,24 +168,27 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
     <App>
       <Layout>
         <SEO title="Home" />
-        {/* <img
-        className="w-70 db center"
-        src="https://tryhighspeed.com/wp-content/uploads/2019/05/tabletophighspeed.jpg"
-      /> */}
-
         <main
           className="h-full flex items-center py-40 lg:py-48 xl:py-60 pl-10 pr-30 bg-purple-900 text-white relative"
           style={{
-            "background-image":
+            backgroundImage:
               "url('https://tryhighspeed.com/wp-content/uploads/2019/05/tabletophighspeed.jpg')",
-            "background-position": "center" /* Center the image */,
-            "background-repeat": "no-repeat" /* Do not repeat the image */,
-            "background-size": "cover",
+            backgroundPosition: "center" /* Center the image */,
+            backgroundRepeat: "no-repeat" /* Do not repeat the image */,
+            backgroundSize: "cover",
           }}
         >
           <section className="w-full md:w-9/12 xl:w-8/12">
-            <h1 className="text-5xl pb-5 cubano">Wellness, Delivered</h1>
-            <span className="font-bold text-2xl gt tracking-wide">
+            <h1
+              // style={{ "text-shadow": "0 0.5px 0 black" }}
+              className="sm:text-5xl  text-3xl pb-5 cubano"
+            >
+              Wellness, Delivered
+            </h1>
+            <span
+              // style={{ "text-shadow": "0 .5px 0 black" }}
+              className="font-bold sm:text-2xl  text-lg gt tracking-wide"
+            >
               Now Serving DC + Boston + NYC
             </span>
           </section>

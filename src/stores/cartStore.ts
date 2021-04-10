@@ -3,7 +3,7 @@ import { WooProduct } from "../lib/types";
 // import { persist } from "zustand/middleware";
 
 type LineItem = {
-  product_id: number;
+  product_id: string;
   variation_id: number;
   quantity: number;
 };
