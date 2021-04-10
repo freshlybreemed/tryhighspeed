@@ -31,6 +31,7 @@ export type WooProduct = {
   product_variations: ProductVariations[];
   images: [
     {
+      src: string;
       localFile: {
         childImageSharp: {
           fluid: any;

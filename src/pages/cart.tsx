@@ -18,6 +18,9 @@ type Products = {
     ];
   };
 };
+const headers =
+  "fw3 pt-10 mt-10 mb-5 text-3xl cubano text-center sm:text-left f1";
+
 const CartPage = () => {
   const {
     allWcProducts: { edges },
@@ -78,7 +81,7 @@ const CartPage = () => {
       price: variant.price,
     };
   });
-  console.log(items);
+
   // edges.filter(product=> product.id lineItems.indexOf())
   useEffect(() => {
     if (document) {
