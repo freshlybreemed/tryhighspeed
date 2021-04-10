@@ -82,7 +82,11 @@ const CartPage = () => {
     };
   });
 
-  // edges.filter(product=> product.id lineItems.indexOf())
+  const getSubtotal: number = items.reduce(
+    (prev, item) => parseInt(item.price) + prev,
+    0
+  );
+
   useEffect(() => {
     if (document) {
       const header = document.getElementById("header");
@@ -96,10 +100,8 @@ const CartPage = () => {
         <SEO title="Home" />
         <div style={{ height: `${headerHeight}px`, width: 0 }} />
 
-            Your Shopping Cart
-          </h1>
-        </div>
-        <div className="w-11/12 rounded-lg bg-white m-auto p-4">
+        <h1 className={headers}>Your Shopping Cart</h1>
+        <div className="w-11/12 rounded-lg bg-gray-500 w-full p-4">
           {lineItems.length ? (
             <div>
               <table className="min-w-full m-4">
@@ -151,6 +153,8 @@ const CartPage = () => {
                   })}
                 </tbody>
               </table>
+              <h3>Subtotal</h3>
+              <h3>{formatPrice(getSubtotal.toString())}</h3>
               {/* {aeroReady && <div id="aeropay-button-container" />} */}
               <Link to="/checkout" className="float-right">
                 <button className="bg-black text-white py-2 px-4 rounded gt ">
@@ -160,12 +164,21 @@ const CartPage = () => {
             </div>
           ) : lineItems.length === 0 ? (
             <div>
-              <p className="text-center text-lg gt">Cart is empty :(</p>
-              <Link to="/shop">
-                <button className="bg-black text-white py-2 px-4 rounded gt text-right">
-                  Go Shop
-                </button>
-              </Link>
+              <p className="text-center mt-4 align-middle text-lg gt">
+                Cart is empty :(
+              </p>
+              <div
+                style={{
+                  minHeight: "5rem",
+                }}
+                className="flex  items-end flex-row-reverse"
+              >
+                <Link to="/shop">
+                  <button className="bg-black text-white py-2 px-4 rounded gt ">
+                    Go Shop
+                  </button>
+                </Link>
+              </div>
             </div>
           ) : (
             <svg
