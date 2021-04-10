@@ -10,7 +10,7 @@ import App from "../components/App";
 import axios from "axios";
 import { useAppContainer } from "../containers/appContainer";
 
-const headers = "text-3xl cubano my-8";
+const headers = "text-3xl cubano mb-5 pt-10 mt-10";
 
 const Slider = styled.div`
   height: 50px;
@@ -191,10 +191,10 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
           </section>
         </main>
 
-        <div className="ml-8 pb-5">
+        <div className="ml-8">
           <h3 className={headers}>Shop the Products You Love</h3>
         </div>
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 mb-32">
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 ">
           {edges
             .filter((edge) => edge.node.status === "publish")
             .map((edge) => {
