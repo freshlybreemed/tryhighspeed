@@ -88,7 +88,7 @@ const CartPage = () => {
   );
 
   useEffect(() => {
-    if (document) {
+    if (document && headerHeight !== 0) {
       const header = document.getElementById("header");
       setHeaderHeight(header?.clientHeight || 0);
     }
