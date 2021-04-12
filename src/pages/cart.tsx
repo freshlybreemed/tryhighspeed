@@ -9,6 +9,7 @@ import { useAppContainer } from "../containers/appContainer";
 import { WooProduct } from "../lib/types";
 import { formatPrice } from "../lib";
 import App from "../components/App";
+import { Button } from "../lib/styles";
 
 type Products = {
   allWcProducts: {
@@ -143,12 +144,12 @@ const CartPage = () => {
                             {formatPrice(product.price)}
                           </td>
                           <td className="text-xs">
-                            <button
+                            <Button
                               className="p-2 bg-black text-white rounded"
                               onClick={() => removeFromCart(key)}
                             >
                               X
-                            </button>
+                            </Button>
                           </td>
                         </tr>
                       );
@@ -159,9 +160,9 @@ const CartPage = () => {
                 <h3>{formatPrice(getSubtotal.toString())}</h3>
                 {/* {aeroReady && <div id="aeropay-button-container" />} */}
                 <Link to="/checkout" className="">
-                  <button className="bg-black text-white py-2 px-4 rounded gt ">
+                  <Button className="bg-black hover:bg-white hover:text-black rounded text-white py-2 px-4 rounded gt ">
                     Checkout
-                  </button>
+                  </Button>
                 </Link>
               </div>
             ) : lineItems.length === 0 ? (
@@ -176,9 +177,9 @@ const CartPage = () => {
                   className="flex  items-end flex-row-reverse"
                 >
                   <Link to="/shop">
-                    <button className="bg-black text-white py-2 px-4 rounded gt ">
+                    <Button className="bg-black text-white py-2 px-4 rounded gt ">
                       Go Shop
-                    </button>
+                    </Button>
                   </Link>
                 </div>
               </div>

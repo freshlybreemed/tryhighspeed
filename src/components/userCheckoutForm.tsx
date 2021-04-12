@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import React, { useState } from "react";
 import { useCheckoutContainer } from "../containers/checkoutContainer";
+import { Button } from "../lib/styles";
 
 const inputStyles = "border-2 border-black";
 const labelStyles = "mt-2";
@@ -117,9 +118,9 @@ export const UserCheckout: React.FunctionComponent = () => {
         <h3 className="fw7 mb0 pb2">Estimated Total</h3>
       </div> */}
       <Link to="/checkout">
-        <button className="bg-black text-white py-2 px-4 rounded gt text-right">
+        <Button className="bg-black text-white py-2 px-4 rounded gt text-right">
           Checkout
-        </button>
+        </Button>
       </Link>
     </div>
   );

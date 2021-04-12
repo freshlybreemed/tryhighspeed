@@ -6,6 +6,7 @@ import { useProductContainer } from "../containers/productContainer";
 import React, { useEffect } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import { AllWcProducts, WooProduct } from "../lib/types";
+import { Button } from "../lib/styles";
 
 interface ProductPageProps {
   pageContext: {
@@ -165,12 +166,12 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                   </div>
                 );
               })}
-              <button
+              <Button
                 onClick={addItem}
-                className="bg-black text-white w-full p-3 rounded-md"
+                className="bg-black outline-none hover:bg-white hover:text-black  text-white w-full p-3 rounded-md"
               >
                 {buttonText}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -221,9 +222,9 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                         {formatPrice(node.price)}
                       </h4>
                       <Link to={`/products/${node.slug}`}>
-                        <button className="float-right bg-black hover:bg-white hover:text-black rounded-sm py-1 px-3 text-white">
+                        <Button className="float-right bg-black hover:bg-white hover:text-black rounded-sm py-1 px-3 text-white">
                           SHOP
-                        </button>
+                        </Button>
                       </Link>
                     </div>
                   </div>

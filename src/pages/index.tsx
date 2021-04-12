@@ -9,6 +9,7 @@ import styled from "styled-components";
 import App from "../components/App";
 import axios from "axios";
 import { useAppContainer } from "../containers/appContainer";
+import { Button } from "../lib/styles";
 
 const headers = "text-3xl cubano mb-5 pt-10 mt-10";
 
@@ -238,9 +239,9 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                     <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
                       {formatPrice(node.price)}
                     </h4>
-                    <button className="float-right bg-black rounded-sm py-1 px-3 text-white">
+                    <Button className="float-right bg-black rounded-sm py-1 px-3 text-white">
                       SHOP
-                    </button>
+                    </Button>
                   </div>
                 </Link>
               );
@@ -281,12 +282,12 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
               onChange={(e) => setEmailAddress(e.target.value)}
               placeholder="Email Address"
             />
-            <button
+            <Button
               onClick={subscriber}
               className="text-center rounded-r text-white bg-black p-2"
             >
               <span className="gt pl-3 pr-3">{subscriberText}</span>
-            </button>
+            </Button>
           </div>
         </div>
       </Layout>
