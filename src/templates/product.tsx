@@ -3,10 +3,9 @@ import SEO from "../components/seo";
 import { formatPrice } from "../lib";
 import Img from "gatsby-image";
 import { useProductContainer } from "../containers/productContainer";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import { AllWcProducts, WooProduct } from "../lib/types";
-import { useAppContainer } from "../containers/appContainer";
 
 interface ProductPageProps {
   pageContext: {
@@ -80,19 +79,10 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
     (product: AllWcProducts) => product.node.slug === pageContext.slug
   )[0];
   const { edges }: { edges: ProductPageProps["edges"] } = allWcProducts;
-  const { headerHeight, setHeaderHeight } = useAppContainer();
 
   useEffect(() => {
     setProduct(node);
   }, [node]);
-
-  useEffect(() => {
-    if (document && headerHeight !== 0) {
-      const header = document.getElementById("header");
-      console.log(header);
-      setHeaderHeight(header?.clientHeight || 0);
-    }
-  });
 
   useEffect(() => {
     if (options) {
@@ -126,7 +116,10 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   return (
     <Layout>
       <SEO title={pageContext.title} />
-      <div style={{ height: `${headerHeight}px`, width: 0 }} />
+      <h1 className="text-4xl mb-4 text-center cubano sm:hidden">
+        {node.name}
+      </h1>
+
       <div className="mx-8">
         <div className="grid grid-cols-1 md:grid-cols-2 ">
           {node.images[0].localFile ? (
@@ -138,7 +131,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
             <img className=" md:w-1/3 w-3/4 md:mr-5" src={node.images[0].src} />
           )}
           <div className="md:ml-5 w-full rounded-lg md:w-full mx-auto cubano bg-gray-500 p-5">
-            <h1 className="text-3xl mb-4">{node.name}</h1>
+            <h1 className="text-3xl mb-4 hidden sm:block">{node.name}</h1>
             <p
               className="pt2-ns mt2 pt1 pb-3 text-xl gt"
               dangerouslySetInnerHTML={{ __html: node.short_description }}
@@ -204,9 +197,11 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                 >
                   <div className="flex justify-between">
                     <span className="black no-underline w-2/3 pr-2">
-                      <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
-                        {node.name}
-                      </h3>
+                      <Link to={`/products/${node.slug}`}>
+                        <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
+                          {node.name}
+                        </h3>
+                      </Link>
                     </span>
                     {node.images[0].localFile ? (
                       <Img
@@ -220,7 +215,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                       />
                     )}
                   </div>
-                  <div className="items-end mt-5">
+                  <div className="items-end mt-5 pt-5">
                     <div className="gt flex justify-between">
                       <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
                         {formatPrice(node.price)}
@@ -236,7 +231,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
               );
             })
             .sort(() => Math.random() - 0.5)
-            .slice(3)}
+            .slice(2)}
         </div>
       </div>
     </Layout>

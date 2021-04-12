@@ -2,9 +2,11 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 
 import React from "react";
+import App from "../components/App";
 
 const ProductPage = () => (
-  <Layout>
+  <App>
+    <Layout>
     <SEO title="FAQ" />
     <div className="overflow-hidden hidden sm:inline-block tc center">
       <video

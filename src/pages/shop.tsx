@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import Img from "gatsby-image";
 import Layout from "../components/layout";
@@ -6,7 +6,6 @@ import SEO from "../components/seo";
 import { formatPrice } from "../lib";
 import { WooProduct } from "../lib/types";
 import App from "../components/App";
-import { useAppContainer } from "../containers/appContainer";
 
 const headers =
   "fw3 pt-10 mt-10 mb-5 text-3xl cubano text-center sm:text-left f1";
@@ -89,21 +88,11 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
       }
     }
   `);
-  const { headerHeight, setHeaderHeight } = useAppContainer();
-
-  useEffect(() => {
-    if (document && headerHeight !== 0) {
-      const header = document.getElementById("header");
-      setHeaderHeight(header?.clientHeight || 0);
-    }
-  });
 
   return (
     <App>
       <Layout>
         <SEO title="Shop" />
-        <div style={{ height: `${headerHeight}px`, width: 0 }} />
-
         <div className="mx-8">
           <h3 className={headers}>Shop the Products You Love</h3>
         </div>
