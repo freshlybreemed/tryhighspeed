@@ -68,17 +68,17 @@ const CartPage = () => {
     const item = edges.filter(
       (prod) => prod.node.wordpress_id === line.product_id
     )[0].node;
+
     const variant = item.product_variations.filter(
       (vari) => vari.id === line.variation_id
     )[0];
-    const speed = variant.attributes.filter((attr) => attr.name === "Speed")[0];
-    variant.attributes = variant.attributes.filter(
-      (attr) => attr.name !== "Speed"
-    );
+
+    const speed = variant.attributes.filter((attr) => attr.name === "Speed");
+
     return {
       ...line,
       variant,
-      speed,
+      speed: speed ? speed[0] : "",
       ...item,
       price: variant.price,
     };
@@ -100,18 +100,22 @@ const CartPage = () => {
     <App>
       <Layout>
         <SEO title="Checkout" />
-        <div className="mx-8">
+        <div className="mx-8 gt">
           <div style={{ height: `${headerHeight}px`, width: 0 }} />
 
           <h1 className={headers}>Your Shopping Cart</h1>
           <div className="w-11/12 rounded-lg bg-gray-500 w-full p-4">
             {lineItems.length ? (
-              <div>
-                <table className="min-w-full m-4">
+              <div className="m-4">
+                <table className="min-w-full pb-5 mb-5">
                   <thead>
                     <tr className="text-left cubano">
-                      <th>Product</th>
-                      <th>Total</th>
+                      <th className="text-sm sm:text-md md:text-lg lg:text-xl">
+                        Product
+                      </th>
+                      <th className="text-sm sm:text-md md:text-lg lg:text-xl">
+                        Total
+                      </th>
                       <th></th>
                     </tr>
                   </thead>
@@ -122,30 +126,34 @@ const CartPage = () => {
                           <td>
                             <div className="flex items-center">
                               <Img
-                                className="sm:w-10 w-8"
+                                className="sm:w-15 md:w-20 w-12"
                                 fluid={
+                                  product.images &&
                                   product.images[0].localFile.childImageSharp
                                     .fluid
                                 }
                               ></Img>
                               <div className="pl-2">
-                                <p className="text-sm">{product.name}</p>
-                                {product.variant.attributes.map((attr) => {
-                                  return (
-                                    <p className="text-xs text-gray-600 font-semibold">
-                                      {attr.option}
-                                    </p>
-                                  );
-                                })}
+                                <p className="text-sm sm:text-md md:text-lg lg:text-xl">
+                                  {product.name}
+                                </p>
+                                {product.variant &&
+                                  product.variant.attributes.map((attr) => {
+                                    return (
+                                      <p className="text-xs md:text-sm lg:text-md text-gray-600 font-semibold">
+                                        {attr.option}
+                                      </p>
+                                    );
+                                  })}
                               </div>
                             </div>
                           </td>
-                          <td className="text-xs">
+                          <td className="text-sm sm:text-md md:text-lg lg:text-xl">
                             {formatPrice(product.price)}
                           </td>
-                          <td className="text-xs">
+                          <td className="text-sm sm:text-md md:text-lg lg:text-xl">
                             <Button
-                              className="p-2 bg-black text-white rounded"
+                              className="p-2 bg-black hover:bg-white hover:text-black rounded text-white"
                               onClick={() => removeFromCart(key)}
                             >
                               X
@@ -156,10 +164,14 @@ const CartPage = () => {
                     })}
                   </tbody>
                 </table>
-                <h3>Subtotal</h3>
-                <h3>{formatPrice(getSubtotal.toString())}</h3>
+                <h3 className="cubano text-sm sm:text-md md:text-lg lg:text-xl">
+                  Subtotal
+                </h3>
+                <h3 className="text-sm sm:text-md md:text-lg lg:text-xl mb-5">
+                  {formatPrice(getSubtotal.toString())}
+                </h3>
                 {/* {aeroReady && <div id="aeropay-button-container" />} */}
-                <Link to="/checkout" className="">
+                <Link to="/checkout" className="mt-5  pt-5">
                   <Button className="bg-black hover:bg-white hover:text-black rounded text-white py-2 px-4 rounded gt ">
                     Checkout
                   </Button>
