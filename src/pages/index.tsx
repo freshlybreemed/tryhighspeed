@@ -180,16 +180,10 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
           }}
         >
           <section className="w-full md:w-9/12 xl:w-8/12">
-            <h1
-              // style={{ "text-shadow": "0 0.5px 0 black" }}
-              className="sm:text-5xl  text-3xl pb-5 cubano"
-            >
+            <h1 className="sm:text-5xl text-3xl pb-2 sm:pb-5 cubano">
               Wellness, Delivered
             </h1>
-            <span
-              // style={{ "text-shadow": "0 .5px 0 black" }}
-              className="font-bold sm:text-2xl  text-lg gt tracking-wide"
-            >
+            <span className="font-bold sm:text-2xl text-lg gt tracking-wide">
               Now Serving DC + Boston + NYC
             </span>
           </section>
