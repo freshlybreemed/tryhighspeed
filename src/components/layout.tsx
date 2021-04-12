@@ -29,7 +29,6 @@ const SlidingMenu = styled.div<SlidingProps>`
   width: 100vw;
   height: 100vh;
   position: fixed;
-  background-color: white;
   top: 0;
   left: 0;
   transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
