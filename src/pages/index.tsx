@@ -143,7 +143,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
             childImageSharp {
               id
               fixed(height: 30) {
-                ...GatsbyImageSharpFixed_withWebp
+                ...GatsbyImageSharpFixed_noBase64
               }
             }
           }
