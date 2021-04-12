@@ -131,10 +131,10 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
               <a href="/faq">FAQ</a>
             </li>
             <li>
-              <a href="instagram.com/tryhighspeed">Instagram</a>
+              <a href="https://instagram.com/tryhighspeed">Instagram</a>
             </li>
             <li>
-              <a href="twitter.com/tryhighspeed">Twitter</a>
+              <a href="https://twitter.com/tryhighspeed">Twitter</a>
             </li>
           </ul>
         </div>

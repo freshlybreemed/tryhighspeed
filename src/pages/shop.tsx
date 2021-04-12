@@ -107,11 +107,13 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                   key={node.wordpress_id}
                 >
                   <div className="flex justify-between">
-                    <span className="black no-underline w-2/3 pr-2">
-                      <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
-                        {node.name}
-                      </h3>
-                    </span>
+                    <Link to={`/products/${node.slug}`}>
+                      <span className="black no-underline w-2/3 pr-2">
+                        <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
+                          {node.name}
+                        </h3>
+                      </span>
+                    </Link>
                     {node.images[0].localFile ? (
                       <Img
                         className="object-none w-1/3 float-right w-24 "
