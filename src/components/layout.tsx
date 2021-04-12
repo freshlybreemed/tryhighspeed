@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useStaticQuery, graphql } from "gatsby";
-import Img from "gatsby-image";
-
+import styled from "styled-components";
 import Header from "./header";
+import { useAppContainer } from "../containers/appContainer";
 import "./styles.css";
 import "./hamburgers.min.css";
-import { useAppContainer } from "../containers/appContainer";
-import styled from "styled-components";
-import classnames from "classnames";
+import "./tailwind.min.css";
 
 interface SlidingProps {
   show: boolean;
@@ -84,12 +82,8 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
 
   return (
     <div className="bg-white-300 font-sans gt h-full">
-      <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
-      <link
-        href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-        rel="stylesheet"
-      />
-      <script src="https://online.aeropay.com/apsdk/aeropay.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js" />
+      <script src="https://online.aeropay.com/apsdk/aeropay.js" />
       <Header siteTitle={site.siteMetadata?.title || `Title`} />
 
       <main className="z-0">

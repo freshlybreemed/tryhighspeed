@@ -1,5 +1,3 @@
 import React from "react";
 
-export default function App({ children }) {
-  return <div>{children}</div>;
-}
+export default ({ children }) => <React.Fragment>{children}</React.Fragment>;
