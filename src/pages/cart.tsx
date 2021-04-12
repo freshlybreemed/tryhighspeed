@@ -8,6 +8,7 @@ import { useCartContainer } from "../containers/cartContainer";
 import { useAppContainer } from "../containers/appContainer";
 import { WooProduct } from "../lib/types";
 import { formatPrice } from "../lib";
+import App from "../components/App";
 
 type Products = {
   allWcProducts: {
@@ -95,117 +96,119 @@ const CartPage = () => {
   });
 
   return (
-    <Layout>
-      <div className="mx-8">
-        <SEO title="Home" />
-        <div style={{ height: `${headerHeight}px`, width: 0 }} />
+    <App>
+      <Layout>
+        <SEO title="Checkout" />
+        <div className="mx-8">
+          <div style={{ height: `${headerHeight}px`, width: 0 }} />
 
-        <h1 className={headers}>Your Shopping Cart</h1>
-        <div className="w-11/12 rounded-lg bg-gray-500 w-full p-4">
-          {lineItems.length ? (
-            <div>
-              <table className="min-w-full m-4">
-                <thead>
-                  <tr className="text-left cubano">
-                    <th>Product</th>
-                    <th>Total</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {items.map((product, key) => {
-                    return (
-                      <tr key={key} className="text-left my-2">
-                        <td>
-                          <div className="flex items-center">
-                            <Img
-                              className="sm:w-10 w-8"
-                              fluid={
-                                product.images[0].localFile.childImageSharp
-                                  .fluid
-                              }
-                            ></Img>
-                            <div className="pl-2">
-                              <p className="text-sm">{product.name}</p>
-                              {product.variant.attributes.map((attr) => {
-                                return (
-                                  <p className="text-xs text-gray-600 font-semibold">
-                                    {attr.option}
-                                  </p>
-                                );
-                              })}
+          <h1 className={headers}>Your Shopping Cart</h1>
+          <div className="w-11/12 rounded-lg bg-gray-500 w-full p-4">
+            {lineItems.length ? (
+              <div>
+                <table className="min-w-full m-4">
+                  <thead>
+                    <tr className="text-left cubano">
+                      <th>Product</th>
+                      <th>Total</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {items.map((product, key) => {
+                      return (
+                        <tr key={key} className="text-left my-2">
+                          <td>
+                            <div className="flex items-center">
+                              <Img
+                                className="sm:w-10 w-8"
+                                fluid={
+                                  product.images[0].localFile.childImageSharp
+                                    .fluid
+                                }
+                              ></Img>
+                              <div className="pl-2">
+                                <p className="text-sm">{product.name}</p>
+                                {product.variant.attributes.map((attr) => {
+                                  return (
+                                    <p className="text-xs text-gray-600 font-semibold">
+                                      {attr.option}
+                                    </p>
+                                  );
+                                })}
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="text-xs">
-                          {formatPrice(product.price)}
-                        </td>
-                        <td className="text-xs">
-                          <button
-                            className="p-2 bg-black text-white rounded"
-                            onClick={() => removeFromCart(key)}
-                          >
-                            X
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <h3>Subtotal</h3>
-              <h3>{formatPrice(getSubtotal.toString())}</h3>
-              {/* {aeroReady && <div id="aeropay-button-container" />} */}
-              <Link to="/checkout" className="float-right">
-                <button className="bg-black text-white py-2 px-4 rounded gt ">
-                  Checkout
-                </button>
-              </Link>
-            </div>
-          ) : lineItems.length === 0 ? (
-            <div>
-              <p className="text-center mt-4 align-middle text-lg gt">
-                Cart is empty :(
-              </p>
-              <div
-                style={{
-                  minHeight: "5rem",
-                }}
-                className="flex  items-end flex-row-reverse"
-              >
-                <Link to="/shop">
+                          </td>
+                          <td className="text-xs">
+                            {formatPrice(product.price)}
+                          </td>
+                          <td className="text-xs">
+                            <button
+                              className="p-2 bg-black text-white rounded"
+                              onClick={() => removeFromCart(key)}
+                            >
+                              X
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <h3>Subtotal</h3>
+                <h3>{formatPrice(getSubtotal.toString())}</h3>
+                {/* {aeroReady && <div id="aeropay-button-container" />} */}
+                <Link to="/checkout" className="">
                   <button className="bg-black text-white py-2 px-4 rounded gt ">
-                    Go Shop
+                    Checkout
                   </button>
                 </Link>
               </div>
-            </div>
-          ) : (
-            <svg
-              className="animate-spin mx-auto h-10 w-10 text-black"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-          )}
+            ) : lineItems.length === 0 ? (
+              <div>
+                <p className="text-center mt-4 align-middle text-lg gt">
+                  Cart is empty :(
+                </p>
+                <div
+                  style={{
+                    minHeight: "5rem",
+                  }}
+                  className="flex  items-end flex-row-reverse"
+                >
+                  <Link to="/shop">
+                    <button className="bg-black text-white py-2 px-4 rounded gt ">
+                      Go Shop
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <svg
+                className="animate-spin mx-auto h-10 w-10 text-black"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            )}
+          </div>
+          <br />
         </div>
-        <br />
-      </div>
-    </Layout>
+      </Layout>
+    </App>
   );
 };
 export default CartPage;

@@ -86,7 +86,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
         </div>
 
         <div
-          className={`block ${classnames({
+          className={`mr-5 ${classnames({
             "opacity-0": emptyCart,
             "opacity-100": !emptyCart,
           })}`}

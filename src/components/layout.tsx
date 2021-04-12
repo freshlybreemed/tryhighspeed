@@ -76,6 +76,11 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
   const handleScroll = () => {
     setHeaderHeight(window?.pageYOffset);
   };
+  const isNotHome =
+    children &&
+    children.length > 0 &&
+    children[0].props.title !== "Home" &&
+    children[0].props.title !== "About";
 
   return (
     <div className="bg-white-300 font-sans gt h-full">
@@ -87,7 +92,10 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ children }) => {
       <script src="https://online.aeropay.com/apsdk/aeropay.js"></script>
       <Header siteTitle={site.siteMetadata?.title || `Title`} />
 
-      <main className="z-0">{children}</main>
+      <main className="z-0">
+        {isNotHome && <div style={{ height: `${5.286}rem`, width: 0 }} />}
+        {children}
+      </main>
 
       <SlidingMenu
         className="max-w-7xl bg-black text-white"
