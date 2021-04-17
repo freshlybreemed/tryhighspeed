@@ -10,10 +10,5 @@
       "methods": ["POST", "GET"],
       "dest": "/api/subscriber"
     }
-  ],
-  "env": {
-    "GATSBY_WOO_KEY":"@woo-key",
-    "GATSBY_MAILCHIMP":"@mailchimp",
-    "GATSBY_WOO_SECRET":"@woo-secret"
-  }
+  ]
 }
