@@ -4,9 +4,9 @@ import { useStaticQuery, graphql } from "gatsby";
 import styled from "styled-components";
 import Header from "./header";
 import { useAppContainer } from "../containers/appContainer";
-import "./styles.css";
-import "./hamburgers.min.css";
-import "./tailwind.min.css";
+import "../../static/css/styles.css";
+import "../../static/css/hamburgers.min.css";
+import "../../static/css/tailwind.min.css";
 
 interface SlidingProps {
   show: boolean;
