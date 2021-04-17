@@ -1,13 +1,15 @@
 // import { Link } from "gatsby"
 import { useStaticQuery, graphql } from "gatsby";
-import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import Img from "gatsby-image";
 import { useCartContainer } from "../containers/cartContainer";
 import { useAppContainer } from "../containers/appContainer";
 
-const Header = () => {
+interface HeaderProps {
+  siteTitle: string;
+}
+const Header: React.FunctionComponent<HeaderProps> = () => {
   const { file } = useStaticQuery(graphql`
     {
       file(name: { eq: "logo-circle" }) {
@@ -20,45 +22,61 @@ const Header = () => {
     }
   `);
   const { lineItems } = useCartContainer();
-  const { slidingMenuOpen, setSlidingMenuOpen } = useAppContainer();
+  const {
+    slidingMenuOpen,
+    setSlidingMenuOpen,
+    headerHeight,
+    setHeaderHeight,
+  } = useAppContainer();
+
   const emptyCart = lineItems.length === 0;
-  console.log(slidingMenuOpen);
+
+  useEffect(() => {
+    if (window) {
+      window.addEventListener("scroll", handleScroll);
+    }
+  });
+
+  const handleScroll = () => {
+    setHeaderHeight(window?.pageYOffset);
+  };
+
   return (
-    <div className="max-w-7xl mx-5">
-      <div className="flex items-center justify-between py-5 font-medium gt">
-        <div className="sm:flex items-center space-x-10 text-xl  hidden">
-          <div className="inline-block">
-            <a href="/" className={``}>
-              <Img
-                className="object-none w-1/3 float-right w-24 "
-                fixed={file.childImageSharp.fixed}
-              />
-            </a>
-          </div>
-          <div className="inline-block">
-            <a href="/about" className={` `}>
-              About
-            </a>
-          </div>
-          <div className="inline-block">
-            <a href="/shop" className={`f`}>
-              Shop
-            </a>
-          </div>
-        </div>
+    <header className="w-full sticky top-0 z-50">
+      <div
+        id="header"
+        style={{
+          transition: "background-color 0.2s ease",
+        }}
+        className={` w-full border-black flex absolute items-center ${classnames(
+          {
+            "bg-white": headerHeight !== 0 || slidingMenuOpen,
+          }
+        )} justify-between py-3 font-medium gt`}
+      >
         <button
           style={{ outline: "none" }}
           onClick={setSlidingMenuOpen}
-          className={`hamburger hamburger--collapse p-0 sm:hidden ${classnames({
+          className={`hamburger hamburger--collapse p-0 ml-5 ${classnames({
             "is-active": slidingMenuOpen,
           })}`}
           type="button"
         >
           <span className="hamburger-box">
-            <span className="hamburger-inner"></span>
+            <span
+              style={{
+                ":before": {
+                  backgroundColor: "white",
+                },
+                ":after": {
+                  backgroundColor: "white",
+                },
+              }}
+              className="hamburger-inner"
+            ></span>
           </span>
         </button>
-        <div className={`inline-block mx-auto sm:hidden`}>
+        <div className={`inline-block mx-auto `}>
           <a href="/" className={``}>
             <Img
               className="object-none w-1/3 float-right w-24"
@@ -68,7 +86,7 @@ const Header = () => {
         </div>
 
         <div
-          className={`block ${classnames({
+          className={`mr-5 ${classnames({
             "opacity-0": emptyCart,
             "opacity-100": !emptyCart,
           })}`}
@@ -102,11 +120,8 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
-};
-Header.propTypes = {
-  siteTitle: PropTypes.string,
 };
 
 Header.defaultProps = {

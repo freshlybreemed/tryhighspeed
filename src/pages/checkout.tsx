@@ -7,6 +7,7 @@ import Img from "gatsby-image";
 import { useCartContainer } from "../containers/cartContainer";
 import { WooProduct } from "../lib/types";
 import { formatPrice } from "../lib";
+import App from "../components/App";
 
 type Products = {
   allWcProducts: {
@@ -17,6 +18,9 @@ type Products = {
     ];
   };
 };
+const headers =
+  "fw3 pt-10 mt-10 mb-5 text-3xl cubano text-center sm:text-left f1";
+
 const CartPage = () => {
   const {
     allWcProducts: { edges },
@@ -69,22 +73,20 @@ const CartPage = () => {
     );
     return {
       ...line,
-      price: variant.price,
       variant,
       speed,
       ...item,
+      price: variant.price,
     };
   });
   console.log(items);
   // edges.filter(product=> product.id lineItems.indexOf())
   return (
-    <Layout>
-      <div className="pl2 ml2 ">
-        <SEO title="Home" />
-        <div className="pv3 mv3 ">
-          <h1 className="fw3 mb-3 pb-3 text-3xl cubano text-center f1">
-            Your Shopping Cart
-          </h1>
+    <App>
+      <Layout>
+        <SEO title="Checkout" />
+        <div className="mx-8">
+          <h1 className={headers}>Your Shopping Cart</h1>
         </div>
         <div className="w-11/12 rounded-lg bg-white m-auto p-4">
           <div>
@@ -116,7 +118,7 @@ const CartPage = () => {
                           </div>
                         </div>
                       </td>
-                      <td className="text-xs">{product.speed.option}</td>
+                      <td className="text-xs">{product.speed?.option}</td>
                       <td className="text-xs">{formatPrice(product.price)}</td>
                     </tr>
                   );
@@ -128,8 +130,8 @@ const CartPage = () => {
           <UserCheckout />
         </div>
         <br />
-      </div>
-    </Layout>
+      </Layout>
+    </App>
   );
 };
 export default CartPage;

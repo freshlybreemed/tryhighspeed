@@ -4,8 +4,9 @@ import { formatPrice } from "../lib";
 import Img from "gatsby-image";
 import { useProductContainer } from "../containers/productContainer";
 import React, { useEffect } from "react";
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import { AllWcProducts, WooProduct } from "../lib/types";
+import { Button } from "../lib/styles";
 
 interface ProductPageProps {
   pageContext: {
@@ -15,8 +16,14 @@ interface ProductPageProps {
     price: string;
     image: any;
   };
+  edges: [
+    {
+      node: WooProduct;
+    }
+  ];
 }
-const headers = "text-3xl gt mt-8";
+
+const headers = "text-3xl cubano my-8";
 
 const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   const { allWcProducts } = useStaticQuery(graphql`
@@ -29,6 +36,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
             price
             wordpress_id
             slug
+            status
             description
             short_description
             images {
@@ -71,6 +79,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   const { node }: { node: WooProduct } = allWcProducts.edges.filter(
     (product: AllWcProducts) => product.node.slug === pageContext.slug
   )[0];
+  const { edges }: { edges: ProductPageProps["edges"] } = allWcProducts;
 
   useEffect(() => {
     setProduct(node);
@@ -108,8 +117,12 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
   return (
     <Layout>
       <SEO title={pageContext.title} />
+      <h1 className="text-4xl mb-4 text-center cubano sm:hidden">
+        {node.name}
+      </h1>
+
       <div className="mx-8">
-        <div className="pt-5 mt-5 grid grid-cols-1 md:grid-cols-2 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 ">
           {node.images[0].localFile ? (
             <Img
               className="md:w-full w-3/4 mx-auto md:mr-5 mb-5 md:mb-0"
@@ -119,7 +132,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
             <img className=" md:w-1/3 w-3/4 md:mr-5" src={node.images[0].src} />
           )}
           <div className="md:ml-5 w-full rounded-lg md:w-full mx-auto cubano bg-gray-500 p-5">
-            <h1 className="text-3xl mb-4">{node.name}</h1>
+            <h1 className="text-3xl mb-4 hidden sm:block">{node.name}</h1>
             <p
               className="pt2-ns mt2 pt1 pb-3 text-xl gt"
               dangerouslySetInnerHTML={{ __html: node.short_description }}
@@ -153,20 +166,74 @@ const ProductPage: React.FC<ProductPageProps> = ({ pageContext }) => {
                   </div>
                 );
               })}
-              <button
+              <Button
                 onClick={addItem}
-                className="bg-black text-white w-full p-3 rounded-md"
+                className="bg-black outline-none hover:bg-white hover:text-black  text-white w-full p-3 rounded-md"
               >
                 {buttonText}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
         <h3 className={headers}>Description</h3>
         <div
-          className="pt2-ns mt2 pt1 pb-3 gt pt-4 mt-4 text-xl"
+          className="pt2-ns pb-3 gt text-xl"
           dangerouslySetInnerHTML={{ __html: node.description }}
         />
+        <h3 className={headers}>You May Also Like</h3>
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mb-32">
+          {edges
+            .filter(
+              (edge) =>
+                edge.node.status === "publish" &&
+                edge.node.wordpress_id !== node.wordpress_id
+            )
+            .map((edge) => {
+              const { node } = edge;
+              console.log(edge);
+              return (
+                <div
+                  className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
+                  key={node.wordpress_id}
+                >
+                  <div className="flex justify-between">
+                    <span className="black no-underline w-2/3 pr-2">
+                      <Link to={`/products/${node.slug}`}>
+                        <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
+                          {node.name}
+                        </h3>
+                      </Link>
+                    </span>
+                    {node.images[0].localFile ? (
+                      <Img
+                        className="object-none w-1/3 float-right w-24 "
+                        fluid={node.images[0].localFile.childImageSharp.fluid}
+                      />
+                    ) : (
+                      <img
+                        className=" w-1/3 float-right w-24 cover "
+                        src={node.images[0].src}
+                      />
+                    )}
+                  </div>
+                  <div className="items-end mt-5 pt-5">
+                    <div className="gt flex justify-between">
+                      <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
+                        {formatPrice(node.price)}
+                      </h4>
+                      <Link to={`/products/${node.slug}`}>
+                        <Button className="float-right bg-black hover:bg-white hover:text-black rounded-sm py-1 px-3 text-white">
+                          SHOP
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+            .sort(() => Math.random() - 0.5)
+            .slice(2)}
+        </div>
       </div>
     </Layout>
   );

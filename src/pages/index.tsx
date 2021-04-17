@@ -9,8 +9,9 @@ import styled from "styled-components";
 import App from "../components/App";
 import axios from "axios";
 import { useAppContainer } from "../containers/appContainer";
+import { Button } from "../lib/styles";
 
-const headers = "text-3xl gt mb-8";
+const headers = "text-3xl cubano mb-5 pt-10 mt-10";
 
 const Slider = styled.div`
   height: 50px;
@@ -84,7 +85,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
     allWcProducts: { edges },
     allFile,
   }: {
-    allWcProducts: { edges: HomeProps };
+    allWcProducts: { edges: HomeProps["edges"] };
     allFile: HomeProps["allFile"];
   } = useStaticQuery(graphql`
     {
@@ -142,7 +143,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
             childImageSharp {
               id
               fixed(height: 30) {
-                ...GatsbyImageSharpFixed_withWebp
+                ...GatsbyImageSharpFixed_noBase64
               }
             }
           }
@@ -168,18 +169,30 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
     <App>
       <Layout>
         <SEO title="Home" />
-        {/* <img
-        className="w-70 db center"
-        src="https://tryhighspeed.com/wp-content/uploads/2019/05/tabletophighspeed.jpg"
-      /> */}
-        <div className="mt-32 mb-32 pt-32 pb-32 ml-8">
-          <h1 className="text-5xl pb-5 cubano">Wellness, Delivered</h1>
-          <h3 className="text-2xl gt">Now Serving DC + Boston + NYC</h3>
-        </div>
-        <div className="ml-8 pb-5">
+        <main
+          className="h-full flex items-center py-40 lg:py-48 xl:py-60 pl-10 pr-30 bg-purple-900 text-white relative"
+          style={{
+            backgroundImage:
+              "url('https://tryhighspeed.com/wp-content/uploads/2019/05/tabletophighspeed.jpg')",
+            backgroundPosition: "center" /* Center the image */,
+            backgroundRepeat: "no-repeat" /* Do not repeat the image */,
+            backgroundSize: "cover",
+          }}
+        >
+          <section className="w-full md:w-9/12 xl:w-8/12">
+            <h1 className="sm:text-5xl text-3xl pb-2 sm:pb-5 cubano">
+              Wellness, Delivered
+            </h1>
+            <span className="font-bold sm:text-2xl text-lg gt tracking-wide">
+              Now Serving DC + Boston + NYC
+            </span>
+          </section>
+        </main>
+
+        <div className="ml-8">
           <h3 className={headers}>Shop the Products You Love</h3>
         </div>
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 mb-32">
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 ">
           {edges
             .filter((edge) => edge.node.status === "publish")
             .map((edge) => {
@@ -192,7 +205,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                 >
                   <div className="flex justify-between">
                     <span className="black no-underline w-2/3 pr-2">
-                      <h3 className="text-xl fw8 pl-2 mt2 mb0 ttu cubano">
+                      <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
                         {node.name}
                       </h3>
                     </span>
@@ -210,7 +223,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                   </div>
                   <div>
                     <div
-                      className="mt-6 mb-3 gt"
+                      className="mt-6 mb-3 gt  text-xl sm:text-lg md:text-xl"
                       dangerouslySetInnerHTML={{
                         __html: node.short_description,
                       }}
@@ -220,9 +233,9 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                     <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
                       {formatPrice(node.price)}
                     </h4>
-                    <button className="float-right bg-black rounded-sm py-1 px-3 text-white">
+                    <Button className="float-right bg-black rounded-sm py-1 px-3 text-white">
                       SHOP
-                    </button>
+                    </Button>
                   </div>
                 </Link>
               );
@@ -254,7 +267,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
             </h3>
           </div>
           <div className="text-center sm:w-5/6 mx-auto gt">
-            <p className="text-lg mx-auto w-5/6 pb-2">
+            <p className="text-xl mx-auto w-5/6 pb-2">
               Subscribe to get some serious deals to rock your day.
             </p>
             <input
@@ -263,12 +276,12 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
               onChange={(e) => setEmailAddress(e.target.value)}
               placeholder="Email Address"
             />
-            <button
+            <Button
               onClick={subscriber}
               className="text-center rounded-r text-white bg-black p-2"
             >
               <span className="gt pl-3 pr-3">{subscriberText}</span>
-            </button>
+            </Button>
           </div>
         </div>
       </Layout>

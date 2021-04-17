@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import Img from "gatsby-image";
 import Layout from "../components/layout";
@@ -7,7 +7,8 @@ import { formatPrice } from "../lib";
 import { WooProduct } from "../lib/types";
 import App from "../components/App";
 
-const headers = "fw3 mb-3 pb-3 text-3xl cubano text-center f1";
+const headers =
+  "fw3 pt-10 mt-10 mb-5 text-3xl cubano text-center sm:text-left f1";
 
 interface HomeProps {
   edges: [
@@ -20,7 +21,6 @@ interface HomeProps {
 const IndexPage: React.FunctionComponent<HomeProps> = () => {
   const {
     allWcProducts: { edges },
-    allFile,
   }: {
     allWcProducts: { edges: HomeProps["edges"] };
     allFile: HomeProps["allFile"];
@@ -93,7 +93,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
     <App>
       <Layout>
         <SEO title="Shop" />
-        <div className="ml-8 pb-5">
+        <div className="mx-8">
           <h3 className={headers}>Shop the Products You Love</h3>
         </div>
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mx-8 mb-32">
@@ -102,17 +102,18 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
             .map((edge) => {
               const { node } = edge;
               return (
-                <Link
-                  to={`/products/${node.slug}`}
+                <div
                   className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
                   key={node.wordpress_id}
                 >
                   <div className="flex justify-between">
-                    <span className="black no-underline w-2/3 pr-2">
-                      <h3 className="text-xl fw8 pl-2 mt2 mb0 ttu cubano">
-                        {node.name}
-                      </h3>
-                    </span>
+                    <Link to={`/products/${node.slug}`}>
+                      <span className="black no-underline w-2/3 pr-2">
+                        <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
+                          {node.name}
+                        </h3>
+                      </span>
+                    </Link>
                     {node.images[0].localFile ? (
                       <Img
                         className="object-none w-1/3 float-right w-24 "
@@ -125,23 +126,25 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                       />
                     )}
                   </div>
-                  <div>
-                    <div
-                      className="mt-6 mb-3 gt"
-                      dangerouslySetInnerHTML={{
-                        __html: node.short_description,
-                      }}
-                    />
+                  <div
+                    className="mt-6 mb-3 gt  text-xl sm:text-lg md:text-xl"
+                    dangerouslySetInnerHTML={{
+                      __html: node.short_description,
+                    }}
+                  />
+                  <div className="items-end">
+                    <div className="gt flex justify-between">
+                      <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
+                        {formatPrice(node.price)}
+                      </h4>
+                      <Link to={`/products/${node.slug}`}>
+                        <button className="float-right bg-black rounded-sm py-1 px-3 text-white">
+                          SHOP
+                        </button>
+                      </Link>
+                    </div>
                   </div>
-                  <div className="gt flex justify-between items-baseline">
-                    <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
-                      {formatPrice(node.price)}
-                    </h4>
-                    <button className="float-right bg-black rounded-sm py-1 px-3 text-white">
-                      SHOP
-                    </button>
-                  </div>
-                </Link>
+                </div>
               );
             })}
         </div>
