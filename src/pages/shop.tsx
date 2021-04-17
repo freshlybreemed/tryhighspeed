@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
-import Img from "gatsby-image";
+import Img from "gatsby-image/withIEPolyfill";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { formatPrice } from "../lib";
@@ -118,6 +118,8 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                       <Img
                         className="object-none w-1/3 float-right w-24 "
                         fluid={node.images[0].localFile.childImageSharp.fluid}
+                        objectFit="contain"
+                        objectPosition="50% 50%"
                       />
                     ) : (
                       <img

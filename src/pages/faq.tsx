@@ -4,6 +4,9 @@ import SEO from "../components/seo";
 import React from "react";
 import App from "../components/App";
 
+const headers =
+  "fw3 pt-10 mt-10 mb-5 text-3xl cubano text-center sm:text-left f1";
+
 const ProductPage = () => {
   const questions = [
     {
@@ -111,39 +114,35 @@ const ProductPage = () => {
     <App>
       <Layout>
         <SEO title="FAQ" />
-        <div className="gt">
-          <h1 className="fw3 mb-3 pb-3 text-3xl cubano text-center f1">
-            Frequently Asked Questions
-          </h1>
-          <div className="mx-8 ">
-            <div className="mt4 pt4 mb2 tc">
+        <div className="mx-8 gt">
+          <h3 className={headers}>Frequently Asked Questions</h3>
+          <div className="mt4 pt4 mb2 tc">
+            {questions.map((question) => {
+              return (
+                <div>
+                  <a
+                    className="text-lg md:text-xl py-1 font-bold"
+                    href={`#${question.id}`}
+                  >
+                    {" "}
+                    {question.text}
+                  </a>
+                </div>
+              );
+            })}
+            <div className="pt-4">
               {questions.map((question) => {
                 return (
-                  <div>
-                    <a
-                      className="text-lg md:text-xl py-1 font-bold"
-                      href={`#${question.id}`}
-                    >
-                      {" "}
-                      {question.text}
+                  <>
+                    <a id={question.id}>
+                      <h3 className="text-lg md:text-xl  py-1 font-bold">
+                        {question.text}
+                      </h3>
                     </a>
-                  </div>
+                    <p className=" md:text-lg pb-2">{question.answer}</p>
+                  </>
                 );
               })}
-              <div className="pt-4">
-                {questions.map((question) => {
-                  return (
-                    <>
-                      <a id={question.id}>
-                        <h3 className="text-lg md:text-xl  py-1 font-bold">
-                          {question.text}
-                        </h3>
-                      </a>
-                      <p className=" md:text-lg pb-2">{question.answer}</p>
-                    </>
-                  );
-                })}
-              </div>
             </div>
           </div>
         </div>
