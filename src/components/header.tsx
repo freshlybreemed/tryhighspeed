@@ -66,7 +66,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
             <span
               style={{
                 ":before": {
-                  backgroundColor: "white",
+                  backgroundColor: "#fff",
                 },
                 ":after": {
                   backgroundColor: "white",
