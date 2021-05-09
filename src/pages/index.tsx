@@ -270,18 +270,20 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
             <p className="text-xl mx-auto w-5/6 pb-2">
               Subscribe to get some serious deals to rock your day.
             </p>
-            <input
-              className="p-2 rounded-l rounded-r-none"
-              value={emailAddress}
-              onChange={(e) => setEmailAddress(e.target.value)}
-              placeholder="Email Address"
-            />
-            <Button
-              onClick={subscriber}
-              className="text-center rounded-r text-white bg-black p-2"
-            >
-              <span className="gt pl-3 pr-3">{subscriberText}</span>
-            </Button>
+            <div className="md:mt-0 md:mp-0 pt-2 mt-2">
+              <input
+                className="p-2 rounded-l rounded-r-none"
+                value={emailAddress}
+                onChange={(e) => setEmailAddress(e.target.value)}
+                placeholder="Email Address"
+              />
+              <Button
+                onClick={subscriber}
+                className="text-center rounded-r text-white bg-black p-2"
+              >
+                <span className="gt pl-3 pr-3">{subscriberText}</span>
+              </Button>
+            </div>
           </div>
         </div>
       </Layout>
