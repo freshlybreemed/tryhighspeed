@@ -102,18 +102,17 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
             .map((edge) => {
               const { node } = edge;
               return (
-                <div
-                  className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
+                <Link
+                  to={`/products/${node.slug}`}
+                  className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full flex flex-col justify-between"
                   key={node.wordpress_id}
                 >
                   <div className="flex justify-between">
-                    <Link to={`/products/${node.slug}`}>
-                      <span className="black no-underline w-2/3 pr-2">
-                        <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
-                          {node.name}
-                        </h3>
-                      </span>
-                    </Link>
+                    <span className="black no-underline w-2/3 pr-2">
+                      <h3 className="text-2xl sm:text-xl fw8 mt2 mb0 ttu cubano">
+                        {node.name}
+                      </h3>
+                    </span>
                     {node.images[0].localFile ? (
                       <Img
                         className="object-none w-1/3 float-right w-24 "
@@ -146,7 +145,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                       </Link>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
         </div>

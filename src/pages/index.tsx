@@ -200,7 +200,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
               return (
                 <Link
                   to={`/products/${node.slug}`}
-                  className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full"
+                  className="box-border bg-gray-500 rounded-lg px-5 py-4 h-full flex flex-col justify-between"
                   key={node.wordpress_id}
                 >
                   <div className="flex justify-between">
@@ -211,7 +211,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                     </span>
                     {node.images[0].localFile ? (
                       <Img
-                        className="object-none w-1/3 float-right w-24 "
+                        className="w-1/3 float-right w-24 "
                         fluid={node.images[0].localFile.childImageSharp.fluid}
                         objectFit="contain"
                         objectPosition="50% 50%"
@@ -223,14 +223,12 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
                       />
                     )}
                   </div>
-                  <div>
-                    <div
-                      className="mt-6 mb-3 gt  text-xl sm:text-lg md:text-xl"
-                      dangerouslySetInnerHTML={{
-                        __html: node.short_description,
-                      }}
-                    />
-                  </div>
+                  <div
+                    className="mt-6 mb-3 gt  text-xl sm:text-lg md:text-xl"
+                    dangerouslySetInnerHTML={{
+                      __html: node.short_description,
+                    }}
+                  />
                   <div className="gt flex justify-between items-baseline">
                     <h4 className="float-left f5 fw6 mt1 pt1 text-gray-300">
                       {formatPrice(node.price)}
