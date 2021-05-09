@@ -7,7 +7,7 @@ import SEO from "../components/seo";
 import { useCartContainer } from "../containers/cartContainer";
 import { useAppContainer } from "../containers/appContainer";
 import { WooProduct } from "../lib/types";
-import { formatPrice } from "../lib";
+import { formatPrice, getSubtotal } from "../lib";
 import App from "../components/App";
 import { Button } from "../lib/styles";
 
@@ -84,11 +84,6 @@ const CartPage = () => {
     };
   });
 
-  const getSubtotal: number = items.reduce(
-    (prev, item) => parseInt(item.price) + prev,
-    0
-  );
-
   useEffect(() => {
     if (document && headerHeight !== 0) {
       const header = document.getElementById("header");
@@ -100,7 +95,7 @@ const CartPage = () => {
     <App>
       <Layout>
         <SEO title="Checkout" />
-        <div className="mx-8 gt">
+        <div className="mx-8 ">
           <div style={{ height: `${headerHeight}px`, width: 0 }} />
 
           <h1 className={headers}>Your Shopping Cart</h1>
@@ -164,11 +159,11 @@ const CartPage = () => {
                     })}
                   </tbody>
                 </table>
-                <h3 className="cubano text-sm sm:text-md md:text-lg lg:text-xl">
+                <h3 className="mt-5 pt-5 cubano text-sm sm:text-md md:text-lg lg:text-xl">
                   Subtotal
                 </h3>
                 <h3 className="text-sm sm:text-md md:text-lg lg:text-xl mb-5">
-                  {formatPrice(getSubtotal.toString())}
+                  {formatPrice(getSubtotal(items).toString())}
                 </h3>
                 {/* {aeroReady && <div id="aeropay-button-container" />} */}
                 <Link to="/checkout" className="mt-5  pt-5">
@@ -186,7 +181,7 @@ const CartPage = () => {
                   style={{
                     minHeight: "5rem",
                   }}
-                  className="flex  items-end flex-row-reverse"
+                  className=""
                 >
                   <Link to="/shop">
                     <Button className="bg-black text-white py-2 px-4 rounded gt ">
