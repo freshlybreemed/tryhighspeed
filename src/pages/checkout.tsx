@@ -6,8 +6,9 @@ import { graphql, Link, useStaticQuery } from "gatsby";
 import Img from "gatsby-image";
 import { useCartContainer } from "../containers/cartContainer";
 import { WooProduct } from "../lib/types";
-import { formatPrice } from "../lib";
+import { formatPrice, getSubtotal } from "../lib";
 import App from "../components/App";
+import { Button } from "../lib/styles";
 
 type Products = {
   allWcProducts: {
@@ -87,47 +88,113 @@ const CartPage = () => {
         <SEO title="Checkout" />
         <div className="mx-8">
           <h1 className={headers}>Your Shopping Cart</h1>
-        </div>
-        <div className="w-11/12 rounded-lg bg-white m-auto p-4">
-          <div>
-            <table className="min-w-full m-4">
-              <thead>
-                <tr className="text-left cubano">
-                  <th>Product</th>
-                  <th>Speed</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((product) => {
-                  return (
-                    <tr className="text-left my-2">
-                      <td>
-                        <div className="flex items-center">
-                          <Img
-                            className="sm:w-10 md:w-10 w-20"
-                            fluid={
-                              product.images[0].localFile.childImageSharp.fluid
-                            }
-                          ></Img>
-                          <div className="pl-2">
-                            <p className="text-sm">{product.name}</p>
-                            {product.variant.attributes.map((attr) => {
-                              return <p className="text-xs">{attr.option}</p>;
-                            })}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="text-xs">{product.speed?.option}</td>
-                      <td className="text-xs">{formatPrice(product.price)}</td>
+          <div className="w-11/12 rounded-lg bg-gray-500 w-full p-4">
+            {lineItems.length ? (
+              <div className="m-4">
+                <table className="min-w-full pb-5 mb-5">
+                  <thead>
+                    <tr className="text-left cubano">
+                      <th className="text-sm sm:text-md md:text-lg lg:text-xl">
+                        Product
+                      </th>
+                      <th className="text-sm sm:text-md md:text-lg lg:text-xl">
+                        Total
+                      </th>
+                      <th></th>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    {items.map((product, key) => {
+                      return (
+                        <tr key={key} className="text-left my-2">
+                          <td>
+                            <div className="flex items-center">
+                              <Img
+                                className="sm:w-15 md:w-20 w-12"
+                                fluid={
+                                  product.images &&
+                                  product.images[0].localFile.childImageSharp
+                                    .fluid
+                                }
+                              ></Img>
+                              <div className="pl-2">
+                                <p className="text-sm sm:text-md md:text-lg lg:text-xl">
+                                  {product.name}
+                                </p>
+                                {product.variant &&
+                                  product.variant.attributes.map((attr) => {
+                                    return (
+                                      <p className="text-xs md:text-sm lg:text-md text-gray-600 font-semibold">
+                                        {attr.option}
+                                      </p>
+                                    );
+                                  })}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="text-sm sm:text-md md:text-lg lg:text-xl">
+                            {formatPrice(product.price)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <h3 className="mt-5 pt-5 cubano text-sm sm:text-md md:text-lg lg:text-xl">
+                  Subtotal
+                </h3>
+                <h3 className="text-sm sm:text-md md:text-lg lg:text-xl mb-5">
+                  {formatPrice(getSubtotal(items).toString())}
+                </h3>
+                {/* {aeroReady && <div id="aeropay-button-container" />} */}
+                <Link to="/cart" className="mt-5  pt-5">
+                  <Button className="bg-black hover:bg-white hover:text-black rounded text-white py-2 px-4 rounded gt ">
+                    Go back
+                  </Button>
+                </Link>
+                <UserCheckout />
+              </div>
+            ) : lineItems.length === 0 ? (
+              <div>
+                <p className="text-center mt-4 align-middle text-lg gt">
+                  Cart is empty :(
+                </p>
+                <div
+                  style={{
+                    minHeight: "5rem",
+                  }}
+                  className=""
+                >
+                  <Link to="/shop">
+                    <Button className="bg-black text-white py-2 px-4 rounded gt ">
+                      Go Shop
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <svg
+                className="animate-spin mx-auto h-10 w-10 text-black"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            )}
           </div>
-
-          <UserCheckout />
         </div>
         <br />
       </Layout>
