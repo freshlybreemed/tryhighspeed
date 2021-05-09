@@ -259,7 +259,7 @@ const IndexPage: React.FunctionComponent<HomeProps> = () => {
             })}
           </Text>
         </Slider>
-        <div className="py-16 bg-gray-500 grid grid-cols-1 sm:grid-cols-2">
+        <div className="py-8 md:py-14 bg-gray-500 grid grid-cols-1 md:grid-cols-2">
           <div className="sm:w-5/6 text-center mx-auto">
             <h3 className="xl:text-5xl px-3  text-4xl mb-5 pb-4 cubano text-center ">
               <span className="line-through">Cannabis</span> Plant Delivery,
